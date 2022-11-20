@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DB {
@@ -16,8 +15,7 @@ class DB {
       create table transaction_type ( 
         id integer primary key autoincrement, 
         name text not null
-      )'''
-    );
+      )''');
 
     await db.execute('''
       create table transaction ( 
@@ -26,24 +24,21 @@ class DB {
         source_id integer not null,
         explanation text not null,
         amount integer not null
-      )'''
-    );
+      )''');
 
     await db.execute('''
       create table recurring_transaction ( 
         id integer primary key autoincrement, 
         transaction_id integer not null,
         time_recurring_in_second integer not null
-      )'''
-    );
+      )''');
 
     await db.execute('''
       create table source ( 
         id integer primary key autoincrement, 
         name text not null,
         initial_amount integer not null
-      )'''
-    );
+      )''');
   }
 
   Future<dynamic> insert(String tableName, dynamic object) async {
@@ -52,13 +47,12 @@ class DB {
     return object;
   }
 
-  Future<dynamic> get(String tableName, List<String> columns, int id, Function(Map<dynamic, dynamic>) onGet) async {
-    List<Map> maps = await db.query(tableName,
-        columns: columns,
-        where: 'id = ?',
-        whereArgs: [id]);
+  Future<dynamic> get(String tableName, List<String> columns, int id,
+      Function(Map<dynamic, dynamic>) onGet) async {
+    List<Map> maps = await db
+        .query(tableName, columns: columns, where: 'id = ?', whereArgs: [id]);
 
-    if (maps.length > 0) {
+    if (maps.isNotEmpty) {
       return onGet(maps.first);
     }
 
