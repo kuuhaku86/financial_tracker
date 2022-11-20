@@ -1,6 +1,7 @@
 import 'package:financial_tracker/Commons/themes/colors.dart';
 import 'package:financial_tracker/Domains/transactions/entities/transaction.dart';
 import 'package:financial_tracker/Interfaces/widgets/box_content.dart';
+import 'package:financial_tracker/Interfaces/widgets/summary.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -69,6 +70,7 @@ class _HomePageState extends State<HomePage> {
                   ]),
             ),
           ),
+          const BoxContent(child: Summary()),
         ],
       ),
     );
