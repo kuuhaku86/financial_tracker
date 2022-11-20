@@ -1,4 +1,5 @@
-import 'package:financial_tracker/Interfaces/pages/home_page.dart';
+import 'package:financial_tracker/Commons/themes/colors.dart';
+import 'package:financial_tracker/Interfaces/pages/main_page.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreenPage extends StatelessWidget {
@@ -7,12 +8,13 @@ class SplashScreenPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // navigate(context);
     const String logoPath = "assets/images/logo.png";
     double padding = MediaQuery.of(context).size.width * 0.15;
 
+    navigate(context);
+
     return Scaffold(
-      backgroundColor: Colors.white12,
+      backgroundColor: themeColor.main,
       body: Padding(
         padding: EdgeInsets.all(padding),
         child: Column(
@@ -32,7 +34,7 @@ class SplashScreenPage extends StatelessWidget {
 
   navigate(BuildContext context) async {
     Future.delayed(const Duration(seconds: 4), () {
-      Navigator.pushReplacementNamed(context, HomePage.route);
+      Navigator.pushReplacementNamed(context, MainPage.route);
     });
   }
 }
