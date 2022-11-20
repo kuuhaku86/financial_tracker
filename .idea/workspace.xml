@@ -9,7 +9,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="02ae5b3b-5d9c-4b36-99c6-549d33341827" name="Changes" comment="Change: Add splash screen">
+    <list default="true" id="02ae5b3b-5d9c-4b36-99c6-549d33341827" name="Changes" comment="Change: Add bottom navigation bar">
       <change afterPath="$PROJECT_DIR$/lib/Commons/themes/colors.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -114,7 +114,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668918126284</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Change: Add bottom navigation bar">
+      <created>1668927081729</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1668927081729</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -141,6 +148,7 @@
     <MESSAGE value="Add commons" />
     <MESSAGE value="Add fundamental things" />
     <MESSAGE value="Change: Add splash screen" />
-    <option name="LAST_COMMIT_MESSAGE" value="Change: Add splash screen" />
+    <MESSAGE value="Change: Add bottom navigation bar" />
+    <option name="LAST_COMMIT_MESSAGE" value="Change: Add bottom navigation bar" />
   </component>
 </project>
