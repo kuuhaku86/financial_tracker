@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> {
                   ]),
             ),
           ),
-          const BoxContent(child: Summary()),
+          const Summary(),
         ],
       ),
     );

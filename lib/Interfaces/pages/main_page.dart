@@ -32,8 +32,10 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: themeColor.main,
-      body: Center(
-        child: _pagesOptions.elementAt(_selectedIndex),
+      body: SafeArea(
+        child: Center(
+          child: _pagesOptions.elementAt(_selectedIndex),
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: themeColor.main,

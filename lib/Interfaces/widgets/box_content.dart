@@ -18,14 +18,13 @@ class BoxContent extends StatelessWidget {
           horizontal: MediaQuery.of(context).size.height * 0.02),
       decoration: BoxDecoration(
         color: themeColor.main,
-        borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(10),
-            topRight: Radius.circular(10),
-            bottomLeft: Radius.circular(10),
-            bottomRight: Radius.circular(10)),
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
         boxShadow: [
           BoxShadow(
-              color: themeColor.secondary, spreadRadius: 5, blurRadius: 7),
+              color: themeColor.secondary,
+              spreadRadius: 2,
+              blurRadius: 2,
+              offset: const Offset(1, 1)),
         ],
       ),
       child: child,
