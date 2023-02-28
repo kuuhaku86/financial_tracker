@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   series: <LineSeries<Transaction, int>>[
                     LineSeries<Transaction, int>(
-                        color: themeColor.selected,
+                        color: themeColor.secondary,
                         dataSource: <Transaction>[
                           Transaction(
                               id: 1,

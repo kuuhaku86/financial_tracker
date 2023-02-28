@@ -17,7 +17,7 @@ class BoxContent extends StatelessWidget {
           vertical: MediaQuery.of(context).size.width * 0.02,
           horizontal: MediaQuery.of(context).size.height * 0.02),
       decoration: BoxDecoration(
-        color: themeColor.main,
+        color: themeColor.primary,
         borderRadius: const BorderRadius.all(Radius.circular(10)),
         boxShadow: [
           BoxShadow(

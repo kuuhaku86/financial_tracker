@@ -1,35 +1,28 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  Color main;
+  Color primary;
   Color secondary;
   Color text;
-  Color selected;
+  Color danger;
+  Color warning;
+  Color darkText;
 
   AppColors(
-      {required this.main,
+      {required this.primary,
       required this.secondary,
       required this.text,
-      required this.selected});
+      required this.danger,
+      required this.warning,
+      required this.darkText});
 }
-
-bool isDarkMode = true;
 
 AppColors darkMode = AppColors(
-    main: const Color.fromRGBO(45, 45, 48, 1.0),
-    secondary: const Color.fromRGBO(62, 62, 66, 1.0),
+    primary: const Color.fromRGBO(0, 0, 0, 1.0),
+    secondary: const Color.fromRGBO(84, 199, 103, 1.0),
     text: const Color.fromRGBO(255, 255, 255, 1.0),
-    selected: const Color.fromRGBO(32, 105, 224, 1.0));
+    danger: const Color.fromRGBO(255, 0, 0, 1.0),
+    warning: const Color.fromRGBO(255, 255, 255, 1.0),
+    darkText: const Color.fromRGBO(132, 132, 130, 1.0));
 
-AppColors lightMode = AppColors(
-    main: const Color.fromRGBO(255, 255, 255, 1.0),
-    secondary: const Color.fromRGBO(255, 255, 255, 1.0),
-    text: const Color.fromRGBO(45, 45, 48, 1.0),
-    selected: const Color.fromRGBO(32, 105, 224, 1.0));
-
-AppColors themeColor = isDarkMode ? darkMode : lightMode;
-
-void switchColorThemeMode() {
-  isDarkMode = !isDarkMode;
-  themeColor = isDarkMode ? darkMode : lightMode;
-}
+AppColors themeColor = darkMode;

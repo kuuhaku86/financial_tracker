@@ -19,7 +19,7 @@ class Summary extends StatelessWidget {
                         style: getTitleTextStyle(themeColor.text)),
                     Text(
                       "1000",
-                      style: getNumberTextStyle(themeColor.selected),
+                      style: getNumberTextStyle(themeColor.secondary),
                     )
                   ],
                 ))),

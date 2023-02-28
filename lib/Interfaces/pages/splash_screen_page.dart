@@ -8,25 +8,27 @@ class SplashScreenPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const String logoPath = "assets/images/logo.png";
-    double padding = MediaQuery.of(context).size.width * 0.15;
-
     navigate(context);
 
     return Scaffold(
-      backgroundColor: themeColor.main,
-      body: Padding(
-        padding: EdgeInsets.all(padding),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset(logoPath),
-            SizedBox(height: padding),
-            const CircularProgressIndicator(
-              color: Colors.white,
-            )
-          ],
+      backgroundColor: themeColor.primary,
+      body: Center(
+        child: Container(
+          height: MediaQuery.of(context).size.width * 0.35,
+          width: MediaQuery.of(context).size.width * 0.35,
+          decoration: BoxDecoration(
+              color: themeColor.secondary,
+              borderRadius: BorderRadius.all(Radius.circular(10))),
+          child: Center(
+            child: Text(
+              "F",
+              style: TextStyle(
+                color: themeColor.text,
+                fontSize: MediaQuery.of(context).size.width * 0.25,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
         ),
       ),
     );

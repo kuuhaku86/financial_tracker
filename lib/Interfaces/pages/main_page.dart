@@ -31,16 +31,16 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: themeColor.main,
+      backgroundColor: themeColor.primary,
       body: SafeArea(
         child: Center(
           child: _pagesOptions.elementAt(_selectedIndex),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: themeColor.main,
+        backgroundColor: themeColor.primary,
         unselectedItemColor: themeColor.text,
-        selectedItemColor: themeColor.selected,
+        selectedItemColor: themeColor.secondary,
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
         items: const <BottomNavigationBarItem>[
