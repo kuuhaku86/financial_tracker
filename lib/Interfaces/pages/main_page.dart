@@ -1,5 +1,6 @@
 import 'package:financial_tracker/Commons/themes/colors.dart';
 import 'package:financial_tracker/Interfaces/pages/home_page.dart';
+import 'package:financial_tracker/Interfaces/widgets/bottom_navigation_bar_item_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -43,19 +44,11 @@ class _MainPageState extends State<MainPage> {
         selectedItemColor: themeColor.secondary,
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.wallet),
-            label: 'Source',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.attach_money),
-            label: 'Transaction',
-          ),
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItemCustom(icon: Icons.home).build(context),
+          BottomNavigationBarItemCustom(icon: Icons.credit_card).build(context),
+          BottomNavigationBarItemCustom(icon: Icons.attach_money)
+              .build(context),
         ],
       ),
     );
