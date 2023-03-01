@@ -2,7 +2,6 @@ import 'package:financial_tracker/Commons/themes/colors.dart';
 import 'package:financial_tracker/Interfaces/pages/home_page.dart';
 import 'package:financial_tracker/Interfaces/widgets/bottom_navigation_bar_item_custom.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);

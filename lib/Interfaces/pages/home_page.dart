@@ -20,14 +20,10 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         children: [
           BoxContent(
+            title: "Financial Charts",
             child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.5,
+              height: MediaQuery.of(context).size.height * 0.35,
               child: SfCartesianChart(
-                  title: ChartTitle(
-                      text: "Monthly Financial Condition",
-                      textStyle: TextStyle(
-                        color: themeColor.text,
-                      )),
                   primaryXAxis: NumericAxis(
                     labelStyle: TextStyle(color: themeColor.text),
                   ),
@@ -39,25 +35,31 @@ class _HomePageState extends State<HomePage> {
                         color: themeColor.secondary,
                         dataSource: <Transaction>[
                           Transaction(
-                              id: 1,
+                              id: 200,
                               transactionTypeId: 1,
                               sourceId: 1,
                               explanation: "test",
                               amount: 2000),
                           Transaction(
-                              id: 2,
+                              id: 300,
                               transactionTypeId: 1,
                               sourceId: 1,
                               explanation: "test",
                               amount: 3000),
                           Transaction(
-                              id: 3,
+                              id: 400,
                               transactionTypeId: 1,
                               sourceId: 1,
                               explanation: "test",
                               amount: 4000),
                           Transaction(
-                              id: 4,
+                              id: 500,
+                              transactionTypeId: 1,
+                              sourceId: 1,
+                              explanation: "test",
+                              amount: 5000),
+                          Transaction(
+                              id: 600,
                               transactionTypeId: 1,
                               sourceId: 1,
                               explanation: "test",

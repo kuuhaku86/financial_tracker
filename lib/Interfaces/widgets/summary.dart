@@ -1,6 +1,7 @@
 import 'package:financial_tracker/Commons/themes/colors.dart';
 import 'package:financial_tracker/Interfaces/widgets/box_content.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class Summary extends StatelessWidget {
   const Summary({super.key});
@@ -10,60 +11,43 @@ class Summary extends StatelessWidget {
     return Column(
       children: [
         BoxContent(
+            title: "Total Income This Month",
             child: getChild(
                 context,
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Current Asset",
-                        style: getTitleTextStyle(themeColor.text)),
-                    Text(
-                      "1000",
-                      style: getNumberTextStyle(themeColor.secondary),
-                    )
+                    getNumberTextWithSign("10000", themeColor.secondary),
                   ],
                 ))),
         BoxContent(
+            title: "Total Outcome This Month",
             child: getChild(
                 context,
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Comparison From Last Month",
-                        textAlign: TextAlign.center,
-                        style: getTitleTextStyle(themeColor.text)),
-                    Text(
-                      "1000",
-                      style: getNumberTextStyle(Colors.green),
-                    )
+                    getNumberTextWithSign("-2000", themeColor.danger),
                   ],
                 ))),
         BoxContent(
+            title: "Difference With Last Month",
             child: getChild(
                 context,
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Income Compared to Last Month",
-                        style: getTitleTextStyle(themeColor.text)),
-                    Text(
-                      "1000",
-                      style: getNumberTextStyle(Colors.red),
-                    )
+                    getNumberText("200000", themeColor.secondary),
                   ],
                 ))),
         BoxContent(
+            title: "Total Wealth",
             child: getChild(
                 context,
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Outcome Compared to Last Month",
-                        style: getTitleTextStyle(themeColor.text)),
-                    Text(
-                      "1000",
-                      style: getNumberTextStyle(Colors.green),
-                    )
+                    getNumberText("100000", themeColor.secondary),
                   ],
                 ))),
       ],
@@ -77,21 +61,29 @@ class Summary extends StatelessWidget {
     );
   }
 
-  getTitleTextStyle(Color color) {
-    return TextStyle(
-        fontSize: 20.0,
-        fontFamily: 'Segoe UI',
-        fontStyle: FontStyle.normal,
-        fontWeight: FontWeight.w600,
-        color: color);
+  getNumberTextWithSign(String text, Color color) {
+    NumberFormat myFormat = NumberFormat.decimalPattern('en_us');
+    int textInt = int.parse(text);
+
+    if (textInt > 0) {
+      text = myFormat.format(textInt);
+      text = "+$text";
+    }
+
+    return getNumberText(text, color);
   }
 
-  getNumberTextStyle(Color color) {
-    return TextStyle(
-        fontSize: 35.0,
-        fontFamily: 'Segoe UI',
-        fontStyle: FontStyle.normal,
-        fontWeight: FontWeight.w900,
-        color: color);
+  getNumberText(String text, Color color) {
+    NumberFormat myFormat = NumberFormat.decimalPattern('en_us');
+
+    return Text(
+      text[0] == "+" ? text : myFormat.format(int.parse(text)),
+      style: TextStyle(
+          fontSize: 37.5,
+          fontFamily: 'Segoe UI',
+          fontStyle: FontStyle.normal,
+          fontWeight: FontWeight.w600,
+          color: color),
+    );
   }
 }
