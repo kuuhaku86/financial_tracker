@@ -1,13 +1,13 @@
 class Source {
   late int id;
   late String name;
-  late double initialAmount;
+  late String imageRoute;
 
-  Source({required this.id, required this.name, required this.initialAmount});
+  Source({required this.id, required this.name, required this.imageRoute});
 
   Source.fromMap(Map<String, Object?> map) {
     id = map['id'] as int;
     name = map['name'] as String;
-    initialAmount = map['initial_amount'] as double;
+    imageRoute = map['image_route'] as String;
   }
 }

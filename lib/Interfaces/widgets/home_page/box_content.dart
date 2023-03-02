@@ -1,5 +1,5 @@
 import 'package:financial_tracker/Commons/themes/colors.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class BoxContent extends StatelessWidget {
   final Widget child;

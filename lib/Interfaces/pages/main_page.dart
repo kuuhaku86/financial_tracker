@@ -1,5 +1,6 @@
 import 'package:financial_tracker/Commons/themes/colors.dart';
 import 'package:financial_tracker/Interfaces/pages/home_page.dart';
+import 'package:financial_tracker/Interfaces/pages/income_source_page.dart';
 import 'package:financial_tracker/Interfaces/widgets/bottom_navigation_bar_item_custom.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +19,7 @@ class _MainPageState extends State<MainPage> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _pagesOptions = <Widget>[
     HomePage(),
-    Text("test2"),
+    IncomeSourcePage(),
     Text("test3"),
   ];
 
