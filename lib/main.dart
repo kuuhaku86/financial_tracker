@@ -1,4 +1,4 @@
-import 'package:financial_tracker/Interfaces/pages/add_income_source.dart';
+import 'package:financial_tracker/Interfaces/pages/add_income_source_page.dart';
 import 'package:financial_tracker/Interfaces/pages/home_page.dart';
 import 'package:financial_tracker/Interfaces/pages/income_source_page.dart';
 import 'package:financial_tracker/Interfaces/pages/main_page.dart';

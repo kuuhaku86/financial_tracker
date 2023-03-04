@@ -2,14 +2,23 @@ import 'package:financial_tracker/Commons/themes/colors.dart';
 import 'package:financial_tracker/Interfaces/pages/main_page.dart';
 import 'package:flutter/material.dart';
 
-class SplashScreenPage extends StatelessWidget {
+class SplashScreenPage extends StatefulWidget {
   const SplashScreenPage({super.key});
   static const String route = "/splash_screen";
 
   @override
-  Widget build(BuildContext context) {
-    navigate(context);
+  State<SplashScreenPage> createState() => _SplashScreenPageState();
+}
 
+class _SplashScreenPageState extends State<SplashScreenPage> {
+  @override
+  void initState() {
+    navigate(context);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: themeColor.primary,
       body: Center(
@@ -18,7 +27,7 @@ class SplashScreenPage extends StatelessWidget {
           width: MediaQuery.of(context).size.width * 0.35,
           decoration: BoxDecoration(
               color: themeColor.secondary,
-              borderRadius: BorderRadius.all(Radius.circular(10))),
+              borderRadius: const BorderRadius.all(Radius.circular(10))),
           child: Center(
             child: Text(
               "F",

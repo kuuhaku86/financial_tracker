@@ -1,6 +1,6 @@
 import 'package:financial_tracker/Commons/themes/colors.dart';
 import 'package:financial_tracker/Domains/sources/entities/source.dart';
-import 'package:financial_tracker/Interfaces/pages/add_income_source.dart';
+import 'package:financial_tracker/Interfaces/pages/add_income_source_page.dart';
 import 'package:financial_tracker/Interfaces/widgets/button_custom.dart';
 import 'package:financial_tracker/Interfaces/widgets/income_source_page/income_source_tile.dart';
 import 'package:financial_tracker/Interfaces/widgets/list_tile_custom.dart';
@@ -47,6 +47,7 @@ class _IncomeSourcePageState extends State<IncomeSourcePage> {
                     return ListTileCustom(
                       color: themeColor.secondary,
                       child: IncomeSourceTile(
+                        id: sourceList[index].id,
                         incomeSourceName: sourceList[index].name,
                         imageRoute: sourceList[index].imageRoute,
                         onTap: () {},

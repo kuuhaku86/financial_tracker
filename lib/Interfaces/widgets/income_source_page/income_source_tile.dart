@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 class IncomeSourceTile extends StatelessWidget {
   final String incomeSourceName;
   final String imageRoute;
+  final int id;
   final void Function() onTap;
 
   const IncomeSourceTile(
       {super.key,
       required this.incomeSourceName,
       required this.imageRoute,
+      required this.id,
       required this.onTap});
 
   @override
