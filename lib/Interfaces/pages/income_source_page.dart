@@ -1,5 +1,6 @@
 import 'package:financial_tracker/Commons/themes/colors.dart';
 import 'package:financial_tracker/Domains/sources/entities/source.dart';
+import 'package:financial_tracker/Interfaces/pages/add_income_source.dart';
 import 'package:financial_tracker/Interfaces/widgets/button_custom.dart';
 import 'package:financial_tracker/Interfaces/widgets/income_source_page/income_source_tile.dart';
 import 'package:financial_tracker/Interfaces/widgets/list_tile_custom.dart';
@@ -57,7 +58,11 @@ class _IncomeSourcePageState extends State<IncomeSourcePage> {
           Positioned(
             bottom: 0.0,
             child: ButtonCustom(
-                icon: Icons.add, text: "Add New Income Source", onTap: () {}),
+                icon: Icons.add,
+                text: "Add New Income Source",
+                onTap: () {
+                  Navigator.pushNamed(context, AddIncomeSourcePage.route);
+                }),
           ),
         ],
       ),

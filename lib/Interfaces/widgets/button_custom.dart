@@ -28,6 +28,7 @@ class ButtonCustom extends StatelessWidget {
           borderRadius: BorderRadius.circular(5.0),
         ),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
               icon,
