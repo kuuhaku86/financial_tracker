@@ -19,14 +19,6 @@ class _IncomeSourcePageState extends State<IncomeSourcePage> {
     Source(id: 1, name: "Bank One", imageRoute: "assets/images/logo.png"),
     Source(id: 1, name: "Bank Two", imageRoute: "assets/images/logo.png"),
     Source(id: 1, name: "Bank Three", imageRoute: "assets/images/logo.png"),
-    Source(id: 1, name: "Bank Three", imageRoute: "assets/images/logo.png"),
-    Source(id: 1, name: "Bank Three", imageRoute: "assets/images/logo.png"),
-    Source(id: 1, name: "Bank Three", imageRoute: "assets/images/logo.png"),
-    Source(id: 1, name: "Bank Three", imageRoute: "assets/images/logo.png"),
-    Source(id: 1, name: "Bank Three", imageRoute: "assets/images/logo.png"),
-    Source(id: 1, name: "Bank Three", imageRoute: "assets/images/logo.png"),
-    Source(id: 1, name: "Bank Three", imageRoute: "assets/images/logo.png"),
-    Source(id: 1, name: "Bank Three", imageRoute: "assets/images/logo.png"),
   ];
 
   @override

@@ -1,7 +1,7 @@
 import 'package:financial_tracker/Commons/themes/colors.dart';
 import 'package:financial_tracker/Domains/sources/entities/source.dart';
 import 'package:financial_tracker/Domains/transactions/entities/transaction.dart';
-import 'package:financial_tracker/Interfaces/pages/add_income_source_page.dart';
+import 'package:financial_tracker/Interfaces/pages/add_transaction_page.dart';
 import 'package:financial_tracker/Interfaces/widgets/button_custom.dart';
 import 'package:financial_tracker/Interfaces/widgets/list_tile_custom.dart';
 import 'package:financial_tracker/Interfaces/widgets/transaction_page/transaction_tile.dart';
@@ -88,7 +88,7 @@ class _TransactionPageState extends State<TransactionPage> {
                 icon: Icons.add,
                 text: "Add New Transaction",
                 onTap: () {
-                  Navigator.pushNamed(context, AddIncomeSourcePage.route);
+                  Navigator.pushNamed(context, AddTransactionPage.route);
                 }),
           ),
         ],

@@ -1,4 +1,5 @@
 import 'package:financial_tracker/Interfaces/pages/add_income_source_page.dart';
+import 'package:financial_tracker/Interfaces/pages/add_transaction_page.dart';
 import 'package:financial_tracker/Interfaces/pages/home_page.dart';
 import 'package:financial_tracker/Interfaces/pages/income_source_page.dart';
 import 'package:financial_tracker/Interfaces/pages/main_page.dart';
@@ -17,6 +18,7 @@ void main() {
       HomePage.route: (context) => const HomePage(),
       IncomeSourcePage.route: (context) => const IncomeSourcePage(),
       AddIncomeSourcePage.route: (context) => const AddIncomeSourcePage(),
+      AddTransactionPage.route: (context) => const AddTransactionPage(),
     },
   ));
 }

@@ -13,7 +13,7 @@ class InputCustom extends StatelessWidget {
       height: MediaQuery.of(context).size.height * 0.085,
       margin: EdgeInsets.symmetric(
         horizontal: MediaQuery.of(context).size.width * 0.025,
-        vertical: MediaQuery.of(context).size.height * 0.02,
+        vertical: MediaQuery.of(context).size.height * 0.0125,
       ),
       padding: EdgeInsets.symmetric(
         horizontal: MediaQuery.of(context).size.width * 0.02,
