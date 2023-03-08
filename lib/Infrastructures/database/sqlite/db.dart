@@ -18,6 +18,12 @@ class DB {
       )''');
 
     await db.execute('''
+      create table period ( 
+        id integer primary key autoincrement, 
+        name text not null
+      )''');
+
+    await db.execute('''
       create table transaction ( 
         id integer primary key autoincrement, 
         transaction_type_id integer not null,
@@ -37,7 +43,7 @@ class DB {
       create table source ( 
         id integer primary key autoincrement, 
         name text not null,
-        initial_amount integer not null
+        image_route text not null
       )''');
   }
 

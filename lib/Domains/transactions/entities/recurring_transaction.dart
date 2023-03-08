@@ -1,16 +1,19 @@
 class RecurringTransaction {
   late int id;
   late int transactionId;
-  late int timeRecurringInSecond;
+  late int numberInPeriod;
+  late int periodId;
 
   RecurringTransaction(
       {required this.id,
       required this.transactionId,
-      required this.timeRecurringInSecond});
+      required this.numberInPeriod,
+      required this.periodId});
 
   RecurringTransaction.fromMap(Map<String, Object?> map) {
     id = map['id'] as int;
     transactionId = map['transaction_id'] as int;
-    timeRecurringInSecond = map['time_recurring_in_second'] as int;
+    numberInPeriod = map['number_in_period'] as int;
+    periodId = map['period_id'] as int;
   }
 }

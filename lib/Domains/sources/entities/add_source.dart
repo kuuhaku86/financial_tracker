@@ -1,6 +1,6 @@
 class AddSource {
   String name;
-  double initialAmount;
+  String imageRoute;
 
-  AddSource({required this.name, required this.initialAmount});
+  AddSource({required this.name, required this.imageRoute});
 }

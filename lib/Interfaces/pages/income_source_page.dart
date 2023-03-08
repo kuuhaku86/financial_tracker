@@ -23,7 +23,7 @@ class _IncomeSourcePageState extends State<IncomeSourcePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: MediaQuery.of(context).size.height,
       child: Stack(
         children: [
