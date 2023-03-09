@@ -3,11 +3,15 @@ import 'package:financial_tracker/Domains/sources/entities/add_source.dart';
 import 'entities/source.dart';
 
 class SourceRepository {
-  Future<Source> getSource(int sourceId) {
+  Future<Source> getSource(int sourceId) async {
     throw Exception("Not Implemented");
   }
 
-  Future<Source> addSource(AddSource payload) {
+  Future<List<Source>> getSources() async {
+    throw Exception("Not Implemented");
+  }
+
+  Future<Source> addSource(AddSource payload) async {
     throw Exception("Not Implemented");
   }
 }

@@ -11,6 +11,20 @@ void main() {
           () => transactionRepository.getTransactionType(1), throwsException);
     });
 
+    test('getTransactions throws exception', () {
+      final transactionRepository = TransactionRepository();
+
+      expect(
+          () => transactionRepository.getTransactions(), throwsException);
+    });
+
+    test('getTransaction throws exception', () {
+      final transactionRepository = TransactionRepository();
+
+      expect(
+          () => transactionRepository.getTransaction(1), throwsException);
+    });
+
     test('addTransaction throws exception', () {
       final transactionRepository = TransactionRepository();
 

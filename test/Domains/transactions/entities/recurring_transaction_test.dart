@@ -3,11 +3,12 @@ import 'package:test/test.dart';
 
 void main() {
   group("RecurringTransaction class", () {
+    const id = 123;
+    const transactionId = 321;
+    const numberInPeriod = 121;
+    const periodId = 234;
+
     test('object creation success', () {
-      const id = 123;
-      const transactionId = 321;
-      const numberInPeriod = 121;
-      const periodId = 234;
       final recurringTransaction = RecurringTransaction(
           id: id,
           transactionId: transactionId,
@@ -21,10 +22,6 @@ void main() {
     });
 
     test('object creation from map success', () {
-      const id = 123;
-      const transactionId = 321;
-      const numberInPeriod = 121;
-      const periodId = 234;
       Map<String, Object> map = {
         "id": id,
         "transaction_id": transactionId,

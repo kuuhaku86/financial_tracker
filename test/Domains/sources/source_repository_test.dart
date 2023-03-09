@@ -11,7 +11,13 @@ void main() {
       expect(() => sourceRepository.getSource(1), throwsException);
     });
 
-    test('getSource throws exception', () {
+    test('getSources throws exception', () {
+      final sourceRepository = SourceRepository();
+
+      expect(() => sourceRepository.getSources(), throwsException);
+    });
+
+    test('addSource throws exception', () {
       final sourceRepository = SourceRepository();
 
       expect(

@@ -4,9 +4,10 @@ import 'package:test/test.dart';
 
 void main() {
   group("Period class", () {
+    const name = "period_name_test";
+    const id = 123;
+
     test('object creation success', () {
-      const name = "period_name_test";
-      const id = 123;
       final period = Period(
         id: id,
         name: name,
@@ -17,8 +18,6 @@ void main() {
     });
 
     test('object creation from map success', () {
-      const name = "period_name_test";
-      const id = 123;
       Map<String, Object> map = {
         "id": id,
         "name": name,

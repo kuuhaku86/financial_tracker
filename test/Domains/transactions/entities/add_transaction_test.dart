@@ -4,14 +4,15 @@ import 'package:test/test.dart';
 
 void main() {
   group("AddTransaction class", () {
+    const transactionTypeId = 123;
+    const sourceId = 321;
+    const name = "add_transaction_name_test";
+    const explanation = "add_transaction_explanation_test";
+    const amount = 123123.0;
+    const isRecurrent = true;
+    const numberInPeriod = 3;
+
     test('object creation success', () {
-      const transactionTypeId = 123;
-      const sourceId = 321;
-      const name = "add_transaction_name_test";
-      const explanation = "add_transaction_explanation_test";
-      const amount = 123123.0;
-      const isRecurrent = true;
-      const numberInPeriod = 3;
       Period period = Period(id: 12, name: "add_transaction_period_test");
       final addTransaction = AddTransaction(
           transactionTypeId: transactionTypeId,

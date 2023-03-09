@@ -1,11 +1,14 @@
 import 'package:financial_tracker/Commons/exceptions/invariant_error.dart';
 
 class DomainErrorTranslator {
-  Exception? translate(String error) {
-    return _directories[error];
+  Exception translate(ExceptionEnum exceptionEnum) {
+    return _directories[exceptionEnum] ?? Exception("Something is wrong");
   }
 
-  final Map<String, Exception> _directories = {
-    "SOURCE.NOT_FOUND": InvariantError("source not found")
+  final Map<ExceptionEnum, Exception> _directories = {
+    ExceptionEnum.sourceNotFound: InvariantError("source not found"),
+    ExceptionEnum.transactionNotFound: InvariantError("transaction not found"),
   };
 }
+
+enum ExceptionEnum { sourceNotFound, transactionNotFound }

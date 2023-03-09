@@ -3,14 +3,15 @@ import 'package:test/test.dart';
 
 void main() {
   group("Transaction class", () {
+    const id = 123;
+    const transactionTypeId = 234;
+    const sourceId = 345;
+    const name = "transaction_name_test";
+    const explanation = "transaction_explanation_test";
+    const amount = 456.0;
+    DateTime date = DateTime.now();
+
     test('object creation success', () {
-      const id = 123;
-      const transactionTypeId = 234;
-      const sourceId = 345;
-      const name = "transaction_name_test";
-      const explanation = "transaction_explanation_test";
-      const amount = 456.0;
-      DateTime date = DateTime.now();
       final transaction = Transaction(
           id: id,
           transactionTypeId: transactionTypeId,
@@ -30,13 +31,6 @@ void main() {
     });
 
     test('object creation from map success', () {
-      const id = 123;
-      const transactionTypeId = 234;
-      const sourceId = 345;
-      const name = "transaction_name_test";
-      const explanation = "transaction_explanation_test";
-      const amount = 456.0;
-      DateTime date = DateTime.now();
       Map<String, Object> map = {
         "id": id,
         "transaction_type_id": transactionTypeId,

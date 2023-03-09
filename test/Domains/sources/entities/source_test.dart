@@ -3,10 +3,11 @@ import 'package:test/test.dart';
 
 void main() {
   group("Source class", () {
+    const name = "source_name_test";
+    const imageRoute = "source_image_route_test";
+    const id = 123;
+
     test('object creation success', () {
-      const name = "source_name_test";
-      const imageRoute = "source_image_route_test";
-      const id = 123;
       final source = Source(
         id: id,
         name: name,
@@ -19,9 +20,6 @@ void main() {
     });
 
     test('object creation from map success', () {
-      const name = "source_name_test";
-      const imageRoute = "source_image_route_test";
-      const id = 123;
       Map<String, Object> map = {
         "id": id,
         "name": name,

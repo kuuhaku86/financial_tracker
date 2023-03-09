@@ -4,11 +4,19 @@ import 'package:financial_tracker/Domains/transactions/entities/transaction_type
 import 'entities/transaction.dart';
 
 class TransactionRepository {
-  Future<TransactionType> getTransactionType(int transactionTypeId) {
+  Future<TransactionType> getTransactionType(int transactionTypeId) async {
     throw Exception("Not Implemented");
   }
 
-  Future<Transaction> addTransaction(AddTransaction payload) {
+  Future<List<Transaction>> getTransactions() async {
+    throw Exception("Not Implemented");
+  }
+
+  Future<Transaction> getTransaction(int transactionId) async {
+    throw Exception("Not Implemented");
+  }
+
+  Future<Transaction> addTransaction(AddTransaction payload) async {
     throw Exception("Not Implemented");
   }
 }

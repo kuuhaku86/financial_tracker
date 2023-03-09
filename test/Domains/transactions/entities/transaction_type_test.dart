@@ -3,9 +3,10 @@ import 'package:test/test.dart';
 
 void main() {
   group("TransactionType class", () {
+    const id = 123;
+    const name = "transaction_type_name_test";
+
     test('object creation success', () {
-      const id = 123;
-      const name = "transaction_type_name_test";
       final transactionType = TransactionType(id: id, name: name);
 
       expect(transactionType.id, id);
@@ -13,8 +14,6 @@ void main() {
     });
 
     test('object creation from map success', () {
-      const id = 123;
-      const name = "transaction_type_name_test";
       Map<String, Object> map = {
         "id": id,
         "name": name,
