@@ -20,7 +20,7 @@ void main() {
           name: name,
           explanation: explanation,
           amount: amount,
-          isRecurrent: isRecurrent,
+          isRecurring: isRecurrent,
           numberInPeriod: numberInPeriod,
           period: period);
 
@@ -29,7 +29,7 @@ void main() {
       expect(addTransaction.name, name);
       expect(addTransaction.explanation, explanation);
       expect(addTransaction.amount, amount);
-      expect(addTransaction.isRecurrent, isRecurrent);
+      expect(addTransaction.isRecurring, isRecurrent);
       expect(addTransaction.numberInPeriod, numberInPeriod);
       expect(addTransaction.period, period);
     });

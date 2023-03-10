@@ -1,4 +1,5 @@
 import 'package:financial_tracker/Applications/usecase/add_source_usecase.dart';
+import 'package:financial_tracker/Commons/exceptions/domain_error_translator.dart';
 import 'package:financial_tracker/Domains/sources/entities/add_source.dart';
 import 'package:financial_tracker/Domains/sources/entities/source.dart';
 import 'package:mockito/mockito.dart';
@@ -15,12 +16,10 @@ void main() {
     test('execution success', () async {
       final sourceRepository = MockSourceRepository();
       final addSource = AddSource(name: name, imageRoute: imageRoute);
-      final source = Source(
-          id: sourceId,
-          name: name,
-          imageRoute: imageRoute);
+      final source = Source(id: sourceId, name: name, imageRoute: imageRoute);
 
-      when(sourceRepository.addSource(addSource)).thenAnswer((_) async => source);
+      when(sourceRepository.addSource(addSource))
+          .thenAnswer((_) async => source);
 
       final addSourceUsecase =
           AddSourceUsecase(sourceRepository: sourceRepository);
@@ -30,6 +29,21 @@ void main() {
       expect(result.id, source.id);
       expect(result.name, source.name);
       expect(result.imageRoute, source.imageRoute);
+    });
+
+    test('execution failed', () async {
+      final sourceRepository = MockSourceRepository();
+      final addSource = AddSource(name: name, imageRoute: imageRoute);
+      final errorTranslator = DomainErrorTranslator();
+
+      when(sourceRepository.addSource(addSource))
+          .thenThrow(errorTranslator.translate(ExceptionEnum.addSourceFailed));
+
+      final addSourceUsecase =
+          AddSourceUsecase(sourceRepository: sourceRepository);
+
+      expect(addSourceUsecase.execute(addSource),
+          throwsA(errorTranslator.translate(ExceptionEnum.addSourceFailed)));
     });
   });
 }

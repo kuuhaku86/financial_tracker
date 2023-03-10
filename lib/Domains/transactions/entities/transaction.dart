@@ -24,6 +24,6 @@ class Transaction {
     name = map['name'] as String;
     explanation = map['explanation'] as String;
     amount = map['amount'] as double;
-    date = DateTime.fromMicrosecondsSinceEpoch(map['date'] as int) ;
+    date = DateTime.fromMicrosecondsSinceEpoch(map['date'] as int);
   }
 }

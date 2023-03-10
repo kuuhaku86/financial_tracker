@@ -18,32 +18,29 @@ class TransactionPage extends StatefulWidget {
 class _TransactionPageState extends State<TransactionPage> {
   List<Transaction> transactionList = [
     Transaction(
-      id: 1,
-      name: "Pay One",
-      transactionTypeId: 1,
-      sourceId: 1,
-      explanation: "great",
-      amount: 2000,
-      date: DateTime.now()
-    ),
+        id: 1,
+        name: "Pay One",
+        transactionTypeId: 1,
+        sourceId: 1,
+        explanation: "great",
+        amount: 2000,
+        date: DateTime.now()),
     Transaction(
-      id: 1,
-      name: "Pay Two",
-      transactionTypeId: 1,
-      sourceId: 2,
-      explanation: "great",
-      amount: -2000,
-      date: DateTime.now()
-    ),
+        id: 1,
+        name: "Pay Two",
+        transactionTypeId: 1,
+        sourceId: 2,
+        explanation: "great",
+        amount: -2000,
+        date: DateTime.now()),
     Transaction(
-      id: 1,
-      name: "Pay Three",
-      transactionTypeId: 1,
-      sourceId: 1,
-      explanation: "great",
-      amount: -2000,
-      date: DateTime.now()
-    ),
+        id: 1,
+        name: "Pay Three",
+        transactionTypeId: 1,
+        sourceId: 1,
+        explanation: "great",
+        amount: -2000,
+        date: DateTime.now()),
   ];
   List<Source> sourceList = [
     Source(id: 1, name: "Bank One", imageRoute: "assets/images/logo.png"),

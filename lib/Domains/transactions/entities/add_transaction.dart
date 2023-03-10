@@ -6,7 +6,7 @@ class AddTransaction {
   String name;
   String explanation;
   double amount;
-  bool isRecurrent;
+  bool isRecurring;
   int? numberInPeriod;
   Period? period;
 
@@ -16,7 +16,7 @@ class AddTransaction {
       required this.name,
       required this.explanation,
       required this.amount,
-      this.isRecurrent = false,
+      this.isRecurring = false,
       this.numberInPeriod,
       this.period});
 }

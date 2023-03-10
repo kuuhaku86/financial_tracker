@@ -48,13 +48,16 @@ void main() {
       final transactionRepository = MockTransactionRepository();
       final errorTranslator = DomainErrorTranslator();
 
-      when(transactionRepository.getTransaction(id))
-          .thenThrow(errorTranslator.translate(ExceptionEnum.transactionNotFound));
+      when(transactionRepository.getTransaction(id)).thenThrow(
+          errorTranslator.translate(ExceptionEnum.transactionNotFound));
 
       final getTransactionUsecase =
           GetTransactionUsecase(transactionRepository: transactionRepository);
 
-      expect(getTransactionUsecase.execute(transactionId: id), throwsA(errorTranslator.translate(ExceptionEnum.transactionNotFound)));
+      expect(
+          getTransactionUsecase.execute(transactionId: id),
+          throwsA(
+              errorTranslator.translate(ExceptionEnum.transactionNotFound)));
     });
   });
 }

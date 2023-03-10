@@ -42,7 +42,8 @@ void main() {
       final getSourceUsecase =
           GetSourceUsecase(sourceRepository: sourceRepository);
 
-      expect(getSourceUsecase.execute(sourceId: sourceId), throwsA(errorTranslator.translate(ExceptionEnum.sourceNotFound)));
+      expect(getSourceUsecase.execute(sourceId: sourceId),
+          throwsA(errorTranslator.translate(ExceptionEnum.sourceNotFound)));
     });
   });
 }

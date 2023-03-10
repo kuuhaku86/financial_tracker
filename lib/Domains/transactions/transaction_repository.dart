@@ -1,4 +1,7 @@
+import 'package:financial_tracker/Domains/transactions/entities/add_recurring_transaction.dart';
 import 'package:financial_tracker/Domains/transactions/entities/add_transaction.dart';
+import 'package:financial_tracker/Domains/transactions/entities/period.dart';
+import 'package:financial_tracker/Domains/transactions/entities/recurring_transaction.dart';
 import 'package:financial_tracker/Domains/transactions/entities/transaction_type.dart';
 
 import 'entities/transaction.dart';
@@ -16,7 +19,29 @@ class TransactionRepository {
     throw Exception("Not Implemented");
   }
 
+  Future<List<TransactionType>> getTransactionTypes() async {
+    throw Exception("Not Implemented");
+  }
+
+  Future<List<Period>> getPeriods() async {
+    throw Exception("Not Implemented");
+  }
+
+  Future<Period> getPeriod(int periodId) async {
+    throw Exception("Not Implemented");
+  }
+
+  Future<RecurringTransaction> getRecurringTransaction(
+      int recurringTransactionId) async {
+    throw Exception("Not Implemented");
+  }
+
   Future<Transaction> addTransaction(AddTransaction payload) async {
+    throw Exception("Not Implemented");
+  }
+
+  Future<RecurringTransaction> addRecurringTransaction(
+      AddRecurringTransaction payload) async {
     throw Exception("Not Implemented");
   }
 }
