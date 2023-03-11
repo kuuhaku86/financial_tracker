@@ -1,78 +1,86 @@
 import 'package:sqflite/sqflite.dart';
 
-class DB {
+class SqliteDB {
   late Database db;
 
-  Future open(String path) async {
+  init() async {
+    await open("financial_tracker.db");
+  }
+
+  open(String path) async {
     db = await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
       await migration();
     });
   }
 
-  Future migration() async {
+  migration() async {
     await db.execute('''
-      create table transaction_type ( 
+      create table if not exist transaction_types ( 
         id integer primary key autoincrement, 
         name text not null
       )''');
 
     await db.execute('''
-      create table period ( 
+      create table if not exist periods ( 
         id integer primary key autoincrement, 
         name text not null
       )''');
 
     await db.execute('''
-      create table transaction ( 
+      create table if not exist transactions ( 
         id integer primary key autoincrement, 
         transaction_type_id integer not null,
         source_id integer not null,
+        name text not null,
         explanation text not null,
-        amount integer not null
+        amount float not null
+        date integer not null
       )''');
 
     await db.execute('''
-      create table recurring_transaction ( 
+      create table if not exist recurring_transactions ( 
         id integer primary key autoincrement, 
         transaction_id integer not null,
-        time_recurring_in_second integer not null
+        number_in_period integer not null
+        period_id integer not null
       )''');
 
     await db.execute('''
-      create table source ( 
+      create table if not exist sources ( 
         id integer primary key autoincrement, 
         name text not null,
         image_route text not null
       )''');
   }
 
-  Future<dynamic> insert(String tableName, dynamic object) async {
-    object.id = await db.insert(tableName, object.toMap());
+  Future<int> insert(String tableName, dynamic object) async =>
+      await db.insert(tableName, object.toMap());
 
-    return object;
-  }
-
-  Future<dynamic> get(String tableName, List<String> columns, int id,
-      Function(Map<dynamic, dynamic>) onGet) async {
-    List<Map> maps = await db
-        .query(tableName, columns: columns, where: 'id = ?', whereArgs: [id]);
+  Future<Map?> get(String tableName, int id) async {
+    List<Map> maps =
+        await db.query(tableName, where: 'id = ?', whereArgs: [id]);
 
     if (maps.isNotEmpty) {
-      return onGet(maps.first);
+      return maps.first;
     }
 
     return null;
   }
 
-  Future<int> delete(String tableName, int id) async {
-    return await db.delete(tableName, where: 'id = ?', whereArgs: [id]);
+  Future<List<Map>> getAll(String tableName) async {
+    List<Map> maps = await db.query(tableName);
+
+    return maps;
   }
+
+  Future<int> delete(String tableName, int id) async =>
+      await db.delete(tableName, where: 'id = ?', whereArgs: [id]);
 
   Future<int> update(String tableName, dynamic object) async {
     return await db.update(tableName, object.toMap(),
         where: 'id = ?', whereArgs: [object.id]);
   }
 
-  Future close() async => db.close();
+  Future close() async => await db.close();
 }
