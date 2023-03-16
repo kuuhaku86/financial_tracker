@@ -1,10 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart' as path;
 
 class SqliteDB {
   late Database db;
 
   init() async {
-    await open("financial_tracker.db");
+    await open(path.join(await getDatabasesPath(), "financial_tracker.db"));
   }
 
   open(String path) async {
@@ -16,41 +18,41 @@ class SqliteDB {
 
   migration() async {
     await db.execute('''
-      create table if not exist transaction_types ( 
-        id integer primary key autoincrement, 
-        name text not null
+      CREATE TABLE IF NOT EXIST transaction_types ( 
+        id INTEGER PRIMARY KEY AUTOINCREMENT, 
+        name TEXT NOT NULL
       )''');
 
     await db.execute('''
-      create table if not exist periods ( 
-        id integer primary key autoincrement, 
-        name text not null
+      CREATE TABLE IF NOT EXIST periods ( 
+        id INTEGER PRIMARY KEY AUTOINCREMENT, 
+        name TEXT NOT NULL
       )''');
 
     await db.execute('''
-      create table if not exist transactions ( 
-        id integer primary key autoincrement, 
-        transaction_type_id integer not null,
-        source_id integer not null,
-        name text not null,
-        explanation text not null,
-        amount float not null
-        date integer not null
+      CREATE TABLE IF NOT EXIST transactions ( 
+        id INTEGER PRIMARY KEY AUTOINCREMENT, 
+        transaction_type_id INTEGER NOT NULL,
+        source_id INTEGER NOT NULL,
+        name TEXT NOT NULL,
+        explanation TEXT NOT NULL,
+        amount FLOAT NOT NULL
+        date INTEGER NOT NULL
       )''');
 
     await db.execute('''
-      create table if not exist recurring_transactions ( 
-        id integer primary key autoincrement, 
-        transaction_id integer not null,
-        number_in_period integer not null
-        period_id integer not null
+      CREATE TABLE IF NOT EXIST recurring_transactions ( 
+        id INTEGER PRIMARY KEY AUTOINCREMENT, 
+        transaction_id INTEGER NOT NULL,
+        number_in_period INTEGER NOT NULL
+        period_id INTEGER NOT NULL
       )''');
 
     await db.execute('''
-      create table if not exist sources ( 
-        id integer primary key autoincrement, 
-        name text not null,
-        image_route text not null
+      CREATE TABLE IF NOT EXIST sources ( 
+        id INTEGER PRIMARY KEY AUTOINCREMENT, 
+        name TEXT NOT NULL,
+        image_route TEXT NOT NULL
       )''');
   }
 
