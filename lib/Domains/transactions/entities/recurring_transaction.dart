@@ -10,7 +10,7 @@ class RecurringTransaction {
       required this.numberInPeriod,
       required this.periodId});
 
-  RecurringTransaction.fromMap(Map<String, Object?> map) {
+  RecurringTransaction.fromMap(Map<dynamic, dynamic> map) {
     id = map['id'] as int;
     transactionId = map['transaction_id'] as int;
     numberInPeriod = map['number_in_period'] as int;

@@ -7,7 +7,7 @@ class Period {
     required this.name,
   });
 
-  Period.fromMap(Map<String, Object?> map) {
+  Period.fromMap(Map<dynamic, dynamic> map) {
     id = map['id'] as int;
     name = map['name'] as String;
   }

@@ -1,4 +1,5 @@
 import 'package:financial_tracker/Commons/exceptions/domain_error_translator.dart';
+import 'package:financial_tracker/Domains/sources/entities/add_source.dart';
 import 'package:financial_tracker/Domains/sources/entities/source.dart';
 import 'package:financial_tracker/Infrastructures/repository/source_repository_sqlite.dart';
 import 'package:mockito/mockito.dart';
@@ -33,11 +34,11 @@ void main() {
             SourceRepositorySQLite(db: db, errorTranslator: errorTranslator);
         final source = Source(id: id, name: name, imageRoute: imageRoute);
 
-        when(db.get(dbName, id)).thenAnswer((_) async => <dynamic,dynamic> {
-          "id": id,
-          "name": name,
-          "image_route": imageRoute
-        });
+        when(db.get(dbName, id)).thenAnswer((_) async => <dynamic, dynamic>{
+              "id": id,
+              "name": name,
+              "image_route": imageRoute
+            });
 
         final result = await repository.getSource(id);
 
@@ -47,18 +48,76 @@ void main() {
       });
     });
 
-    // group("getSources function", () {
-    //   test('throws exception if not found any record', () {
-    //     final db = MockSqliteDB();
-    //     final errorTranslator = DomainErrorTranslator();
-    //     final repository =
-    //         SourceRepositorySQLite(db: db, errorTranslator: errorTranslator);
+    group("getSources function", () {
+      test('return empty array if no record found', () async {
+        final db = MockSqliteDB();
+        final errorTranslator = DomainErrorTranslator();
+        final repository =
+            SourceRepositorySQLite(db: db, errorTranslator: errorTranslator);
 
-    //     when(db.get(dbName, sourceId)).thenAnswer((_) async => null);
+        when(db.getAll(dbName)).thenAnswer((_) async => []);
 
-    //     expect(repository.getSource(sourceId),
-    //         throwsA(errorTranslator.translate(ExceptionEnum.sourceNotFound)));
-    //   });
-    // });
+        var result = await repository.getSources();
+        expect(result.length, 0);
+      });
+
+      test('return result more than one', () async {
+        final db = MockSqliteDB();
+        final errorTranslator = DomainErrorTranslator();
+        final repository =
+            SourceRepositorySQLite(db: db, errorTranslator: errorTranslator);
+        final source = Source(id: id, name: name, imageRoute: imageRoute);
+        final map = <dynamic, dynamic>{
+          "id": source.id,
+          "name": source.name,
+          "image_route": source.imageRoute,
+        };
+
+        when(db.getAll(dbName)).thenAnswer((_) async => [map, map, map]);
+
+        var result = await repository.getSources();
+        expect(result.length, 3);
+        expect(result[0].id, source.id);
+        expect(result[0].name, source.name);
+        expect(result[0].imageRoute, source.imageRoute);
+      });
+    });
+
+    group("addSource function", () {
+      test('throw error if insertion failed', () async {
+        final db = MockSqliteDB();
+        final errorTranslator = DomainErrorTranslator();
+        final repository =
+            SourceRepositorySQLite(db: db, errorTranslator: errorTranslator);
+        final addSource = AddSource(name: name, imageRoute: imageRoute);
+
+        when(db.insert(dbName, addSource)).thenAnswer((_) async => 0);
+
+        expect(repository.addSource(addSource),
+            throwsA(errorTranslator.translate(ExceptionEnum.addSourceFailed)));
+      });
+
+      test('return Source object when insertion success', () async {
+        final db = MockSqliteDB();
+        final errorTranslator = DomainErrorTranslator();
+        final repository =
+            SourceRepositorySQLite(db: db, errorTranslator: errorTranslator);
+        final addSource = AddSource(name: name, imageRoute: imageRoute);
+        final source = Source(id: id, name: name, imageRoute: imageRoute);
+        final map = <dynamic, dynamic>{
+          "id": source.id,
+          "name": source.name,
+          "image_route": source.imageRoute,
+        };
+
+        when(db.insert(dbName, addSource)).thenAnswer((_) async => id);
+        when(db.get(dbName, id)).thenAnswer((_) async => map);
+
+        var result = await repository.addSource(addSource);
+        expect(result.id, source.id);
+        expect(result.name, source.name);
+        expect(result.imageRoute, source.imageRoute);
+      });
+    });
   });
 }

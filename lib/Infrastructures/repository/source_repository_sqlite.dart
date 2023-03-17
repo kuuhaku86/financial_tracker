@@ -15,10 +15,10 @@ class SourceRepositorySQLite extends SourceRepository {
     var record = await db.get("sources", sourceId);
 
     if (record == null) {
-      throw errorTranslator.translate(ExceptionEnum.transactionNotFound);
+      throw errorTranslator.translate(ExceptionEnum.sourceNotFound);
     }
 
-    return Source.fromMap(record as Map<String, Object>);
+    return Source.fromMap(record);
   }
 
   @override
@@ -26,7 +26,7 @@ class SourceRepositorySQLite extends SourceRepository {
     var records = await db.getAll("sources");
 
     return records
-        .map((record) => Source.fromMap(record as Map<String, Object>))
+        .map((record) => Source.fromMap(record))
         .toList();
   }
 
@@ -35,7 +35,7 @@ class SourceRepositorySQLite extends SourceRepository {
     int id = await db.insert("sources", payload);
 
     if (id == 0) {
-      throw errorTranslator.translate(ExceptionEnum.addTransactionFailed);
+      throw errorTranslator.translate(ExceptionEnum.addSourceFailed);
     }
 
     return await getSource(id);

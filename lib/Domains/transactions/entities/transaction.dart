@@ -17,7 +17,7 @@ class Transaction {
     required this.date,
   });
 
-  Transaction.fromMap(Map<String, Object?> map) {
+  Transaction.fromMap(Map<dynamic, dynamic> map) {
     id = map['id'] as int;
     transactionTypeId = map['transaction_type_id'] as int;
     sourceId = map['source_id'] as int;
