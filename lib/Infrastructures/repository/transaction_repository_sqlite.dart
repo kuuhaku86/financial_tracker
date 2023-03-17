@@ -23,16 +23,14 @@ class TransactionRepositorySQLite extends TransactionRepository {
       throw errorTranslator.translate(ExceptionEnum.transactionTypeNotFound);
     }
 
-    return TransactionType.fromMap(record as Map<String, Object>);
+    return TransactionType.fromMap(record);
   }
 
   @override
   Future<List<Transaction>> getTransactions() async {
     var records = await db.getAll("transactions");
 
-    return records
-        .map((record) => Transaction.fromMap(record as Map<String, Object>))
-        .toList();
+    return records.map((record) => Transaction.fromMap(record)).toList();
   }
 
   @override
@@ -43,25 +41,21 @@ class TransactionRepositorySQLite extends TransactionRepository {
       throw errorTranslator.translate(ExceptionEnum.transactionNotFound);
     }
 
-    return Transaction.fromMap(record as Map<String, Object>);
+    return Transaction.fromMap(record);
   }
 
   @override
   Future<List<TransactionType>> getTransactionTypes() async {
     var records = await db.getAll("transaction_types");
 
-    return records
-        .map((record) => TransactionType.fromMap(record as Map<String, Object>))
-        .toList();
+    return records.map((record) => TransactionType.fromMap(record)).toList();
   }
 
   @override
   Future<List<Period>> getPeriods() async {
-    var records = await db.getAll("transaction_periods");
+    var records = await db.getAll("periods");
 
-    return records
-        .map((record) => Period.fromMap(record as Map<String, Object>))
-        .toList();
+    return records.map((record) => Period.fromMap(record)).toList();
   }
 
   @override
@@ -72,7 +66,7 @@ class TransactionRepositorySQLite extends TransactionRepository {
       throw errorTranslator.translate(ExceptionEnum.periodNotFound);
     }
 
-    return Period.fromMap(record as Map<String, Object>);
+    return Period.fromMap(record);
   }
 
   @override
@@ -85,7 +79,7 @@ class TransactionRepositorySQLite extends TransactionRepository {
           .translate(ExceptionEnum.recurringTransactionNotFound);
     }
 
-    return RecurringTransaction.fromMap(record as Map<String, Object>);
+    return RecurringTransaction.fromMap(record);
   }
 
   @override
@@ -105,7 +99,8 @@ class TransactionRepositorySQLite extends TransactionRepository {
     int id = await db.insert("recurring_transactions", payload);
 
     if (id == 0) {
-      throw errorTranslator.translate(ExceptionEnum.addTransactionFailed);
+      throw errorTranslator
+          .translate(ExceptionEnum.addRecurringTransactionFailed);
     }
 
     return await getRecurringTransaction(id);

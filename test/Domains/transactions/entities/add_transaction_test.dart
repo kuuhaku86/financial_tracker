@@ -11,9 +11,11 @@ void main() {
     const amount = 123123.0;
     const isRecurrent = true;
     const numberInPeriod = 3;
+    const days = 12;
 
     test('object creation success', () {
-      Period period = Period(id: 12, name: "add_transaction_period_test");
+      Period period =
+          Period(id: 12, name: "add_transaction_period_test", days: days);
       final addTransaction = AddTransaction(
           transactionTypeId: transactionTypeId,
           sourceId: sourceId,

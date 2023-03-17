@@ -25,6 +25,7 @@ void main() {
     const recurringTransactionId = 456;
     const numberInPeriod = 567;
     const periodId = 678;
+    const days = 12;
     final date = DateTime.now();
 
     test('source not found', () async {
@@ -161,7 +162,7 @@ void main() {
         final source = Source(id: sourceId, name: name, imageRoute: imageRoute);
         final transactionType =
             TransactionType(id: transactionTypeId, name: name);
-        final period = Period(id: periodId, name: name);
+        final period = Period(id: periodId, name: name, days: days);
         final addTransaction = AddTransaction(
           transactionTypeId: transactionTypeId,
           sourceId: sourceId,
@@ -194,7 +195,7 @@ void main() {
         final source = Source(id: sourceId, name: name, imageRoute: imageRoute);
         final transactionType =
             TransactionType(id: transactionTypeId, name: name);
-        final period = Period(id: periodId, name: name);
+        final period = Period(id: periodId, name: name, days: days);
         final addTransaction = AddTransaction(
             transactionTypeId: transactionTypeId,
             sourceId: sourceId,
@@ -230,7 +231,7 @@ void main() {
         final source = Source(id: sourceId, name: name, imageRoute: imageRoute);
         final transactionType =
             TransactionType(id: transactionTypeId, name: name);
-        final period = Period(id: periodId, name: name);
+        final period = Period(id: periodId, name: name, days: days);
         final transaction = Transaction(
             id: id,
             transactionTypeId: transactionTypeId,
@@ -274,7 +275,7 @@ void main() {
       test('execution success for recurring transaction', () async {
         final transactionRepository = MockTransactionRepository();
         final sourceRepository = MockSourceRepository();
-        final period = Period(id: periodId, name: name);
+        final period = Period(id: periodId, name: name, days: days);
         final source = Source(id: id, name: name, imageRoute: imageRoute);
         final transactionType =
             TransactionType(id: transactionTypeId, name: name);

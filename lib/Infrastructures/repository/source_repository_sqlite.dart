@@ -25,9 +25,7 @@ class SourceRepositorySQLite extends SourceRepository {
   Future<List<Source>> getSources() async {
     var records = await db.getAll("sources");
 
-    return records
-        .map((record) => Source.fromMap(record))
-        .toList();
+    return records.map((record) => Source.fromMap(record)).toList();
   }
 
   @override

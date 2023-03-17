@@ -22,7 +22,7 @@ void main() {
     });
 
     test('object creation from map success', () {
-      Map<String, Object> map = {
+      Map<dynamic, dynamic> map = {
         "id": id,
         "transaction_id": transactionId,
         "number_in_period": numberInPeriod,

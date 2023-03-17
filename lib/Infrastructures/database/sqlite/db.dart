@@ -25,7 +25,8 @@ class SqliteDB {
     await db.execute('''
       CREATE TABLE IF NOT EXIST periods ( 
         id INTEGER PRIMARY KEY AUTOINCREMENT, 
-        name TEXT NOT NULL
+        name TEXT NOT NULL,
+        days INTEGER NOT NULL
       )''');
 
     await db.execute('''

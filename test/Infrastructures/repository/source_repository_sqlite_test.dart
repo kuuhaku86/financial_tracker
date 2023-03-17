@@ -10,7 +10,7 @@ import '../../mocks/sqlite_db.mocks.dart';
 void main() {
   group("SourceRepositorySQLite Class", () {
     const id = 123;
-    const dbName = "sources";
+    const tableName = "sources";
     const name = "source_repository_sqlite_test_name";
     const imageRoute = "source_repository_sqlite_test_image_route";
 
@@ -21,7 +21,7 @@ void main() {
         final repository =
             SourceRepositorySQLite(db: db, errorTranslator: errorTranslator);
 
-        when(db.get(dbName, id)).thenAnswer((_) async => null);
+        when(db.get(tableName, id)).thenAnswer((_) async => null);
 
         expect(repository.getSource(id),
             throwsA(errorTranslator.translate(ExceptionEnum.sourceNotFound)));
@@ -34,7 +34,7 @@ void main() {
             SourceRepositorySQLite(db: db, errorTranslator: errorTranslator);
         final source = Source(id: id, name: name, imageRoute: imageRoute);
 
-        when(db.get(dbName, id)).thenAnswer((_) async => <dynamic, dynamic>{
+        when(db.get(tableName, id)).thenAnswer((_) async => <dynamic, dynamic>{
               "id": id,
               "name": name,
               "image_route": imageRoute
@@ -55,7 +55,7 @@ void main() {
         final repository =
             SourceRepositorySQLite(db: db, errorTranslator: errorTranslator);
 
-        when(db.getAll(dbName)).thenAnswer((_) async => []);
+        when(db.getAll(tableName)).thenAnswer((_) async => []);
 
         var result = await repository.getSources();
         expect(result.length, 0);
@@ -73,7 +73,7 @@ void main() {
           "image_route": source.imageRoute,
         };
 
-        when(db.getAll(dbName)).thenAnswer((_) async => [map, map, map]);
+        when(db.getAll(tableName)).thenAnswer((_) async => [map, map, map]);
 
         var result = await repository.getSources();
         expect(result.length, 3);
@@ -91,7 +91,7 @@ void main() {
             SourceRepositorySQLite(db: db, errorTranslator: errorTranslator);
         final addSource = AddSource(name: name, imageRoute: imageRoute);
 
-        when(db.insert(dbName, addSource)).thenAnswer((_) async => 0);
+        when(db.insert(tableName, addSource)).thenAnswer((_) async => 0);
 
         expect(repository.addSource(addSource),
             throwsA(errorTranslator.translate(ExceptionEnum.addSourceFailed)));
@@ -110,8 +110,8 @@ void main() {
           "image_route": source.imageRoute,
         };
 
-        when(db.insert(dbName, addSource)).thenAnswer((_) async => id);
-        when(db.get(dbName, id)).thenAnswer((_) async => map);
+        when(db.insert(tableName, addSource)).thenAnswer((_) async => id);
+        when(db.get(tableName, id)).thenAnswer((_) async => map);
 
         var result = await repository.addSource(addSource);
         expect(result.id, source.id);
