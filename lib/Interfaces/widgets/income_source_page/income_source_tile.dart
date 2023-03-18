@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:financial_tracker/Commons/themes/colors.dart';
 import 'package:financial_tracker/Interfaces/widgets/image_custom.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +23,7 @@ class IncomeSourceTile extends StatelessWidget {
       onTap: onTap,
       child: Row(
         children: [
-          ImageCustom(imageProvider: AssetImage(imageRoute)),
+          ImageCustom(imageProvider: FileImage(File(imageRoute))),
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.03,
           ),

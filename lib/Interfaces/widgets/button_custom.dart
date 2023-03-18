@@ -11,38 +11,31 @@ class ButtonCustom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        margin: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width * 0.025,
-            vertical: MediaQuery.of(context).size.height * 0.01),
-        padding: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width * 0.05),
-        height: MediaQuery.of(context).size.height * 0.085,
-        width: MediaQuery.of(context).size.width * 0.95,
-        decoration: BoxDecoration(
-          color: HSLColor.fromColor(themeColor.secondary)
-              .withLightness(0.3)
-              .toColor(),
-          borderRadius: BorderRadius.circular(5.0),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              icon,
-              color: themeColor.text,
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.01,
-            ),
-            Text(
-              text,
-              style: TextStyle(color: themeColor.text),
-            )
-          ],
-        ),
+    final mediaQuerySize = MediaQuery.of(context).size;
+
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        alignment: Alignment.center,
+        backgroundColor: themeColor.secondary,
+        fixedSize:
+            Size(mediaQuerySize.width * 0.95, mediaQuerySize.height * 0.085),
+      ),
+      onPressed: onTap,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            icon,
+            color: themeColor.text,
+          ),
+          SizedBox(
+            width: mediaQuerySize.width * 0.01,
+          ),
+          Text(
+            text,
+            style: TextStyle(color: themeColor.text),
+          )
+        ],
       ),
     );
   }
