@@ -8,6 +8,7 @@ import 'package:financial_tracker/Interfaces/pages/splash_screen_page.dart';
 import 'package:flutter/material.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await initConfig();
 
   runApp(MaterialApp(

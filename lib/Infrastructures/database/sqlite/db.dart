@@ -9,47 +9,45 @@ class SqliteDB {
   }
 
   open(String path) async {
-    db = await openDatabase(path, version: 1,
-        onCreate: (Database db, int version) async {
-      await migration();
-    });
+    db = await openDatabase(path, version: 1);
+    await migration();
   }
 
   migration() async {
     await db.execute('''
-      CREATE TABLE IF NOT EXIST transaction_types ( 
+      CREATE TABLE IF NOT EXISTS transaction_types ( 
         id INTEGER PRIMARY KEY AUTOINCREMENT, 
         name TEXT NOT NULL
       )''');
 
     await db.execute('''
-      CREATE TABLE IF NOT EXIST periods ( 
+      CREATE TABLE IF NOT EXISTS periods ( 
         id INTEGER PRIMARY KEY AUTOINCREMENT, 
         name TEXT NOT NULL,
         days INTEGER NOT NULL
       )''');
 
     await db.execute('''
-      CREATE TABLE IF NOT EXIST transactions ( 
+      CREATE TABLE IF NOT EXISTS transactions ( 
         id INTEGER PRIMARY KEY AUTOINCREMENT, 
         transaction_type_id INTEGER NOT NULL,
         source_id INTEGER NOT NULL,
         name TEXT NOT NULL,
         explanation TEXT NOT NULL,
-        amount FLOAT NOT NULL
+        amount FLOAT NOT NULL,
         date INTEGER NOT NULL
       )''');
 
     await db.execute('''
-      CREATE TABLE IF NOT EXIST recurring_transactions ( 
+      CREATE TABLE IF NOT EXISTS recurring_transactions ( 
         id INTEGER PRIMARY KEY AUTOINCREMENT, 
         transaction_id INTEGER NOT NULL,
-        number_in_period INTEGER NOT NULL
+        number_in_period INTEGER NOT NULL,
         period_id INTEGER NOT NULL
       )''');
 
     await db.execute('''
-      CREATE TABLE IF NOT EXIST sources ( 
+      CREATE TABLE IF NOT EXISTS sources ( 
         id INTEGER PRIMARY KEY AUTOINCREMENT, 
         name TEXT NOT NULL,
         image_route TEXT NOT NULL
