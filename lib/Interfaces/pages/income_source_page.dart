@@ -40,6 +40,8 @@ class _IncomeSourcePageState extends State<IncomeSourcePage> {
                         itemCount: incomeSourceListModel.sources.length,
                         itemBuilder: (BuildContext context, int index) {
                           return ListTileCustom(
+                            key: ValueKey(
+                                incomeSourceListModel.sources[index].id),
                             color: themeColor.secondary,
                             child: IncomeSourceTile(
                               id: incomeSourceListModel.sources[index].id,

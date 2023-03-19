@@ -1,10 +1,12 @@
 import 'dart:io';
 
 import 'package:financial_tracker/Commons/themes/colors.dart';
+import 'package:financial_tracker/Domains/sources/entities/source.dart';
 import 'package:financial_tracker/Domains/sources/source_repository.dart';
 import 'package:financial_tracker/Infrastructures/providers/model/income_source_list_model.dart';
 import 'package:financial_tracker/Interfaces/widgets/alert_custom.dart';
 import 'package:financial_tracker/Interfaces/widgets/image_custom.dart';
+import 'package:financial_tracker/Interfaces/widgets/income_source_page/source_info_modal_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:financial_tracker/Infrastructures/container.dart'
     as dependency_container;
@@ -48,7 +50,9 @@ class IncomeSourceTile extends StatelessWidget {
                 color: themeColor.text,
                 size: mediaQuerySize.width * 0.09,
               ),
-              onTap: () {},
+              onTap: () async {
+                await SourceInfoModalBottomSheet.showModal(context, id);
+              },
             ),
             GestureDetector(
               child: Icon(
@@ -72,8 +76,10 @@ class IncomeSourceTile extends StatelessWidget {
                     final SourceRepository repository = dependency_container
                         .Container.container
                         .getInstance(SourceRepository) as SourceRepository;
+                    final Source source = await repository.getSource(id);
 
                     await repository.deleteSource(id);
+                    await File(source.imageRoute).delete();
 
                     const SnackBar snackBar = SnackBar(
                       content: Text("Delete Source success"),
