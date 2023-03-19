@@ -38,4 +38,13 @@ class SourceRepositorySQLite extends SourceRepository {
 
     return await getSource(id);
   }
+
+  @override
+  Future<void> deleteSource(int sourceId) async {
+    int id = await db.delete("sources", sourceId);
+
+    if (id == 0) {
+      throw errorTranslator.translate(ExceptionEnum.deleteSourceFailed);
+    }
+  }
 }

@@ -6,18 +6,19 @@ class DomainErrorTranslator {
   }
 
   final Map<ExceptionEnum, Exception> _directories = {
-    ExceptionEnum.sourceNotFound: InvariantError("source not found"),
-    ExceptionEnum.transactionNotFound: InvariantError("transaction not found"),
+    ExceptionEnum.sourceNotFound: InvariantError("Source not found"),
+    ExceptionEnum.transactionNotFound: InvariantError("Transaction not found"),
     ExceptionEnum.transactionTypeNotFound:
-        InvariantError("transaction type not found"),
+        InvariantError("Transaction type not found"),
     ExceptionEnum.recurringTransactionNotFound:
-        InvariantError("recurring transaction not found"),
-    ExceptionEnum.periodNotFound: InvariantError("period not found"),
+        InvariantError("Recurring transaction not found"),
+    ExceptionEnum.periodNotFound: InvariantError("Period not found"),
     ExceptionEnum.addTransactionFailed:
-        InvariantError("add transaction failed"),
+        InvariantError("Add transaction failed"),
     ExceptionEnum.addRecurringTransactionFailed:
-        InvariantError("add recurring transaction failed"),
-    ExceptionEnum.addSourceFailed: InvariantError("add source failed"),
+        InvariantError("Add recurring transaction failed"),
+    ExceptionEnum.addSourceFailed: InvariantError("Add source failed"),
+    ExceptionEnum.deleteSourceFailed: InvariantError("Delete source failed"),
   };
 }
 
@@ -30,4 +31,5 @@ enum ExceptionEnum {
   addTransactionFailed,
   addRecurringTransactionFailed,
   addSourceFailed,
+  deleteSourceFailed,
 }

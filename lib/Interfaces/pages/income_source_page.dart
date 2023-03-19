@@ -47,7 +47,6 @@ class _IncomeSourcePageState extends State<IncomeSourcePage> {
                                   incomeSourceListModel.sources[index].name,
                               imageRoute: incomeSourceListModel
                                   .sources[index].imageRoute,
-                              onTap: () {},
                             ),
                           );
                         });

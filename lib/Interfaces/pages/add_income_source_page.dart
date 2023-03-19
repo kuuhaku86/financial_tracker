@@ -170,8 +170,6 @@ class _AddIncomeSourcePageState extends State<AddIncomeSourcePage> {
       );
 
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-      return;
     }
   }
 }

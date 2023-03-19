@@ -14,4 +14,8 @@ class SourceRepository {
   Future<Source> addSource(AddSource payload) async {
     throw Exception("Not Implemented");
   }
+
+  Future<void> deleteSource(int sourceId) async {
+    throw Exception("Not Implemented");
+  }
 }
