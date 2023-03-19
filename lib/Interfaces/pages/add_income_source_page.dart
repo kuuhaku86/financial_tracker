@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:financial_tracker/Commons/themes/colors.dart';
 import 'package:financial_tracker/Domains/sources/entities/add_source.dart';
 import 'package:financial_tracker/Domains/sources/source_repository.dart';
+import 'package:financial_tracker/Infrastructures/providers/model/income_source_list_model.dart';
 import 'package:financial_tracker/Interfaces/widgets/button_custom.dart';
 import 'package:financial_tracker/Interfaces/widgets/input_custom.dart';
 import 'package:flutter/foundation.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 import 'package:financial_tracker/Infrastructures/container.dart'
     as dependency_container;
@@ -157,6 +159,7 @@ class _AddIncomeSourcePageState extends State<AddIncomeSourcePage> {
       );
 
       if (context.mounted) {
+        Provider.of<IncomeSourceListModel>(context, listen: false).refresh();
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
         Navigator.pop(context);

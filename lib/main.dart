@@ -1,4 +1,5 @@
 import 'package:financial_tracker/Infrastructures/init_config.dart';
+import 'package:financial_tracker/Infrastructures/providers/model/income_source_list_model.dart';
 import 'package:financial_tracker/Interfaces/pages/add_income_source_page.dart';
 import 'package:financial_tracker/Interfaces/pages/add_transaction_page.dart';
 import 'package:financial_tracker/Interfaces/pages/home_page.dart';
@@ -7,6 +8,8 @@ import 'package:financial_tracker/Interfaces/pages/main_page.dart';
 import 'package:financial_tracker/Interfaces/pages/splash_screen_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:path/path.dart';
+import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,19 +17,24 @@ Future<void> main() async {
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
-    runApp(MaterialApp(
-      theme: ThemeData(
-        fontFamily: 'Poppins',
+    runApp(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => IncomeSourceListModel()),
+      ],
+      child: MaterialApp(
+        theme: ThemeData(
+          fontFamily: 'Poppins',
+        ),
+        initialRoute: SplashScreenPage.route,
+        routes: <String, WidgetBuilder>{
+          SplashScreenPage.route: (context) => const SplashScreenPage(),
+          MainPage.route: (context) => const MainPage(),
+          HomePage.route: (context) => const HomePage(),
+          IncomeSourcePage.route: (context) => const IncomeSourcePage(),
+          AddIncomeSourcePage.route: (context) => const AddIncomeSourcePage(),
+          AddTransactionPage.route: (context) => const AddTransactionPage(),
+        },
       ),
-      initialRoute: SplashScreenPage.route,
-      routes: <String, WidgetBuilder>{
-        SplashScreenPage.route: (context) => const SplashScreenPage(),
-        MainPage.route: (context) => const MainPage(),
-        HomePage.route: (context) => const HomePage(),
-        IncomeSourcePage.route: (context) => const IncomeSourcePage(),
-        AddIncomeSourcePage.route: (context) => const AddIncomeSourcePage(),
-        AddTransactionPage.route: (context) => const AddTransactionPage(),
-      },
     ));
   });
 }
