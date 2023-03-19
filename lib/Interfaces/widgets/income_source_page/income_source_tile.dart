@@ -4,6 +4,8 @@ import 'package:financial_tracker/Commons/themes/colors.dart';
 import 'package:financial_tracker/Domains/sources/entities/source.dart';
 import 'package:financial_tracker/Domains/sources/source_repository.dart';
 import 'package:financial_tracker/Infrastructures/providers/model/income_source_list_model.dart';
+import 'package:financial_tracker/Infrastructures/providers/model/source_model.dart';
+import 'package:financial_tracker/Interfaces/pages/add_or_edit_income_source_page.dart';
 import 'package:financial_tracker/Interfaces/widgets/alert_custom.dart';
 import 'package:financial_tracker/Interfaces/widgets/image_custom.dart';
 import 'package:financial_tracker/Interfaces/widgets/income_source_page/source_info_modal_bottom_sheet.dart';
@@ -60,7 +62,11 @@ class IncomeSourceTile extends StatelessWidget {
                 color: themeColor.text,
                 size: mediaQuerySize.width * 0.09,
               ),
-              onTap: () {},
+              onTap: () {
+                Provider.of<IncomeSourceModel>(context, listen: false).getSource(id);
+                Navigator.pushNamed(
+                    context, AddOrEditIncomeSourcePage.route);
+              },
             ),
             GestureDetector(
               child: Icon(

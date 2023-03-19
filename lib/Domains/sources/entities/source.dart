@@ -10,4 +10,14 @@ class Source {
     name = map['name'] as String;
     imageRoute = map['image_route'] as String;
   }
+
+  Map<String, dynamic> toMap() {
+    final Map<String, dynamic> map = <String, dynamic>{
+      'id': id,
+      'name': name,
+      'image_route': imageRoute
+    };
+
+    return map;
+  }
 }

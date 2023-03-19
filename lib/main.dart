@@ -1,6 +1,7 @@
 import 'package:financial_tracker/Infrastructures/init_config.dart';
 import 'package:financial_tracker/Infrastructures/providers/model/income_source_list_model.dart';
-import 'package:financial_tracker/Interfaces/pages/add_income_source_page.dart';
+import 'package:financial_tracker/Infrastructures/providers/model/source_model.dart';
+import 'package:financial_tracker/Interfaces/pages/add_or_edit_income_source_page.dart';
 import 'package:financial_tracker/Interfaces/pages/add_transaction_page.dart';
 import 'package:financial_tracker/Interfaces/pages/home_page.dart';
 import 'package:financial_tracker/Interfaces/pages/income_source_page.dart';
@@ -19,6 +20,7 @@ Future<void> main() async {
     runApp(MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => IncomeSourceListModel()),
+        ChangeNotifierProvider(create: (context) => IncomeSourceModel()),
       ],
       child: MaterialApp(
         theme: ThemeData(
@@ -30,7 +32,8 @@ Future<void> main() async {
           MainPage.route: (context) => const MainPage(),
           HomePage.route: (context) => const HomePage(),
           IncomeSourcePage.route: (context) => const IncomeSourcePage(),
-          AddIncomeSourcePage.route: (context) => const AddIncomeSourcePage(),
+          AddOrEditIncomeSourcePage.route: (context) =>
+              const AddOrEditIncomeSourcePage(),
           AddTransactionPage.route: (context) => const AddTransactionPage(),
         },
       ),

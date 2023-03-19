@@ -1,6 +1,6 @@
 import 'package:financial_tracker/Commons/themes/colors.dart';
 import 'package:financial_tracker/Infrastructures/providers/model/income_source_list_model.dart';
-import 'package:financial_tracker/Interfaces/pages/add_income_source_page.dart';
+import 'package:financial_tracker/Interfaces/pages/add_or_edit_income_source_page.dart';
 import 'package:financial_tracker/Interfaces/widgets/button_custom.dart';
 import 'package:financial_tracker/Interfaces/widgets/income_source_page/income_source_tile.dart';
 import 'package:financial_tracker/Interfaces/widgets/list_tile_custom.dart';
@@ -33,7 +33,7 @@ class _IncomeSourcePageState extends State<IncomeSourcePage> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Consumer<IncomeSourceListModel>(
-                  builder: (context, incomeSourceListModel, list) {
+                  builder: (context, incomeSourceListModel, _) {
                     return ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
@@ -65,7 +65,8 @@ class _IncomeSourcePageState extends State<IncomeSourcePage> {
                   icon: Icons.add,
                   text: "Add New Income Source",
                   onTap: () {
-                    Navigator.pushNamed(context, AddIncomeSourcePage.route);
+                    Navigator.pushNamed(
+                        context, AddOrEditIncomeSourcePage.route);
                   }),
             ),
           ),

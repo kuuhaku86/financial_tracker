@@ -18,4 +18,8 @@ class SourceRepository {
   Future<void> deleteSource(int sourceId) async {
     throw Exception("Not Implemented");
   }
+
+  Future<void> updateSource(Source source) async {
+    throw Exception("Not Implemented");
+  }
 }
