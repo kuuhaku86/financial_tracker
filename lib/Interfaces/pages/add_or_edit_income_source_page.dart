@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:financial_tracker/Applications/usecase/add_source_usecase.dart';
 import 'package:financial_tracker/Commons/themes/colors.dart';
 import 'package:financial_tracker/Domains/sources/entities/add_source.dart';
 import 'package:financial_tracker/Domains/sources/entities/source.dart';
@@ -168,9 +169,12 @@ class _AddOrEditIncomeSourcePageState extends State<AddOrEditIncomeSourcePage> {
 
         await image!.copy(newFilePath);
 
+        final AddSourceUsecase usecase = dependency_container
+            .Container.container
+            .getInstance(AddSourceUsecase) as AddSourceUsecase;
         final addSource =
             AddSource(name: nameController.text, imageRoute: newFilePath);
-        await repository.addSource(addSource);
+        await usecase.execute(addSource);
 
         snackBar = const SnackBar(
           content: Text("Add Source success"),

@@ -1,13 +1,15 @@
+import 'dart:io';
+
 class AddSource {
   String name;
-  String imageRoute;
+  File image;
 
-  AddSource({required this.name, required this.imageRoute});
+  AddSource({required this.name, required this.image});
 
   Map<String, dynamic> toMap() {
     final Map<String, dynamic> map = <String, dynamic>{
       'name': name,
-      'image_route': imageRoute
+      'image_route': image.path
     };
 
     return map;
