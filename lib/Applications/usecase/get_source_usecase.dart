@@ -6,7 +6,7 @@ class GetSourceUsecase {
 
   GetSourceUsecase({required this.sourceRepository});
 
-  Future<Source> execute({required int sourceId}) async {
+  Future<Source> execute(int sourceId) async {
     return await sourceRepository.getSource(sourceId);
   }
 }

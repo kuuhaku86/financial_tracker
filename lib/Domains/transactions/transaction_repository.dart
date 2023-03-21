@@ -36,12 +36,12 @@ class TransactionRepository {
     throw Exception("Not Implemented");
   }
 
-  Future<Transaction> addTransaction(AddTransaction payload) async {
+  Future<Transaction> addTransaction(Map<String, Object> map) async {
     throw Exception("Not Implemented");
   }
 
   Future<RecurringTransaction> addRecurringTransaction(
-      AddRecurringTransaction payload) async {
+      Map<String, Object> map) async {
     throw Exception("Not Implemented");
   }
 }

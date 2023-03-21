@@ -11,7 +11,7 @@ class SourceRepository {
     throw Exception("Not Implemented");
   }
 
-  Future<Source> addSource(AddSource payload) async {
+  Future<Source> addSource(Map<String, Object> map) async {
     throw Exception("Not Implemented");
   }
 

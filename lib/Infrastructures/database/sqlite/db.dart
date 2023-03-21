@@ -54,8 +54,8 @@ class SqliteDB {
       )''');
   }
 
-  Future<int> insert(String tableName, dynamic object) async =>
-      await db.insert(tableName, object.toMap());
+  Future<int> insert(String tableName, Map<String, Object> map) async =>
+      await db.insert(tableName, map);
 
   Future<Map?> get(String tableName, int id) async {
     List<Map> maps =

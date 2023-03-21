@@ -30,8 +30,8 @@ class SourceRepositorySQLite extends SourceRepository {
   }
 
   @override
-  Future<Source> addSource(AddSource payload) async {
-    int id = await db.insert(tableName, payload);
+  Future<Source> addSource(Map<String, Object> map) async {
+    int id = await db.insert(tableName, map);
 
     if (id == 0) {
       throw errorTranslator.translate(ExceptionEnum.addSourceFailed);

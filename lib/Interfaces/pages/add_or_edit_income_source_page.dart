@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:financial_tracker/Applications/usecase/add_source_usecase.dart';
+import 'package:financial_tracker/Applications/usecase/update_source_usecase.dart';
 import 'package:financial_tracker/Commons/themes/colors.dart';
 import 'package:financial_tracker/Domains/sources/entities/add_source.dart';
-import 'package:financial_tracker/Domains/sources/entities/source.dart';
 import 'package:financial_tracker/Domains/sources/source_repository.dart';
 import 'package:financial_tracker/Infrastructures/providers/model/income_source_list_model.dart';
 import 'package:financial_tracker/Infrastructures/providers/model/source_model.dart';
@@ -12,10 +12,7 @@ import 'package:financial_tracker/Interfaces/widgets/input_custom.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:uuid/uuid.dart';
 import 'package:financial_tracker/Infrastructures/container.dart'
     as dependency_container;
 
@@ -106,7 +103,7 @@ class _AddOrEditIncomeSourcePageState extends State<AddOrEditIncomeSourcePage> {
                               ? Semantics(
                                   label: "picked_image",
                                   child: Image.file(
-                                    File(image!.path),
+                                    image!,
                                     width: mediaQuerySize.width * 0.8,
                                   ),
                                 )
@@ -162,38 +159,22 @@ class _AddOrEditIncomeSourcePageState extends State<AddOrEditIncomeSourcePage> {
       SnackBar? snackBar;
 
       if (source == null) {
-        final String path = (await getApplicationDocumentsDirectory()).path;
-        final String filename = const Uuid().v1();
-        final String fileExtension = extension(image!.path);
-        final String newFilePath = '$path/$filename$fileExtension';
-
-        await image!.copy(newFilePath);
-
         final AddSourceUsecase usecase = dependency_container
             .Container.container
             .getInstance(AddSourceUsecase) as AddSourceUsecase;
-        final addSource =
-            AddSource(name: nameController.text, imageRoute: newFilePath);
+        final addSource = AddSource(name: nameController.text, image: image!);
         await usecase.execute(addSource);
 
         snackBar = const SnackBar(
           content: Text("Add Source success"),
         );
       } else {
-        if (source.imageRoute != image!.path) {
-          final String path = (await getApplicationDocumentsDirectory()).path;
-          final String filename = const Uuid().v1();
-          final String fileExtension = extension(image!.path);
-          final String newFilePath = '$path/$filename$fileExtension';
+        final addSource = AddSource(name: nameController.text, image: image!);
+        final UpdateSourceUsecase usecase = dependency_container
+            .Container.container
+            .getInstance(UpdateSourceUsecase) as UpdateSourceUsecase;
 
-          await image!.copy(newFilePath);
-          await File(source.imageRoute).delete();
-          source.imageRoute = newFilePath;
-        }
-
-        source.name = nameController.text;
-
-        await repository.updateSource(source);
+        await usecase.execute(source, addSource);
 
         snackBar = const SnackBar(
           content: Text("Update Source success"),

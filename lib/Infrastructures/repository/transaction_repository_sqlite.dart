@@ -83,8 +83,8 @@ class TransactionRepositorySQLite extends TransactionRepository {
   }
 
   @override
-  Future<Transaction> addTransaction(AddTransaction payload) async {
-    int id = await db.insert("transactions", payload);
+  Future<Transaction> addTransaction(Map<String, Object> map) async {
+    int id = await db.insert("transactions", map);
 
     if (id == 0) {
       throw errorTranslator.translate(ExceptionEnum.addTransactionFailed);
@@ -95,8 +95,8 @@ class TransactionRepositorySQLite extends TransactionRepository {
 
   @override
   Future<RecurringTransaction> addRecurringTransaction(
-      AddRecurringTransaction payload) async {
-    int id = await db.insert("recurring_transactions", payload);
+      Map<String, Object> map) async {
+    int id = await db.insert("recurring_transactions", map);
 
     if (id == 0) {
       throw errorTranslator

@@ -1,8 +1,9 @@
 import 'dart:io';
 
+import 'package:financial_tracker/Applications/usecase/delete_source_usecase.dart';
+import 'package:financial_tracker/Applications/usecase/get_source_usecase.dart';
 import 'package:financial_tracker/Commons/themes/colors.dart';
 import 'package:financial_tracker/Domains/sources/entities/source.dart';
-import 'package:financial_tracker/Domains/sources/source_repository.dart';
 import 'package:financial_tracker/Infrastructures/providers/model/income_source_list_model.dart';
 import 'package:financial_tracker/Infrastructures/providers/model/source_model.dart';
 import 'package:financial_tracker/Interfaces/pages/add_or_edit_income_source_page.dart';
@@ -63,9 +64,9 @@ class IncomeSourceTile extends StatelessWidget {
                 size: mediaQuerySize.width * 0.09,
               ),
               onTap: () {
-                Provider.of<IncomeSourceModel>(context, listen: false).getSource(id);
-                Navigator.pushNamed(
-                    context, AddOrEditIncomeSourcePage.route);
+                Provider.of<IncomeSourceModel>(context, listen: false)
+                    .getSource(id);
+                Navigator.pushNamed(context, AddOrEditIncomeSourcePage.route);
               },
             ),
             GestureDetector(
@@ -79,13 +80,15 @@ class IncomeSourceTile extends StatelessWidget {
                     context, "Are you sure you want to delete this source?",
                     () async {
                   try {
-                    final SourceRepository repository = dependency_container
-                        .Container.container
-                        .getInstance(SourceRepository) as SourceRepository;
-                    final Source source = await repository.getSource(id);
-
-                    await repository.deleteSource(id);
-                    await File(source.imageRoute).delete();
+                    final GetSourceUsecase getSourceUsecase =
+                        dependency_container.Container.container
+                            .getInstance(GetSourceUsecase) as GetSourceUsecase;
+                    final DeleteSourceUsecase deleteSourceUsecase =
+                        dependency_container.Container.container
+                                .getInstance(DeleteSourceUsecase)
+                            as DeleteSourceUsecase;
+                    final Source source = await getSourceUsecase.execute(id);
+                    await deleteSourceUsecase.execute(source);
 
                     const SnackBar snackBar = SnackBar(
                       content: Text("Delete Source success"),

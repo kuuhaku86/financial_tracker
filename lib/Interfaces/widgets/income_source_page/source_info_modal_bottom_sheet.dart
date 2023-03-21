@@ -1,8 +1,8 @@
 import 'dart:io';
 
+import 'package:financial_tracker/Applications/usecase/get_source_usecase.dart';
 import 'package:financial_tracker/Commons/themes/colors.dart';
 import 'package:financial_tracker/Domains/sources/entities/source.dart';
-import 'package:financial_tracker/Domains/sources/source_repository.dart';
 import 'package:financial_tracker/Interfaces/widgets/image_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:financial_tracker/Infrastructures/container.dart'
@@ -11,9 +11,9 @@ import 'package:financial_tracker/Infrastructures/container.dart'
 class SourceInfoModalBottomSheet {
   static showModal(BuildContext context, int sourceId) async {
     final mediaQuerySize = MediaQuery.of(context).size;
-    final SourceRepository repository = dependency_container.Container.container
-        .getInstance(SourceRepository) as SourceRepository;
-    final Source source = await repository.getSource(sourceId);
+    final GetSourceUsecase usecase = dependency_container.Container.container
+        .getInstance(GetSourceUsecase) as GetSourceUsecase;
+    final Source source = await usecase.execute(sourceId);
 
     if (context.mounted) {
       showModalBottomSheet<void>(
