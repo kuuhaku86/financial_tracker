@@ -1,5 +1,4 @@
 // Import the test package and Counter class
-import 'package:financial_tracker/Domains/sources/entities/add_source.dart';
 import 'package:financial_tracker/Domains/sources/source_repository.dart';
 import 'package:test/test.dart';
 
@@ -22,7 +21,7 @@ void main() {
 
       expect(
           () => sourceRepository
-              .addSource(AddSource(name: "test", imageRoute: "test/test")),
+              .addSource(<String, Object>{}),
           throwsException);
     });
   });

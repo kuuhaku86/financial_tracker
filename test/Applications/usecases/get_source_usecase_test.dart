@@ -25,7 +25,7 @@ void main() {
       final getSourceUsecase =
           GetSourceUsecase(sourceRepository: sourceRepository);
 
-      final result = await getSourceUsecase.execute(sourceId: sourceId);
+      final result = await getSourceUsecase.execute(sourceId);
 
       expect(result.id, source.id);
       expect(result.name, source.name);
@@ -42,7 +42,7 @@ void main() {
       final getSourceUsecase =
           GetSourceUsecase(sourceRepository: sourceRepository);
 
-      expect(getSourceUsecase.execute(sourceId: sourceId),
+      expect(getSourceUsecase.execute(sourceId),
           throwsA(errorTranslator.translate(ExceptionEnum.sourceNotFound)));
     });
   });

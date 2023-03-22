@@ -22,7 +22,7 @@ void main() {
           periodId: periodId);
 
       when(transactionRepository.getRecurringTransaction(id))
-          .thenAnswer((_) async => recurringTransaction);
+          .thenAnswer((_) async => recurringTransaction); // 4211000
 
       final getRecurringTransactionUsecase = GetRecurringTransactionUsecase(
           transactionRepository: transactionRepository);

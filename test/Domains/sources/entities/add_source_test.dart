@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:financial_tracker/Domains/sources/entities/add_source.dart';
 import 'package:test/test.dart';
 
@@ -7,9 +9,9 @@ void main() {
     const imageRoute = "add_source_image_route_test";
 
     test('object creation success', () {
-      final addSource = AddSource(name: name, imageRoute: imageRoute);
+      final addSource = AddSource(name: name, image: File(imageRoute));
       expect(addSource.name, name);
-      expect(addSource.imageRoute, imageRoute);
+      expect(addSource.image.path, imageRoute);
     });
   });
 }

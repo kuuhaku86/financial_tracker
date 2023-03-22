@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:financial_tracker/Commons/exceptions/domain_error_translator.dart';
 import 'package:financial_tracker/Domains/sources/entities/add_source.dart';
 import 'package:financial_tracker/Domains/sources/entities/source.dart';
@@ -5,7 +7,7 @@ import 'package:financial_tracker/Infrastructures/repository/source_repository_s
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
-import '../../mocks/sqlite_db.mocks.dart';
+import "../../mocks/sqlite_db.mocks.dart";
 
 void main() {
   group("SourceRepositorySQLite Class", () {
@@ -13,6 +15,7 @@ void main() {
     const tableName = "sources";
     const name = "source_repository_sqlite_test_name";
     const imageRoute = "source_repository_sqlite_test_image_route";
+    final image = File(imageRoute);
 
     group("getSource function", () {
       test('throws exception if not found any record', () {
@@ -89,11 +92,15 @@ void main() {
         final errorTranslator = DomainErrorTranslator();
         final repository =
             SourceRepositorySQLite(db: db, errorTranslator: errorTranslator);
-        final addSource = AddSource(name: name, imageRoute: imageRoute);
+        final addSource = AddSource(name: name, image: image);
+        final mapAddSource = <String, Object>{
+          "name": name,
+          "image_route": imageRoute
+        };
 
-        when(db.insert(tableName, addSource)).thenAnswer((_) async => 0);
+        when(db.insert(tableName, mapAddSource)).thenAnswer((_) async => 0);
 
-        expect(repository.addSource(addSource),
+        expect(repository.addSource(mapAddSource),
             throwsA(errorTranslator.translate(ExceptionEnum.addSourceFailed)));
       });
 
@@ -102,18 +109,22 @@ void main() {
         final errorTranslator = DomainErrorTranslator();
         final repository =
             SourceRepositorySQLite(db: db, errorTranslator: errorTranslator);
-        final addSource = AddSource(name: name, imageRoute: imageRoute);
+        final addSource = AddSource(name: name, image: image);
         final source = Source(id: id, name: name, imageRoute: imageRoute);
-        final map = <dynamic, dynamic>{
+        final mapAddSource = <String, Object>{
+          "name": name,
+          "image_route": imageRoute
+        };
+        final mapSource = <dynamic, dynamic>{
           "id": source.id,
           "name": source.name,
           "image_route": source.imageRoute,
         };
 
-        when(db.insert(tableName, addSource)).thenAnswer((_) async => id);
-        when(db.get(tableName, id)).thenAnswer((_) async => map);
+        when(db.insert(tableName, mapAddSource)).thenAnswer((_) async => id);
+        when(db.get(tableName, id)).thenAnswer((_) async => mapSource);
 
-        var result = await repository.addSource(addSource);
+        var result = await repository.addSource(mapAddSource);
         expect(result.id, source.id);
         expect(result.name, source.name);
         expect(result.imageRoute, source.imageRoute);

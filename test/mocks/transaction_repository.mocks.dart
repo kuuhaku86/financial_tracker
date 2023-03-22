@@ -5,10 +5,6 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i7;
 
-import 'package:financial_tracker/Domains/transactions/entities/add_recurring_transaction.dart'
-    as _i9;
-import 'package:financial_tracker/Domains/transactions/entities/add_transaction.dart'
-    as _i8;
 import 'package:financial_tracker/Domains/transactions/entities/period.dart'
     as _i4;
 import 'package:financial_tracker/Domains/transactions/entities/recurring_transaction.dart'
@@ -173,34 +169,34 @@ class MockTransactionRepository extends _i1.Mock
         )),
       ) as _i7.Future<_i5.RecurringTransaction>);
   @override
-  _i7.Future<_i3.Transaction> addTransaction(_i8.AddTransaction? payload) =>
+  _i7.Future<_i3.Transaction> addTransaction(Map<String, Object>? map) =>
       (super.noSuchMethod(
         Invocation.method(
           #addTransaction,
-          [payload],
+          [map],
         ),
         returnValue: _i7.Future<_i3.Transaction>.value(_FakeTransaction_1(
           this,
           Invocation.method(
             #addTransaction,
-            [payload],
+            [map],
           ),
         )),
       ) as _i7.Future<_i3.Transaction>);
   @override
   _i7.Future<_i5.RecurringTransaction> addRecurringTransaction(
-          _i9.AddRecurringTransaction? payload) =>
+          Map<String, Object>? map) =>
       (super.noSuchMethod(
         Invocation.method(
           #addRecurringTransaction,
-          [payload],
+          [map],
         ),
         returnValue: _i7.Future<_i5.RecurringTransaction>.value(
             _FakeRecurringTransaction_3(
           this,
           Invocation.method(
             #addRecurringTransaction,
-            [payload],
+            [map],
           ),
         )),
       ) as _i7.Future<_i5.RecurringTransaction>);

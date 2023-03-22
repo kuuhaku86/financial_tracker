@@ -54,12 +54,13 @@ void main() {
       final transactionRepository = TransactionRepository();
 
       expect(
-          () => transactionRepository.addTransaction(AddTransaction(
-              transactionTypeId: 1,
-              sourceId: 1,
-              name: "test",
-              explanation: "test_explanation",
-              amount: 1)),
+          () => transactionRepository.addTransaction(<String, Object>{
+                "transaction_type_id": 1,
+                "source_id": 1,
+                "name": "test",
+                "explanation": "test_explanation",
+                "amount": 1
+              }),
           throwsException);
     });
 
@@ -67,12 +68,11 @@ void main() {
       final transactionRepository = TransactionRepository();
 
       expect(
-          () => transactionRepository
-                  .addRecurringTransaction(AddRecurringTransaction(
-                transactionId: 1,
-                periodId: 1,
-                numberInPeriod: 1,
-              )),
+          () => transactionRepository.addRecurringTransaction(<String, Object>{
+                "transaction_id": 1,
+                "period_id": 1,
+                "number_in_period": 1
+              }),
           throwsException);
     });
   });

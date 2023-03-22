@@ -63,14 +63,14 @@ class MockSqliteDB extends _i1.Mock implements _i3.SqliteDB {
   @override
   _i4.Future<int> insert(
     String? tableName,
-    dynamic object,
+    Map<String, Object>? map,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
           #insert,
           [
             tableName,
-            object,
+            map,
           ],
         ),
         returnValue: _i4.Future<int>.value(0),

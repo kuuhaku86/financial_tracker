@@ -20,6 +20,21 @@ void main() {
     const explanation = "transaction_repository_sqlite_test_explanation";
     const amount = 12000.0;
     final date = DateTime.now();
+    final mapAddTransaction = <String, Object>{
+      "id": id,
+      "transaction_type_id": transactionTypeId,
+      "source_id": sourceId,
+      "name": name,
+      "explanation": explanation,
+      "amount": amount,
+      "date": date.microsecondsSinceEpoch,
+    };
+    final mapAddRecurringTransaction = <String, Object>{
+      "id": id,
+      "transaction_id": transactionId,
+      "number_in_period": numberInPeriod,
+      "period_id": periodId
+    };
     const days = 12;
 
     group("getTransactionType function", () {
@@ -299,10 +314,11 @@ void main() {
             explanation: explanation,
             amount: amount);
 
-        when(db.insert(tableName, addTransaction)).thenAnswer((_) async => 0);
+        when(db.insert(tableName, mapAddTransaction))
+            .thenAnswer((_) async => 0);
 
         expect(
-            repository.addTransaction(addTransaction),
+            repository.addTransaction(mapAddTransaction),
             throwsA(
                 errorTranslator.translate(ExceptionEnum.addTransactionFailed)));
       });
@@ -328,10 +344,11 @@ void main() {
           "date": date.microsecondsSinceEpoch,
         };
 
-        when(db.insert(tableName, addTransaction)).thenAnswer((_) async => id);
+        when(db.insert(tableName, mapAddTransaction))
+            .thenAnswer((_) async => id);
         when(db.get(tableName, id)).thenAnswer((_) async => map);
 
-        var result = await repository.addTransaction(addTransaction);
+        var result = await repository.addTransaction(mapAddTransaction);
         expect(result.id, id);
         expect(result.transactionTypeId, transactionTypeId);
         expect(result.sourceId, sourceId);
@@ -355,11 +372,11 @@ void main() {
             numberInPeriod: numberInPeriod,
             periodId: periodId);
 
-        when(db.insert(tableName, addRecurringTransaction))
+        when(db.insert(tableName, mapAddRecurringTransaction))
             .thenAnswer((_) async => 0);
 
         expect(
-            repository.addRecurringTransaction(addRecurringTransaction),
+            repository.addRecurringTransaction(mapAddRecurringTransaction),
             throwsA(errorTranslator
                 .translate(ExceptionEnum.addRecurringTransactionFailed)));
       });
@@ -381,12 +398,12 @@ void main() {
           "period_id": periodId
         };
 
-        when(db.insert(tableName, addRecurringTransaction))
+        when(db.insert(tableName, mapAddRecurringTransaction))
             .thenAnswer((_) async => id);
         when(db.get(tableName, id)).thenAnswer((_) async => map);
 
-        var result =
-            await repository.addRecurringTransaction(addRecurringTransaction);
+        var result = await repository
+            .addRecurringTransaction(mapAddRecurringTransaction);
         expect(result.id, id);
         expect(result.transactionId, transactionId);
         expect(result.numberInPeriod, numberInPeriod);

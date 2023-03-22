@@ -27,6 +27,13 @@ void main() {
     const periodId = 678;
     const days = 12;
     final date = DateTime.now();
+    final mapAddTransaction = <String, Object>{
+      "transaction_type_id": transactionTypeId,
+      "source_id": sourceId,
+      "name": name,
+      "explanation": explanation,
+      "amount": amount
+    };
 
     test('source not found', () async {
       final transactionRepository = MockTransactionRepository();
@@ -97,7 +104,7 @@ void main() {
             .thenAnswer((_) async => source);
         when(transactionRepository.getTransactionType(transactionTypeId))
             .thenAnswer((_) async => transactionType);
-        when(transactionRepository.addTransaction(addTransaction)).thenThrow(
+        when(transactionRepository.addTransaction(mapAddTransaction)).thenThrow(
             errorTranslator.translate(ExceptionEnum.addTransactionFailed));
 
         final addTransactionUsecase = AddTransactionUsecase(
@@ -135,7 +142,7 @@ void main() {
             .thenAnswer((_) async => source);
         when(transactionRepository.getTransactionType(transactionTypeId))
             .thenAnswer((_) async => transactionType);
-        when(transactionRepository.addTransaction(addTransaction))
+        when(transactionRepository.addTransaction(mapAddTransaction))
             .thenAnswer((_) async => transaction);
 
         final addTransactionUsecase = AddTransactionUsecase(
@@ -211,7 +218,7 @@ void main() {
             .thenAnswer((_) async => transactionType);
         when(transactionRepository.getPeriod(periodId))
             .thenAnswer((_) async => period);
-        when(transactionRepository.addTransaction(addTransaction)).thenThrow(
+        when(transactionRepository.addTransaction(mapAddTransaction)).thenThrow(
             errorTranslator.translate(ExceptionEnum.addTransactionFailed));
 
         final addTransactionUsecase = AddTransactionUsecase(
@@ -256,7 +263,7 @@ void main() {
             .thenAnswer((_) async => transactionType);
         when(transactionRepository.getPeriod(periodId))
             .thenAnswer((_) async => period);
-        when(transactionRepository.addTransaction(addTransaction))
+        when(transactionRepository.addTransaction(mapAddTransaction))
             .thenAnswer((_) async => transaction);
         when(transactionRepository.addRecurringTransaction(any)).thenThrow(
             errorTranslator
@@ -308,7 +315,7 @@ void main() {
             .thenAnswer((_) async => transactionType);
         when(transactionRepository.getPeriod(periodId))
             .thenAnswer((_) async => period);
-        when(transactionRepository.addTransaction(addTransaction))
+        when(transactionRepository.addTransaction(mapAddTransaction))
             .thenAnswer((_) async => transaction);
         when(transactionRepository.addRecurringTransaction(any))
             .thenAnswer((_) async => recurringTransaction);
