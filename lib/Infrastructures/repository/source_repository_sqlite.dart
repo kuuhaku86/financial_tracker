@@ -53,7 +53,7 @@ class SourceRepositorySQLite extends SourceRepository {
     int id = await db.update(tableName, source);
 
     if (id == 0) {
-      throw errorTranslator.translate(ExceptionEnum.deleteSourceFailed);
+      throw errorTranslator.translate(ExceptionEnum.updateSourceFailed);
     }
   }
 }

@@ -130,5 +130,71 @@ void main() {
         expect(result.imageRoute, source.imageRoute);
       });
     });
+
+    group("deleteSource function", () {
+      test('throw error if deletion failed', () async {
+        final db = MockSqliteDB();
+        final errorTranslator = DomainErrorTranslator();
+        final repository =
+            SourceRepositorySQLite(db: db, errorTranslator: errorTranslator);
+
+        when(db.delete(tableName, id)).thenAnswer((_) async => 0);
+
+        expect(
+            repository.deleteSource(id),
+            throwsA(
+                errorTranslator.translate(ExceptionEnum.deleteSourceFailed)));
+      });
+
+      test('return Source object when deletion success', () async {
+        final db = MockSqliteDB();
+        final errorTranslator = DomainErrorTranslator();
+        final repository =
+            SourceRepositorySQLite(db: db, errorTranslator: errorTranslator);
+
+        when(db.delete(tableName, id)).thenAnswer((_) async => id);
+
+        expectLater(repository.deleteSource(id), isA<Future<void>>());
+      });
+    });
+
+    group("updateSource function", () {
+      test('throw error if update failed', () async {
+        final db = MockSqliteDB();
+        final errorTranslator = DomainErrorTranslator();
+        final repository =
+            SourceRepositorySQLite(db: db, errorTranslator: errorTranslator);
+        final source = Source(id: id, name: name, imageRoute: imageRoute);
+        final mapSource = <dynamic, dynamic>{
+          "id": source.id,
+          "name": source.name,
+          "image_route": source.imageRoute,
+        };
+
+        when(db.update(tableName, source)).thenAnswer((_) async => 0);
+
+        expect(
+            repository.updateSource(source),
+            throwsA(
+                errorTranslator.translate(ExceptionEnum.updateSourceFailed)));
+      });
+
+      test('return Source object when update success', () async {
+        final db = MockSqliteDB();
+        final errorTranslator = DomainErrorTranslator();
+        final repository =
+            SourceRepositorySQLite(db: db, errorTranslator: errorTranslator);
+        final source = Source(id: id, name: name, imageRoute: imageRoute);
+        final mapSource = <dynamic, dynamic>{
+          "id": source.id,
+          "name": source.name,
+          "image_route": source.imageRoute,
+        };
+
+        when(db.update(tableName, source)).thenAnswer((_) async => id);
+
+        expectLater(repository.updateSource(source), isA<Future<void>>());
+      });
+    });
   });
 }

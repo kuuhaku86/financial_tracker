@@ -19,6 +19,7 @@ class DomainErrorTranslator {
         InvariantError("Add recurring transaction failed"),
     ExceptionEnum.addSourceFailed: InvariantError("Add source failed"),
     ExceptionEnum.deleteSourceFailed: InvariantError("Delete source failed"),
+    ExceptionEnum.updateSourceFailed: InvariantError("Update source failed"),
   };
 }
 
@@ -32,4 +33,5 @@ enum ExceptionEnum {
   addRecurringTransactionFailed,
   addSourceFailed,
   deleteSourceFailed,
+  updateSourceFailed,
 }
