@@ -1,7 +1,6 @@
 import 'package:financial_tracker/Commons/exceptions/domain_error_translator.dart';
 import 'package:financial_tracker/Domains/transactions/entities/add_recurring_transaction.dart';
 import 'package:financial_tracker/Domains/transactions/entities/add_transaction.dart';
-import 'package:financial_tracker/Domains/transactions/entities/transaction.dart';
 import 'package:financial_tracker/Domains/transactions/entities/transaction_type.dart';
 import 'package:financial_tracker/Infrastructures/repository/transaction_repository_sqlite.dart';
 import 'package:mockito/mockito.dart';
@@ -35,7 +34,6 @@ void main() {
       "number_in_period": numberInPeriod,
       "period_id": periodId
     };
-    const days = 12;
 
     group("getTransactionType function", () {
       const tableName = "transaction_types";
@@ -216,7 +214,7 @@ void main() {
         final errorTranslator = DomainErrorTranslator();
         final repository = TransactionRepositorySQLite(
             db: db, errorTranslator: errorTranslator);
-        final map = {"id": id, "name": name, "days": days};
+        final map = {"id": id, "name": name};
 
         when(db.getAll(tableName)).thenAnswer((_) async => [map, map, map]);
 
@@ -224,7 +222,6 @@ void main() {
         expect(result.length, 3);
         expect(result[0].id, id);
         expect(result[0].name, name);
-        expect(result[0].days, days);
       });
     });
 
@@ -250,13 +247,12 @@ void main() {
             db: db, errorTranslator: errorTranslator);
 
         when(db.get(tableName, id)).thenAnswer((_) async =>
-            <dynamic, dynamic>{"id": id, "name": name, "days": days});
+            <dynamic, dynamic>{"id": id, "name": name});
 
         final result = await repository.getPeriod(id);
 
         expect(result.id, id);
         expect(result.name, name);
-        expect(result.days, days);
       });
     });
 

@@ -1,5 +1,4 @@
 import 'package:financial_tracker/Domains/sources/source_repository.dart';
-import 'package:financial_tracker/Domains/transactions/entities/add_recurring_transaction.dart';
 import 'package:financial_tracker/Domains/transactions/entities/add_transaction.dart';
 import 'package:financial_tracker/Domains/transactions/entities/transaction.dart';
 import 'package:financial_tracker/Domains/transactions/transaction_repository.dart';

@@ -33,7 +33,7 @@ void main() {
       final getTransactionUsecase =
           GetTransactionUsecase(transactionRepository: transactionRepository);
 
-      final result = await getTransactionUsecase.execute(transactionId: id);
+      final result = await getTransactionUsecase.execute(id);
 
       expect(result.id, transaction.id);
       expect(result.transactionTypeId, transaction.transactionTypeId);
@@ -55,7 +55,7 @@ void main() {
           GetTransactionUsecase(transactionRepository: transactionRepository);
 
       expect(
-          getTransactionUsecase.execute(transactionId: id),
+          getTransactionUsecase.execute(id),
           throwsA(
               errorTranslator.translate(ExceptionEnum.transactionNotFound)));
     });

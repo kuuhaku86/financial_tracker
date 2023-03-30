@@ -6,7 +6,7 @@ class GetTransactionUsecase {
 
   GetTransactionUsecase({required this.transactionRepository});
 
-  Future<Transaction> execute({required int transactionId}) async {
+  Future<Transaction> execute(int transactionId) async {
     return await transactionRepository.getTransaction(transactionId);
   }
 }

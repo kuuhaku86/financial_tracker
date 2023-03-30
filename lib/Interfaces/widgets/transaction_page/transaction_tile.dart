@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:financial_tracker/Commons/themes/colors.dart';
 import 'package:financial_tracker/Interfaces/widgets/image_custom.dart';
 import 'package:flutter/material.dart';
@@ -26,12 +28,13 @@ class TransactionTile extends StatelessWidget {
         children: [
           Row(
             children: [
-              ImageCustom(imageProvider: AssetImage(imageRoute)),
+              ImageCustom(imageProvider: FileImage(File(imageRoute))),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.03,
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     transactionName,

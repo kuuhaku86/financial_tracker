@@ -1,16 +1,26 @@
+import 'dart:io';
+
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as path;
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 class SqliteDB {
   late Database db;
 
   init() async {
-    await open(path.join(await getDatabasesPath(), "financial_tracker.db"));
+    if (Platform.isWindows || Platform.isLinux) {
+      sqfliteFfiInit();
+      var databaseFactory = databaseFactoryFfi;
+      db = await databaseFactory.openDatabase(inMemoryDatabasePath);
+    } else {
+      await open(path.join(await getDatabasesPath(), "financial_tracker.db"));
+    }
+
+    await migration();
   }
 
   open(String path) async {
     db = await openDatabase(path, version: 1);
-    await migration();
   }
 
   migration() async {
@@ -20,12 +30,30 @@ class SqliteDB {
         name TEXT NOT NULL
       )''');
 
+    String tableName = "transaction_types";
+    int? transactionTypesCount = Sqflite.firstIntValue(
+        await db.rawQuery("SELECT COUNT(*) FROM $tableName"));
+
+    if (transactionTypesCount == null || transactionTypesCount == 0) {
+      await db.insert(tableName, <String, Object>{"name": "Income"});
+      await db.insert(tableName, <String, Object>{"name": "Outcome"});
+    }
+
     await db.execute('''
       CREATE TABLE IF NOT EXISTS periods ( 
         id INTEGER PRIMARY KEY AUTOINCREMENT, 
-        name TEXT NOT NULL,
-        days INTEGER NOT NULL
+        name TEXT NOT NULL
       )''');
+
+    tableName = "periods";
+    int? periodsCount = Sqflite.firstIntValue(
+        await db.rawQuery("SELECT COUNT(*) FROM $tableName"));
+
+    if (periodsCount == null || periodsCount == 0) {
+      await db.insert(tableName, <String, Object>{"name": "Days"});
+      await db.insert(tableName, <String, Object>{"name": "Months"});
+      await db.insert(tableName, <String, Object>{"name": "Years"});
+    }
 
     await db.execute('''
       CREATE TABLE IF NOT EXISTS transactions ( 

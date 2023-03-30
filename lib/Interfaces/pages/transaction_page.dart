@@ -1,11 +1,15 @@
 import 'package:financial_tracker/Commons/themes/colors.dart';
 import 'package:financial_tracker/Domains/sources/entities/source.dart';
-import 'package:financial_tracker/Domains/transactions/entities/transaction.dart';
+import 'package:financial_tracker/Infrastructures/providers/model/income_source_list_model.dart';
+import 'package:financial_tracker/Infrastructures/providers/model/period_list_model.dart';
+import 'package:financial_tracker/Infrastructures/providers/model/transaction_list_model.dart';
+import 'package:financial_tracker/Infrastructures/providers/model/transaction_type_list_model.dart';
 import 'package:financial_tracker/Interfaces/pages/add_transaction_page.dart';
 import 'package:financial_tracker/Interfaces/widgets/button_custom.dart';
 import 'package:financial_tracker/Interfaces/widgets/list_tile_custom.dart';
 import 'package:financial_tracker/Interfaces/widgets/transaction_page/transaction_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class TransactionPage extends StatefulWidget {
   const TransactionPage({Key? key}) : super(key: key);
@@ -16,82 +20,100 @@ class TransactionPage extends StatefulWidget {
 }
 
 class _TransactionPageState extends State<TransactionPage> {
-  List<Transaction> transactionList = [
-    Transaction(
-        id: 1,
-        name: "Pay One",
-        transactionTypeId: 1,
-        sourceId: 1,
-        explanation: "great",
-        amount: 2000,
-        date: DateTime.now()),
-    Transaction(
-        id: 1,
-        name: "Pay Two",
-        transactionTypeId: 1,
-        sourceId: 2,
-        explanation: "great",
-        amount: -2000,
-        date: DateTime.now()),
-    Transaction(
-        id: 1,
-        name: "Pay Three",
-        transactionTypeId: 1,
-        sourceId: 1,
-        explanation: "great",
-        amount: -2000,
-        date: DateTime.now()),
-  ];
-  List<Source> sourceList = [
-    Source(id: 1, name: "Bank One", imageRoute: "assets/images/logo.png"),
-    Source(id: 2, name: "Bank One", imageRoute: "assets/images/logo.png"),
-  ];
-
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height,
-      child: Stack(
-        children: [
-          SingleChildScrollView(
-              child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: transactionList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    Source? source;
-                    for (Source tempSource in sourceList) {
-                      if (tempSource.id == transactionList[index].sourceId) {
-                        source = tempSource;
-                        break;
-                      }
-                    }
+    final mediaQuerySize = MediaQuery.of(context).size;
+    Provider.of<TransactionListModel>(context, listen: false).refresh();
+    Provider.of<IncomeSourceListModel>(context, listen: false).refresh();
 
-                    return ListTileCustom(
-                      color: transactionList[index].amount > 0
-                          ? themeColor.secondary
-                          : themeColor.danger,
-                      child: TransactionTile(
-                        id: transactionList[index].id,
-                        transactionName: transactionList[index].name,
-                        transactionAmount: transactionList[index].amount,
-                        imageRoute: (source == null) ? "" : source.imageRoute,
-                        onTap: () {},
-                      ),
+    return SizedBox(
+      height: mediaQuerySize.height,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          SizedBox(
+            height: mediaQuerySize.height,
+            child: SingleChildScrollView(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Consumer<IncomeSourceListModel>(
+                  builder: (context, sourceListModel, _) {
+                    return Consumer<TransactionListModel>(
+                      builder: (context, transactionListModel, _) {
+                        return ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: transactionListModel.transactions.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              Source? source;
+                              for (Source tempSource
+                                  in sourceListModel.sources) {
+                                if (tempSource.id ==
+                                    transactionListModel
+                                        .transactions[index].sourceId) {
+                                  source = tempSource;
+                                  break;
+                                }
+                              }
+
+                              return ListTileCustom(
+                                color: transactionListModel
+                                            .transactions[index].amount >
+                                        0
+                                    ? themeColor.secondary
+                                    : themeColor.danger,
+                                child: TransactionTile(
+                                  id: transactionListModel
+                                      .transactions[index].id,
+                                  transactionName: transactionListModel
+                                      .transactions[index].name,
+                                  transactionAmount: transactionListModel
+                                      .transactions[index].amount,
+                                  imageRoute:
+                                      (source == null) ? "" : source.imageRoute,
+                                  onTap: () {},
+                                ),
+                              );
+                            });
+                      },
                     );
-                  }),
-            ],
-          )),
+                  },
+                ),
+              ],
+            )),
+          ),
           Positioned(
             bottom: 0.0,
             child: ButtonCustom(
                 icon: Icons.add,
                 text: "Add New Transaction",
-                onTap: () {
-                  Navigator.pushNamed(context, AddTransactionPage.route);
+                onTap: () async {
+                  Provider.of<TransactionTypeListModel>(context, listen: false)
+                      .refresh();
+                  await Provider.of<IncomeSourceListModel>(context,
+                          listen: false)
+                      .refresh();
+
+                  if (context.mounted) {
+                    if (Provider.of<IncomeSourceListModel>(context,
+                            listen: false)
+                        .sources
+                        .isEmpty) {
+                      SnackBar snackBar = const SnackBar(
+                        content: Text("Income Source is still empty"),
+                      );
+
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+                      return;
+                    }
+
+                    Provider.of<PeriodListModel>(context, listen: false)
+                        .refresh();
+
+                    Navigator.pushNamed(context, AddTransactionPage.route);
+                  }
                 }),
           ),
         ],

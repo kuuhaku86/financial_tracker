@@ -82,6 +82,7 @@ class TransactionRepositorySQLite extends TransactionRepository {
 
   @override
   Future<Transaction> addTransaction(Map<String, Object> map) async {
+    map["date"] = DateTime.now().microsecondsSinceEpoch;
     int id = await db.insert("transactions", map);
 
     if (id == 0) {

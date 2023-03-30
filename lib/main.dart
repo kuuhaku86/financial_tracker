@@ -1,6 +1,10 @@
 import 'package:financial_tracker/Infrastructures/init_config.dart';
 import 'package:financial_tracker/Infrastructures/providers/model/income_source_list_model.dart';
+import 'package:financial_tracker/Infrastructures/providers/model/period_list_model.dart';
 import 'package:financial_tracker/Infrastructures/providers/model/source_model.dart';
+import 'package:financial_tracker/Infrastructures/providers/model/transaction_list_model.dart';
+import 'package:financial_tracker/Infrastructures/providers/model/transaction_model.dart';
+import 'package:financial_tracker/Infrastructures/providers/model/transaction_type_list_model.dart';
 import 'package:financial_tracker/Interfaces/pages/add_or_edit_income_source_page.dart';
 import 'package:financial_tracker/Interfaces/pages/add_transaction_page.dart';
 import 'package:financial_tracker/Interfaces/pages/home_page.dart';
@@ -21,6 +25,10 @@ Future<void> main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => IncomeSourceListModel()),
         ChangeNotifierProvider(create: (context) => IncomeSourceModel()),
+        ChangeNotifierProvider(create: (context) => TransactionListModel()),
+        ChangeNotifierProvider(create: (context) => TransactionModel()),
+        ChangeNotifierProvider(create: (context) => TransactionTypeListModel()),
+        ChangeNotifierProvider(create: (context) => PeriodListModel()),
       ],
       child: MaterialApp(
         theme: ThemeData(

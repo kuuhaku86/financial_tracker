@@ -1,7 +1,6 @@
 import 'package:financial_tracker/Applications/usecase/add_transaction_usecase.dart';
 import 'package:financial_tracker/Commons/exceptions/domain_error_translator.dart';
 import 'package:financial_tracker/Domains/sources/entities/source.dart';
-import 'package:financial_tracker/Domains/transactions/entities/add_recurring_transaction.dart';
 import 'package:financial_tracker/Domains/transactions/entities/add_transaction.dart';
 import 'package:financial_tracker/Domains/transactions/entities/period.dart';
 import 'package:financial_tracker/Domains/transactions/entities/recurring_transaction.dart';
@@ -25,7 +24,6 @@ void main() {
     const recurringTransactionId = 456;
     const numberInPeriod = 567;
     const periodId = 678;
-    const days = 12;
     final date = DateTime.now();
     final mapAddTransaction = <String, Object>{
       "transaction_type_id": transactionTypeId,
@@ -169,7 +167,7 @@ void main() {
         final source = Source(id: sourceId, name: name, imageRoute: imageRoute);
         final transactionType =
             TransactionType(id: transactionTypeId, name: name);
-        final period = Period(id: periodId, name: name, days: days);
+        final period = Period(id: periodId, name: name);
         final addTransaction = AddTransaction(
           transactionTypeId: transactionTypeId,
           sourceId: sourceId,
@@ -202,7 +200,7 @@ void main() {
         final source = Source(id: sourceId, name: name, imageRoute: imageRoute);
         final transactionType =
             TransactionType(id: transactionTypeId, name: name);
-        final period = Period(id: periodId, name: name, days: days);
+        final period = Period(id: periodId, name: name);
         final addTransaction = AddTransaction(
             transactionTypeId: transactionTypeId,
             sourceId: sourceId,
@@ -238,7 +236,7 @@ void main() {
         final source = Source(id: sourceId, name: name, imageRoute: imageRoute);
         final transactionType =
             TransactionType(id: transactionTypeId, name: name);
-        final period = Period(id: periodId, name: name, days: days);
+        final period = Period(id: periodId, name: name);
         final transaction = Transaction(
             id: id,
             transactionTypeId: transactionTypeId,
@@ -282,7 +280,7 @@ void main() {
       test('execution success for recurring transaction', () async {
         final transactionRepository = MockTransactionRepository();
         final sourceRepository = MockSourceRepository();
-        final period = Period(id: periodId, name: name, days: days);
+        final period = Period(id: periodId, name: name);
         final source = Source(id: id, name: name, imageRoute: imageRoute);
         final transactionType =
             TransactionType(id: transactionTypeId, name: name);

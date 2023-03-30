@@ -40,6 +40,7 @@ class _MainPageState extends State<MainPage> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        key: const Key('bottom-navigation-bar'),
         backgroundColor: themeColor.primary,
         unselectedItemColor: themeColor.text,
         selectedItemColor: themeColor.secondary,

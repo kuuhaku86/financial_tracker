@@ -10,11 +10,10 @@ void main() {
   group("GetPeriodUsecase class", () {
     const id = 345;
     const name = "get_period_name_test";
-    const days = 12;
 
     test('execution success', () async {
       final transactionRepository = MockTransactionRepository();
-      final period = Period(id: id, name: name, days: days);
+      final period = Period(id: id, name: name);
 
       when(transactionRepository.getPeriod(id)).thenAnswer((_) async => period);
 
