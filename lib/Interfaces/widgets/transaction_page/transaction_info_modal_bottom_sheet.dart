@@ -53,7 +53,6 @@ class TransactionInfoModalBottomSheet {
           periodId: recurringTransaction.periodId);
     } catch (e) {
       // if there's no recurring transaction
-      print(e);
     }
 
     if (context.mounted) {

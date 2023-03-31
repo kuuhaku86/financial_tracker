@@ -49,4 +49,12 @@ class TransactionRepository {
       Map<String, Object> map) async {
     throw Exception("Not Implemented");
   }
+
+  Future<void> deleteRecurringTransaction(int recurringTransactionId) async {
+    throw Exception("Not Implemented");
+  }
+
+  Future<void> deleteTransaction(int transactionId) async {
+    throw Exception("Not Implemented");
+  }
 }

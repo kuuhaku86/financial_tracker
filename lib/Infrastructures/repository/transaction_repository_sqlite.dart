@@ -119,4 +119,22 @@ class TransactionRepositorySQLite extends TransactionRepository {
 
     return await getRecurringTransaction(id);
   }
+
+  @override
+  Future<void> deleteTransaction(int transactionId) async {
+    int id = await db.delete("transactions", transactionId);
+
+    if (id == 0) {
+      throw errorTranslator.translate(ExceptionEnum.deleteSourceFailed);
+    }
+  }
+
+  @override
+  Future<void> deleteRecurringTransaction(int recurringTransactionId) async {
+    int id = await db.delete("recurring_transactions", recurringTransactionId);
+
+    if (id == 0) {
+      throw errorTranslator.translate(ExceptionEnum.deleteSourceFailed);
+    }
+  }
 }
