@@ -5,9 +5,11 @@ import 'package:financial_tracker/Applications/usecase/add_transaction_usecase.d
 import 'package:financial_tracker/Applications/usecase/delete_source_usecase.dart';
 import 'package:financial_tracker/Applications/usecase/get_period_usecase.dart';
 import 'package:financial_tracker/Applications/usecase/get_periods_usecase.dart';
+import 'package:financial_tracker/Applications/usecase/get_recurring_transaction_by_transaction_id_usecase.dart';
 import 'package:financial_tracker/Applications/usecase/get_recurring_transaction_usecase.dart';
 import 'package:financial_tracker/Applications/usecase/get_source_usecase.dart';
 import 'package:financial_tracker/Applications/usecase/get_sources_usecase.dart';
+import 'package:financial_tracker/Applications/usecase/get_transaction_type_usecase.dart';
 import 'package:financial_tracker/Applications/usecase/get_transaction_types_usecase.dart';
 import 'package:financial_tracker/Applications/usecase/get_transaction_usecase.dart';
 import 'package:financial_tracker/Applications/usecase/get_transactions_usecase.dart';
@@ -62,7 +64,12 @@ class Container {
           GetPeriodsUsecase(transactionRepository: transactionRepository),
       GetRecurringTransactionUsecase: GetRecurringTransactionUsecase(
           transactionRepository: transactionRepository),
+      GetRecurringTransactionByTransactionIdUsecase:
+          GetRecurringTransactionByTransactionIdUsecase(
+              transactionRepository: transactionRepository),
       GetTransactionTypesUsecase: GetTransactionTypesUsecase(
+          transactionRepository: transactionRepository),
+      GetTransactionTypeUsecase: GetTransactionTypeUsecase(
           transactionRepository: transactionRepository),
       GetTransactionUsecase:
           GetTransactionUsecase(transactionRepository: transactionRepository),

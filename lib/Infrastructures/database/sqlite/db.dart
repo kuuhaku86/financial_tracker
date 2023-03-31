@@ -24,7 +24,8 @@ class SqliteDB {
   }
 
   migration() async {
-    await db.execute('''
+    await db.execute(
+        '''
       CREATE TABLE IF NOT EXISTS transaction_types ( 
         id INTEGER PRIMARY KEY AUTOINCREMENT, 
         name TEXT NOT NULL
@@ -39,7 +40,8 @@ class SqliteDB {
       await db.insert(tableName, <String, Object>{"name": "Outcome"});
     }
 
-    await db.execute('''
+    await db.execute(
+        '''
       CREATE TABLE IF NOT EXISTS periods ( 
         id INTEGER PRIMARY KEY AUTOINCREMENT, 
         name TEXT NOT NULL
@@ -55,7 +57,8 @@ class SqliteDB {
       await db.insert(tableName, <String, Object>{"name": "Years"});
     }
 
-    await db.execute('''
+    await db.execute(
+        '''
       CREATE TABLE IF NOT EXISTS transactions ( 
         id INTEGER PRIMARY KEY AUTOINCREMENT, 
         transaction_type_id INTEGER NOT NULL,
@@ -66,7 +69,8 @@ class SqliteDB {
         date INTEGER NOT NULL
       )''');
 
-    await db.execute('''
+    await db.execute(
+        '''
       CREATE TABLE IF NOT EXISTS recurring_transactions ( 
         id INTEGER PRIMARY KEY AUTOINCREMENT, 
         transaction_id INTEGER NOT NULL,
@@ -74,7 +78,8 @@ class SqliteDB {
         period_id INTEGER NOT NULL
       )''');
 
-    await db.execute('''
+    await db.execute(
+        '''
       CREATE TABLE IF NOT EXISTS sources ( 
         id INTEGER PRIMARY KEY AUTOINCREMENT, 
         name TEXT NOT NULL,
@@ -94,6 +99,18 @@ class SqliteDB {
     }
 
     return null;
+  }
+
+  Future<List<Map?>> getByWhere(
+      String tableName, String whereStatement, List<Object?> whereArgs) async {
+    List<Map> maps =
+        await db.query(tableName, where: whereStatement, whereArgs: whereArgs);
+
+    if (maps.isNotEmpty) {
+      return maps;
+    }
+
+    return [];
   }
 
   Future<List<Map>> getAll(String tableName) async {

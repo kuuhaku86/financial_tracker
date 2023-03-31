@@ -1,3 +1,4 @@
+import 'package:financial_tracker/Applications/usecase/get_recurring_transaction_by_transaction_id_usecase.dart';
 import 'package:financial_tracker/Commons/exceptions/domain_error_translator.dart';
 import 'package:financial_tracker/Domains/transactions/entities/period.dart';
 import 'package:financial_tracker/Domains/transactions/entities/recurring_transaction.dart';
@@ -78,6 +79,20 @@ class TransactionRepositorySQLite extends TransactionRepository {
     }
 
     return RecurringTransaction.fromMap(record);
+  }
+
+  @override
+  Future<RecurringTransaction> getRecurringTransactionByTransactionId(
+      int transactionId) async {
+    var record = await db.getByWhere(
+        "recurring_transactions", "transaction_id = ?", [transactionId]);
+
+    if (record.isEmpty) {
+      throw errorTranslator
+          .translate(ExceptionEnum.recurringTransactionNotFound);
+    }
+
+    return RecurringTransaction.fromMap(record.first!);
   }
 
   @override

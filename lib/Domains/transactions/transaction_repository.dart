@@ -36,6 +36,11 @@ class TransactionRepository {
     throw Exception("Not Implemented");
   }
 
+  Future<RecurringTransaction> getRecurringTransactionByTransactionId(
+      int transactionId) async {
+    throw Exception("Not Implemented");
+  }
+
   Future<Transaction> addTransaction(Map<String, Object> map) async {
     throw Exception("Not Implemented");
   }

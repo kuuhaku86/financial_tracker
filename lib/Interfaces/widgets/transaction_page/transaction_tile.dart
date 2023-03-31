@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:financial_tracker/Commons/themes/colors.dart';
 import 'package:financial_tracker/Interfaces/widgets/image_custom.dart';
+import 'package:financial_tracker/Interfaces/widgets/transaction_page/transaction_info_modal_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
 class TransactionTile extends StatelessWidget {
@@ -21,6 +22,8 @@ class TransactionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuerySize = MediaQuery.of(context).size;
+
     return GestureDetector(
       onTap: onTap,
       child: Row(
@@ -57,9 +60,19 @@ class TransactionTile extends StatelessWidget {
             children: [
               GestureDetector(
                 child: Icon(
+                  Icons.info,
+                  color: themeColor.text,
+                  size: mediaQuerySize.width * 0.09,
+                ),
+                onTap: () async {
+                  await TransactionInfoModalBottomSheet.showModal(context, id);
+                },
+              ),
+              GestureDetector(
+                child: Icon(
                   Icons.edit,
                   color: themeColor.text,
-                  size: MediaQuery.of(context).size.width * 0.09,
+                  size: mediaQuerySize.width * 0.09,
                 ),
                 onTap: () {},
               ),
@@ -67,7 +80,7 @@ class TransactionTile extends StatelessWidget {
                 child: Icon(
                   Icons.delete_forever,
                   color: themeColor.text,
-                  size: MediaQuery.of(context).size.width * 0.09,
+                  size: mediaQuerySize.width * 0.09,
                 ),
                 onTap: () {},
               ),
