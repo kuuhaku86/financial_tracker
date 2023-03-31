@@ -96,6 +96,18 @@ class TransactionRepositorySQLite extends TransactionRepository {
   }
 
   @override
+  Future<List<Transaction>> getTransactionsBySourceId(int sourceId) async {
+    var record =
+        await db.getByWhere("transactions", "source_id = ?", [sourceId]);
+
+    if (record.isEmpty) {
+      throw errorTranslator.translate(ExceptionEnum.transactionNotFound);
+    }
+
+    return record.map((item) => Transaction.fromMap(item!)).toList();
+  }
+
+  @override
   Future<Transaction> addTransaction(Map<String, Object> map) async {
     map["date"] = DateTime.now().microsecondsSinceEpoch;
     int id = await db.insert("transactions", map);

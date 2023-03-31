@@ -13,6 +13,7 @@ import 'package:financial_tracker/Applications/usecase/get_sources_usecase.dart'
 import 'package:financial_tracker/Applications/usecase/get_transaction_type_usecase.dart';
 import 'package:financial_tracker/Applications/usecase/get_transaction_types_usecase.dart';
 import 'package:financial_tracker/Applications/usecase/get_transaction_usecase.dart';
+import 'package:financial_tracker/Applications/usecase/get_transactions_by_source_id_usecase.dart';
 import 'package:financial_tracker/Applications/usecase/get_transactions_usecase.dart';
 import 'package:financial_tracker/Applications/usecase/update_source_usecase.dart';
 import 'package:financial_tracker/Applications/utils/file_manager.dart';
@@ -68,6 +69,8 @@ class Container {
       GetRecurringTransactionByTransactionIdUsecase:
           GetRecurringTransactionByTransactionIdUsecase(
               transactionRepository: transactionRepository),
+      GetTransactionsBySourceIdUsecase: GetTransactionsBySourceIdUsecase(
+          transactionRepository: transactionRepository),
       GetTransactionTypesUsecase: GetTransactionTypesUsecase(
           transactionRepository: transactionRepository),
       GetTransactionTypeUsecase: GetTransactionTypeUsecase(
