@@ -64,4 +64,12 @@ class TransactionModel extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  void clean() {
+    _transaction = null;
+    _transactionType = null;
+    _source = null;
+    _recurringTransaction = null;
+    _period = null;
+  }
 }

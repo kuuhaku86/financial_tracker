@@ -149,4 +149,24 @@ class TransactionRepositorySQLite extends TransactionRepository {
           .translate(ExceptionEnum.deleteRecurringTransactionFailed);
     }
   }
+
+  @override
+  Future<void> updateTransaction(Transaction transaction) async {
+    int id = await db.update("transactions", transaction);
+
+    if (id == 0) {
+      throw errorTranslator.translate(ExceptionEnum.updateTransactionFailed);
+    }
+  }
+
+  @override
+  Future<void> updateRecurringTransaction(
+      RecurringTransaction recurringTransaction) async {
+    int id = await db.update("recurring_transactions", recurringTransaction);
+
+    if (id == 0) {
+      throw errorTranslator
+          .translate(ExceptionEnum.updateRecurringTransactionFailed);
+    }
+  }
 }

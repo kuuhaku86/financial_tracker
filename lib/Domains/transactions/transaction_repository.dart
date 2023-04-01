@@ -59,4 +59,13 @@ class TransactionRepository {
   Future<void> deleteTransaction(int transactionId) async {
     throw Exception("Not Implemented");
   }
+
+  Future<void> updateTransaction(Transaction transaction) async {
+    throw Exception("Not Implemented");
+  }
+
+  Future<void> updateRecurringTransaction(
+      RecurringTransaction recurringTransaction) async {
+    throw Exception("Not Implemented");
+  }
 }

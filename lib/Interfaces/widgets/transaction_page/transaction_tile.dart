@@ -1,10 +1,14 @@
 import 'dart:io';
 
 import 'package:financial_tracker/Applications/usecase/delete_transaction_usecase.dart';
-import 'package:financial_tracker/Applications/usecase/get_transaction_usecase.dart';
 import 'package:financial_tracker/Commons/themes/colors.dart';
 import 'package:financial_tracker/Domains/transactions/entities/transaction.dart';
+import 'package:financial_tracker/Domains/transactions/entities/transaction_type.dart';
+import 'package:financial_tracker/Infrastructures/providers/model/period_list_model.dart';
 import 'package:financial_tracker/Infrastructures/providers/model/transaction_list_model.dart';
+import 'package:financial_tracker/Infrastructures/providers/model/transaction_model.dart';
+import 'package:financial_tracker/Infrastructures/providers/model/transaction_type_list_model.dart';
+import 'package:financial_tracker/Interfaces/pages/add_or_edit_transaction_page.dart';
 import 'package:financial_tracker/Interfaces/widgets/alert_custom.dart';
 import 'package:financial_tracker/Interfaces/widgets/image_custom.dart';
 import 'package:financial_tracker/Interfaces/widgets/transaction_page/transaction_info_modal_bottom_sheet.dart';
@@ -14,19 +18,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class TransactionTile extends StatelessWidget {
-  final String transactionName;
-  final double transactionAmount;
-  final int id;
   final String imageRoute;
   final void Function() onTap;
+  final Transaction transaction;
+  final TransactionType transactionType;
 
   const TransactionTile(
       {super.key,
+      required this.transaction,
+      required this.transactionType,
       required this.imageRoute,
-      required this.onTap,
-      required this.transactionName,
-      required this.transactionAmount,
-      required this.id});
+      required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -48,13 +50,13 @@ class TransactionTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    transactionName,
+                    transaction.name,
                     style: TextStyle(color: themeColor.text),
                   ),
                   Text(
-                    transactionAmount > 0
-                        ? "+$transactionAmount"
-                        : transactionAmount.toString(),
+                    transactionType.name == "Income"
+                        ? "+${transaction.amount}"
+                        : "-${transaction.amount}",
                     style: TextStyle(
                       color: themeColor.text,
                       fontWeight: FontWeight.w600,
@@ -73,7 +75,8 @@ class TransactionTile extends StatelessWidget {
                   size: mediaQuerySize.width * 0.09,
                 ),
                 onTap: () async {
-                  await TransactionInfoModalBottomSheet.showModal(context, id);
+                  await TransactionInfoModalBottomSheet.showModal(
+                      context, transaction.id);
                 },
               ),
               GestureDetector(
@@ -82,7 +85,26 @@ class TransactionTile extends StatelessWidget {
                   color: themeColor.text,
                   size: mediaQuerySize.width * 0.09,
                 ),
-                onTap: () {},
+                onTap: () async {
+                  await Provider.of<PeriodListModel>(context, listen: false)
+                      .refresh();
+
+                  if (context.mounted) {
+                    await Provider.of<TransactionTypeListModel>(context,
+                            listen: false)
+                        .refresh();
+                  }
+
+                  if (context.mounted) {
+                    await Provider.of<TransactionModel>(context, listen: false)
+                        .getTransaction(transaction.id);
+                  }
+
+                  if (context.mounted) {
+                    Navigator.pushNamed(
+                        context, AddOrEditTransactionPage.route);
+                  }
+                },
               ),
               GestureDetector(
                 child: Icon(
@@ -99,13 +121,7 @@ class TransactionTile extends StatelessWidget {
                           dependency_container.Container.container
                                   .getInstance(DeleteTransactionUsecase)
                               as DeleteTransactionUsecase;
-                      final GetTransactionUsecase getTransactionUsecase =
-                          dependency_container.Container.container
-                                  .getInstance(GetTransactionUsecase)
-                              as GetTransactionUsecase;
 
-                      final Transaction transaction =
-                          await getTransactionUsecase.execute(id);
                       await deleteTransactionUsecase.execute(transaction);
 
                       const SnackBar snackBar = SnackBar(

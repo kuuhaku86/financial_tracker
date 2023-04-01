@@ -16,4 +16,15 @@ class RecurringTransaction {
     numberInPeriod = map['number_in_period'] as int;
     periodId = map['period_id'] as int;
   }
+
+  Map<String, dynamic> toMap() {
+    final Map<String, dynamic> map = <String, dynamic>{
+      'id': id,
+      'transaction_id': transactionId,
+      'number_in_period': numberInPeriod,
+      'period_id': periodId
+    };
+
+    return map;
+  }
 }

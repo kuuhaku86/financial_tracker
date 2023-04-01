@@ -3,8 +3,9 @@ import 'package:financial_tracker/Domains/sources/entities/source.dart';
 import 'package:financial_tracker/Infrastructures/providers/model/income_source_list_model.dart';
 import 'package:financial_tracker/Infrastructures/providers/model/period_list_model.dart';
 import 'package:financial_tracker/Infrastructures/providers/model/transaction_list_model.dart';
+import 'package:financial_tracker/Infrastructures/providers/model/transaction_model.dart';
 import 'package:financial_tracker/Infrastructures/providers/model/transaction_type_list_model.dart';
-import 'package:financial_tracker/Interfaces/pages/add_transaction_page.dart';
+import 'package:financial_tracker/Interfaces/pages/add_or_edit_transaction_page.dart';
 import 'package:financial_tracker/Interfaces/widgets/button_custom.dart';
 import 'package:financial_tracker/Interfaces/widgets/list_tile_custom.dart';
 import 'package:financial_tracker/Interfaces/widgets/transaction_page/transaction_tile.dart';
@@ -24,7 +25,9 @@ class _TransactionPageState extends State<TransactionPage> {
   Widget build(BuildContext context) {
     final mediaQuerySize = MediaQuery.of(context).size;
     Provider.of<TransactionListModel>(context, listen: false).refresh();
+    Provider.of<TransactionTypeListModel>(context, listen: false).refresh();
     Provider.of<IncomeSourceListModel>(context, listen: false).refresh();
+    TransactionTypeListModel? transactionTypeListModel;
 
     return SizedBox(
       height: mediaQuerySize.height,
@@ -57,19 +60,27 @@ class _TransactionPageState extends State<TransactionPage> {
                                 }
                               }
 
+                              transactionTypeListModel ??=
+                                  Provider.of<TransactionTypeListModel>(context,
+                                      listen: false);
+
                               return ListTileCustom(
-                                color: transactionListModel
-                                            .transactions[index].amount >
-                                        0
+                                color: transactionListModel.transactions[index]
+                                            .transactionTypeId ==
+                                        transactionTypeListModel!
+                                            .transactionTypes.first.id
                                     ? themeColor.secondary
                                     : themeColor.danger,
                                 child: TransactionTile(
-                                  id: transactionListModel
-                                      .transactions[index].id,
-                                  transactionName: transactionListModel
-                                      .transactions[index].name,
-                                  transactionAmount: transactionListModel
-                                      .transactions[index].amount,
+                                  transaction:
+                                      transactionListModel.transactions[index],
+                                  transactionType: transactionTypeListModel!
+                                      .transactionTypes
+                                      .firstWhere((transactionType) =>
+                                          transactionType.id ==
+                                          transactionListModel
+                                              .transactions[index]
+                                              .transactionTypeId),
                                   imageRoute:
                                       (source == null) ? "" : source.imageRoute,
                                   onTap: () {},
@@ -89,6 +100,7 @@ class _TransactionPageState extends State<TransactionPage> {
                 icon: Icons.add,
                 text: "Add New Transaction",
                 onTap: () async {
+                  Provider.of<TransactionModel>(context, listen: false).clean();
                   Provider.of<TransactionTypeListModel>(context, listen: false)
                       .refresh();
                   await Provider.of<IncomeSourceListModel>(context,
@@ -112,7 +124,8 @@ class _TransactionPageState extends State<TransactionPage> {
                     Provider.of<PeriodListModel>(context, listen: false)
                         .refresh();
 
-                    Navigator.pushNamed(context, AddTransactionPage.route);
+                    Navigator.pushNamed(
+                        context, AddOrEditTransactionPage.route);
                   }
                 }),
           ),

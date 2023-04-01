@@ -6,7 +6,7 @@ import 'package:financial_tracker/Infrastructures/providers/model/transaction_li
 import 'package:financial_tracker/Infrastructures/providers/model/transaction_model.dart';
 import 'package:financial_tracker/Infrastructures/providers/model/transaction_type_list_model.dart';
 import 'package:financial_tracker/Interfaces/pages/add_or_edit_income_source_page.dart';
-import 'package:financial_tracker/Interfaces/pages/add_transaction_page.dart';
+import 'package:financial_tracker/Interfaces/pages/add_or_edit_transaction_page.dart';
 import 'package:financial_tracker/Interfaces/pages/home_page.dart';
 import 'package:financial_tracker/Interfaces/pages/income_source_page.dart';
 import 'package:financial_tracker/Interfaces/pages/main_page.dart';
@@ -42,7 +42,8 @@ Future<void> main() async {
           IncomeSourcePage.route: (context) => const IncomeSourcePage(),
           AddOrEditIncomeSourcePage.route: (context) =>
               const AddOrEditIncomeSourcePage(),
-          AddTransactionPage.route: (context) => const AddTransactionPage(),
+          AddOrEditTransactionPage.route: (context) =>
+              const AddOrEditTransactionPage(),
         },
       ),
     ));

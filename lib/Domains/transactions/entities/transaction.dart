@@ -26,4 +26,18 @@ class Transaction {
     amount = map['amount'] as double;
     date = DateTime.fromMicrosecondsSinceEpoch(map['date'] as int);
   }
+
+  Map<String, dynamic> toMap() {
+    final Map<String, dynamic> map = <String, dynamic>{
+      'id': id,
+      'transaction_type_id': transactionTypeId,
+      'source_id': sourceId,
+      'name': name,
+      'detail': detail,
+      'amount': amount,
+      'date': date.microsecondsSinceEpoch
+    };
+
+    return map;
+  }
 }

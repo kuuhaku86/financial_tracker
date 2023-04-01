@@ -115,7 +115,7 @@ void main() {
                 errorTranslator.translate(ExceptionEnum.addTransactionFailed)));
       });
 
-      test('execution success for non-recurrent transaction', () async {
+      test('execution success for non-recurring transaction', () async {
         final transactionRepository = MockTransactionRepository();
         final sourceRepository = MockSourceRepository();
         final addTransaction = AddTransaction(

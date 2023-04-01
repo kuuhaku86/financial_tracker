@@ -16,4 +16,8 @@ class IncomeSourceModel extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  void clean() {
+    _source = null;
+  }
 }

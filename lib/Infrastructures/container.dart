@@ -14,6 +14,7 @@ import 'package:financial_tracker/Applications/usecase/get_transaction_usecase.d
 import 'package:financial_tracker/Applications/usecase/get_transactions_by_source_id_usecase.dart';
 import 'package:financial_tracker/Applications/usecase/get_transactions_usecase.dart';
 import 'package:financial_tracker/Applications/usecase/update_source_usecase.dart';
+import 'package:financial_tracker/Applications/usecase/update_transaction_usecase.dart';
 import 'package:financial_tracker/Applications/utils/file_manager.dart';
 import 'package:financial_tracker/Applications/utils/uuid_generator.dart';
 import 'package:financial_tracker/Commons/exceptions/domain_error_translator.dart';
@@ -78,6 +79,8 @@ class Container {
       GetTransactionsUsecase:
           GetTransactionsUsecase(transactionRepository: transactionRepository),
       DeleteTransactionUsecase: DeleteTransactionUsecase(
+          transactionRepository: transactionRepository),
+      UpdateTransactionsUsecase: UpdateTransactionsUsecase(
           transactionRepository: transactionRepository),
     };
   }

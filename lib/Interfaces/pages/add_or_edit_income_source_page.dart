@@ -157,19 +157,18 @@ class _AddOrEditIncomeSourcePageState extends State<AddOrEditIncomeSourcePage> {
       final source =
           Provider.of<IncomeSourceModel>(context, listen: false).source;
       SnackBar? snackBar;
+      final addSource = AddSource(name: nameController.text, image: image!);
 
       if (source == null) {
         final AddSourceUsecase usecase = dependency_container
             .Container.container
             .getInstance(AddSourceUsecase) as AddSourceUsecase;
-        final addSource = AddSource(name: nameController.text, image: image!);
         await usecase.execute(addSource);
 
         snackBar = const SnackBar(
           content: Text("Add Source success"),
         );
       } else {
-        final addSource = AddSource(name: nameController.text, image: image!);
         final UpdateSourceUsecase usecase = dependency_container
             .Container.container
             .getInstance(UpdateSourceUsecase) as UpdateSourceUsecase;
