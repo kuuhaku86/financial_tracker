@@ -1,4 +1,3 @@
-import 'package:financial_tracker/Applications/usecase/get_recurring_transaction_by_transaction_id_usecase.dart';
 import 'package:financial_tracker/Commons/exceptions/domain_error_translator.dart';
 import 'package:financial_tracker/Domains/transactions/entities/period.dart';
 import 'package:financial_tracker/Domains/transactions/entities/recurring_transaction.dart';
@@ -137,7 +136,7 @@ class TransactionRepositorySQLite extends TransactionRepository {
     int id = await db.delete("transactions", transactionId);
 
     if (id == 0) {
-      throw errorTranslator.translate(ExceptionEnum.deleteSourceFailed);
+      throw errorTranslator.translate(ExceptionEnum.deleteTransactionFailed);
     }
   }
 
@@ -146,7 +145,8 @@ class TransactionRepositorySQLite extends TransactionRepository {
     int id = await db.delete("recurring_transactions", recurringTransactionId);
 
     if (id == 0) {
-      throw errorTranslator.translate(ExceptionEnum.deleteSourceFailed);
+      throw errorTranslator
+          .translate(ExceptionEnum.deleteRecurringTransactionFailed);
     }
   }
 }

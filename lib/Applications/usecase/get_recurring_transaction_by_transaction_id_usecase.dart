@@ -7,7 +7,7 @@ class GetRecurringTransactionByTransactionIdUsecase {
   GetRecurringTransactionByTransactionIdUsecase(
       {required this.transactionRepository});
 
-  Future<RecurringTransaction> execute({required int transactionId}) async {
+  Future<RecurringTransaction> execute(int transactionId) async {
     return await transactionRepository
         .getRecurringTransactionByTransactionId(transactionId);
   }

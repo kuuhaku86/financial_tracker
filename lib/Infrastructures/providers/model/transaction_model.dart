@@ -51,11 +51,11 @@ class TransactionModel extends ChangeNotifier {
 
     try {
       _recurringTransaction =
-          await _getRecurringTransactionByTransactionIdUsecase.execute(
-              transactionId: _transaction!.id);
+          await _getRecurringTransactionByTransactionIdUsecase
+              .execute(_transaction!.id);
       if (_recurringTransaction != null) {
-        _period = await _getPeriodUsecase.execute(
-            periodId: _recurringTransaction!.periodId);
+        _period =
+            await _getPeriodUsecase.execute(_recurringTransaction!.periodId);
       }
     } catch (e) {
       _recurringTransaction = null;

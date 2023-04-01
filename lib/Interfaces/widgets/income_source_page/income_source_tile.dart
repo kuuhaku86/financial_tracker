@@ -86,8 +86,7 @@ class IncomeSourceTile extends StatelessWidget {
 
                 try {
                   List<Transaction> transactions =
-                      await getTransactionsBySourceIdUsecase.execute(
-                          sourceId: id);
+                      await getTransactionsBySourceIdUsecase.execute(id);
 
                   if (transactions.isNotEmpty) {
                     const SnackBar snackBar = SnackBar(

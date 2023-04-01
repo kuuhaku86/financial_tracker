@@ -1,6 +1,5 @@
 import 'package:financial_tracker/Applications/usecase/get_transaction_types_usecase.dart';
 import 'package:financial_tracker/Domains/transactions/entities/transaction_type.dart';
-import 'package:financial_tracker/Interfaces/widgets/transaction_page/transaction_tile.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 

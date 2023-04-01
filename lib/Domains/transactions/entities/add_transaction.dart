@@ -4,7 +4,7 @@ class AddTransaction {
   int transactionTypeId;
   int sourceId;
   String name;
-  String explanation;
+  String detail;
   double amount;
   bool isRecurring;
   int? numberInPeriod;
@@ -14,7 +14,7 @@ class AddTransaction {
       {required this.transactionTypeId,
       required this.sourceId,
       required this.name,
-      required this.explanation,
+      required this.detail,
       required this.amount,
       this.isRecurring = false,
       this.numberInPeriod,

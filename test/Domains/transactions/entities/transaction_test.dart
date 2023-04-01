@@ -7,7 +7,7 @@ void main() {
     const transactionTypeId = 234;
     const sourceId = 345;
     const name = "transaction_name_test";
-    const explanation = "transaction_explanation_test";
+    const detail = "transaction_detail_test";
     const amount = 456.0;
     DateTime date = DateTime.now();
 
@@ -17,7 +17,7 @@ void main() {
           transactionTypeId: transactionTypeId,
           sourceId: sourceId,
           name: name,
-          explanation: explanation,
+          detail: detail,
           amount: amount,
           date: date);
 
@@ -25,7 +25,7 @@ void main() {
       expect(transaction.transactionTypeId, transactionTypeId);
       expect(transaction.sourceId, sourceId);
       expect(transaction.name, name);
-      expect(transaction.explanation, explanation);
+      expect(transaction.detail, detail);
       expect(transaction.amount, amount);
       expect(transaction.date, date);
     });
@@ -36,7 +36,7 @@ void main() {
         "transaction_type_id": transactionTypeId,
         "source_id": sourceId,
         "name": name,
-        "explanation": explanation,
+        "detail": detail,
         "amount": amount,
         "date": date.microsecondsSinceEpoch,
       };
@@ -46,7 +46,7 @@ void main() {
       expect(transaction.transactionTypeId, transactionTypeId);
       expect(transaction.sourceId, sourceId);
       expect(transaction.name, name);
-      expect(transaction.explanation, explanation);
+      expect(transaction.detail, detail);
       expect(transaction.amount, amount);
       expect(transaction.date, date);
     });

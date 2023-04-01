@@ -1,5 +1,3 @@
-import 'package:financial_tracker/Domains/transactions/entities/add_recurring_transaction.dart';
-import 'package:financial_tracker/Domains/transactions/entities/add_transaction.dart';
 import 'package:financial_tracker/Domains/transactions/transaction_repository.dart';
 import 'package:test/test.dart';
 
@@ -50,6 +48,21 @@ void main() {
           throwsException);
     });
 
+    test('getRecurringTransactionByTransactionId throws exception', () {
+      final transactionRepository = TransactionRepository();
+
+      expect(
+          () => transactionRepository.getRecurringTransactionByTransactionId(1),
+          throwsException);
+    });
+
+    test('getTransactionsBySourceId throws exception', () {
+      final transactionRepository = TransactionRepository();
+
+      expect(() => transactionRepository.getTransactionsBySourceId(1),
+          throwsException);
+    });
+
     test('addTransaction throws exception', () {
       final transactionRepository = TransactionRepository();
 
@@ -58,7 +71,7 @@ void main() {
                 "transaction_type_id": 1,
                 "source_id": 1,
                 "name": "test",
-                "explanation": "test_explanation",
+                "detail": "test_detail",
                 "amount": 1
               }),
           throwsException);
@@ -74,6 +87,19 @@ void main() {
                 "number_in_period": 1
               }),
           throwsException);
+    });
+
+    test('deleteRecurringTransaction throws exception', () {
+      final transactionRepository = TransactionRepository();
+
+      expect(() => transactionRepository.deleteRecurringTransaction(1),
+          throwsException);
+    });
+
+    test('deleteTransaction throws exception', () {
+      final transactionRepository = TransactionRepository();
+
+      expect(() => transactionRepository.deleteTransaction(1), throwsException);
     });
   });
 }

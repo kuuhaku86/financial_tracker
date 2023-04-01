@@ -12,7 +12,7 @@ void main() {
     const sourceId = 123;
     const transactionTypeId = 234;
     const name = "add_transaction_name_test";
-    const explanation = "add_transaction_explanation_test";
+    const detail = "add_transaction_detail_test";
     const amount = 12000.0;
     final date = DateTime.now();
 
@@ -23,7 +23,7 @@ void main() {
           transactionTypeId: transactionTypeId,
           sourceId: sourceId,
           name: name,
-          explanation: explanation,
+          detail: detail,
           amount: amount,
           date: date);
 
@@ -39,7 +39,7 @@ void main() {
       expect(result.transactionTypeId, transaction.transactionTypeId);
       expect(result.sourceId, transaction.sourceId);
       expect(result.name, transaction.name);
-      expect(result.explanation, transaction.explanation);
+      expect(result.detail, transaction.detail);
       expect(result.amount, transaction.amount);
       expect(result.date, transaction.date);
     });

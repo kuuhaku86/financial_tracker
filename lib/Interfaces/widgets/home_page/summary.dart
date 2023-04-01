@@ -1,7 +1,7 @@
 import 'package:financial_tracker/Commons/themes/colors.dart';
 import 'package:financial_tracker/Interfaces/widgets/home_page/box_content.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' show NumberFormat;
 
 class Summary extends StatelessWidget {
   const Summary({super.key});

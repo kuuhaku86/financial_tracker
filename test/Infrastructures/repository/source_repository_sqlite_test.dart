@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:financial_tracker/Commons/exceptions/domain_error_translator.dart';
-import 'package:financial_tracker/Domains/sources/entities/add_source.dart';
 import 'package:financial_tracker/Domains/sources/entities/source.dart';
 import 'package:financial_tracker/Infrastructures/repository/source_repository_sqlite.dart';
 import 'package:mockito/mockito.dart';
@@ -15,7 +12,6 @@ void main() {
     const tableName = "sources";
     const name = "source_repository_sqlite_test_name";
     const imageRoute = "source_repository_sqlite_test_image_route";
-    final image = File(imageRoute);
 
     group("getSource function", () {
       test('throws exception if not found any record', () {
@@ -92,7 +88,6 @@ void main() {
         final errorTranslator = DomainErrorTranslator();
         final repository =
             SourceRepositorySQLite(db: db, errorTranslator: errorTranslator);
-        final addSource = AddSource(name: name, image: image);
         final mapAddSource = <String, Object>{
           "name": name,
           "image_route": imageRoute
@@ -109,7 +104,6 @@ void main() {
         final errorTranslator = DomainErrorTranslator();
         final repository =
             SourceRepositorySQLite(db: db, errorTranslator: errorTranslator);
-        final addSource = AddSource(name: name, image: image);
         final source = Source(id: id, name: name, imageRoute: imageRoute);
         final mapAddSource = <String, Object>{
           "name": name,
@@ -165,11 +159,6 @@ void main() {
         final repository =
             SourceRepositorySQLite(db: db, errorTranslator: errorTranslator);
         final source = Source(id: id, name: name, imageRoute: imageRoute);
-        final mapSource = <dynamic, dynamic>{
-          "id": source.id,
-          "name": source.name,
-          "image_route": source.imageRoute,
-        };
 
         when(db.update(tableName, source)).thenAnswer((_) async => 0);
 
@@ -185,11 +174,6 @@ void main() {
         final repository =
             SourceRepositorySQLite(db: db, errorTranslator: errorTranslator);
         final source = Source(id: id, name: name, imageRoute: imageRoute);
-        final mapSource = <dynamic, dynamic>{
-          "id": source.id,
-          "name": source.name,
-          "image_route": source.imageRoute,
-        };
 
         when(db.update(tableName, source)).thenAnswer((_) async => id);
 

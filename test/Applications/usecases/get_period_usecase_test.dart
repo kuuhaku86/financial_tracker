@@ -20,7 +20,7 @@ void main() {
       final getPeriodUsecase =
           GetPeriodUsecase(transactionRepository: transactionRepository);
 
-      final result = await getPeriodUsecase.execute(periodId: id);
+      final result = await getPeriodUsecase.execute(id);
 
       expect(result.id, period.id);
       expect(result.name, period.name);
@@ -36,7 +36,7 @@ void main() {
       final getPeriodUsecase =
           GetPeriodUsecase(transactionRepository: transactionRepository);
 
-      expect(getPeriodUsecase.execute(periodId: id),
+      expect(getPeriodUsecase.execute(id),
           throwsA(errorTranslator.translate(ExceptionEnum.periodNotFound)));
     });
   });

@@ -22,7 +22,7 @@ class AddTransactionUsecase {
       "source_id": payload.sourceId,
       "name": payload.name,
       "amount": payload.amount,
-      "explanation": payload.explanation,
+      "detail": payload.detail,
     });
 
     if (payload.isRecurring) {

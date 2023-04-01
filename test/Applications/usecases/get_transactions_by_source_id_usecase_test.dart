@@ -1,4 +1,4 @@
-import 'package:financial_tracker/Applications/usecase/get_transactions_usecase.dart';
+import 'package:financial_tracker/Applications/usecase/get_transactions_by_source_id_usecase.dart';
 import 'package:financial_tracker/Domains/transactions/entities/transaction.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
@@ -6,7 +6,7 @@ import 'package:test/test.dart';
 import '../../mocks/transaction_repository.mocks.dart';
 
 void main() {
-  group("GetTransactionsUsecase class", () {
+  group("GetTransactionsBySourceIdUsecase class", () {
     const id = 345;
     const sourceId = 123;
     const transactionTypeId = 234;
@@ -26,13 +26,13 @@ void main() {
           amount: amount,
           date: date);
 
-      when(transactionRepository.getTransactions())
+      when(transactionRepository.getTransactionsBySourceId(sourceId))
           .thenAnswer((_) async => [transaction, transaction, transaction]);
 
-      final getTransactionsUsecase =
-          GetTransactionsUsecase(transactionRepository: transactionRepository);
+      final usecase = GetTransactionsBySourceIdUsecase(
+          transactionRepository: transactionRepository);
 
-      final result = await getTransactionsUsecase.execute();
+      final result = await usecase.execute(sourceId);
 
       expect(result.length, 3);
       expect(result[0].id, transaction.id);

@@ -41,7 +41,6 @@ void main() {
     test('execution failed for add file', () async {
       final sourceRepository = MockSourceRepository();
       final fileManager = MockFileManager();
-      final errorTranslator = DomainErrorTranslator();
 
       when(fileManager.addFile(addSource.image)).thenThrow(Exception());
 

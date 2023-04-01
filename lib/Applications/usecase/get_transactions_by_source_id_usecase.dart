@@ -6,7 +6,7 @@ class GetTransactionsBySourceIdUsecase {
 
   GetTransactionsBySourceIdUsecase({required this.transactionRepository});
 
-  Future<List<Transaction>> execute({required int sourceId}) async {
+  Future<List<Transaction>> execute(int sourceId) async {
     return await transactionRepository.getTransactionsBySourceId(sourceId);
   }
 }

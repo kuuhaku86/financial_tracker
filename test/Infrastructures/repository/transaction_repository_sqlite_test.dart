@@ -1,6 +1,4 @@
 import 'package:financial_tracker/Commons/exceptions/domain_error_translator.dart';
-import 'package:financial_tracker/Domains/transactions/entities/add_recurring_transaction.dart';
-import 'package:financial_tracker/Domains/transactions/entities/add_transaction.dart';
 import 'package:financial_tracker/Domains/transactions/entities/transaction_type.dart';
 import 'package:financial_tracker/Infrastructures/repository/transaction_repository_sqlite.dart';
 import 'package:mockito/mockito.dart';
@@ -16,7 +14,7 @@ void main() {
     const periodId = 456;
     const numberInPeriod = 13;
     const name = "transaction_repository_sqlite_test_name";
-    const explanation = "transaction_repository_sqlite_test_explanation";
+    const detail = "transaction_repository_sqlite_test_detail";
     const amount = 12000.0;
     final date = DateTime.now();
     final mapAddTransaction = <String, Object>{
@@ -24,7 +22,7 @@ void main() {
       "transaction_type_id": transactionTypeId,
       "source_id": sourceId,
       "name": name,
-      "explanation": explanation,
+      "detail": detail,
       "amount": amount,
       "date": date.microsecondsSinceEpoch,
     };
@@ -96,7 +94,7 @@ void main() {
           "transaction_type_id": transactionTypeId,
           "source_id": sourceId,
           "name": name,
-          "explanation": explanation,
+          "detail": detail,
           "amount": amount,
           "date": date.microsecondsSinceEpoch,
         };
@@ -109,7 +107,7 @@ void main() {
         expect(result[0].transactionTypeId, transactionTypeId);
         expect(result[0].sourceId, sourceId);
         expect(result[0].name, name);
-        expect(result[0].explanation, explanation);
+        expect(result[0].detail, detail);
         expect(result[0].amount, amount);
         expect(result[0].date, date);
       });
@@ -143,7 +141,7 @@ void main() {
               "transaction_type_id": transactionTypeId,
               "source_id": sourceId,
               "name": name,
-              "explanation": explanation,
+              "detail": detail,
               "amount": amount,
               "date": date.microsecondsSinceEpoch,
             });
@@ -154,7 +152,7 @@ void main() {
         expect(result.transactionTypeId, transactionTypeId);
         expect(result.sourceId, sourceId);
         expect(result.name, name);
-        expect(result.explanation, explanation);
+        expect(result.detail, detail);
         expect(result.amount, amount);
         expect(result.date, date);
       });
@@ -246,8 +244,8 @@ void main() {
         final repository = TransactionRepositorySQLite(
             db: db, errorTranslator: errorTranslator);
 
-        when(db.get(tableName, id)).thenAnswer((_) async =>
-            <dynamic, dynamic>{"id": id, "name": name});
+        when(db.get(tableName, id)).thenAnswer(
+            (_) async => <dynamic, dynamic>{"id": id, "name": name});
 
         final result = await repository.getPeriod(id);
 
@@ -295,6 +293,99 @@ void main() {
       });
     });
 
+    group("getRecurringTransactionByTransactionId function", () {
+      const tableName = "recurring_transactions";
+
+      test('throws exception if not found any record', () {
+        final db = MockSqliteDB();
+        final errorTranslator = DomainErrorTranslator();
+        final repository = TransactionRepositorySQLite(
+            db: db, errorTranslator: errorTranslator);
+
+        when(db.getByWhere(tableName, "transaction_id = ?", [id]))
+            .thenAnswer((_) async => []);
+
+        expect(
+            repository.getRecurringTransactionByTransactionId(id),
+            throwsA(errorTranslator
+                .translate(ExceptionEnum.recurringTransactionNotFound)));
+      });
+
+      test('execution success', () async {
+        final db = MockSqliteDB();
+        final errorTranslator = DomainErrorTranslator();
+        final repository = TransactionRepositorySQLite(
+            db: db, errorTranslator: errorTranslator);
+
+        when(db.getByWhere(tableName, "transaction_id = ?", [id]))
+            .thenAnswer((_) async => [
+                  <dynamic, dynamic>{
+                    "id": id,
+                    "transaction_id": transactionId,
+                    "number_in_period": numberInPeriod,
+                    "period_id": periodId
+                  }
+                ]);
+
+        final result =
+            await repository.getRecurringTransactionByTransactionId(id);
+
+        expect(result.id, id);
+        expect(result.transactionId, transactionId);
+        expect(result.numberInPeriod, numberInPeriod);
+        expect(result.periodId, periodId);
+      });
+    });
+
+    group("getTransactionsBySourceId function", () {
+      const tableName = "transactions";
+
+      test('throws exception if not found any record', () {
+        final db = MockSqliteDB();
+        final errorTranslator = DomainErrorTranslator();
+        final repository = TransactionRepositorySQLite(
+            db: db, errorTranslator: errorTranslator);
+
+        when(db.getByWhere(tableName, "source_id = ?", [id]))
+            .thenAnswer((_) async => []);
+
+        expect(
+            repository.getTransactionsBySourceId(id),
+            throwsA(
+                errorTranslator.translate(ExceptionEnum.transactionNotFound)));
+      });
+
+      test('execution success', () async {
+        final db = MockSqliteDB();
+        final errorTranslator = DomainErrorTranslator();
+        final repository = TransactionRepositorySQLite(
+            db: db, errorTranslator: errorTranslator);
+
+        when(db.getByWhere(tableName, "source_id = ?", [id]))
+            .thenAnswer((_) async => [
+                  <dynamic, dynamic>{
+                    "id": id,
+                    "transaction_type_id": transactionTypeId,
+                    "source_id": sourceId,
+                    "name": name,
+                    "detail": detail,
+                    "amount": amount,
+                    "date": date.microsecondsSinceEpoch,
+                  }
+                ]);
+
+        final result = await repository.getTransactionsBySourceId(id);
+
+        expect(result[0].id, id);
+        expect(result[0].transactionTypeId, transactionTypeId);
+        expect(result[0].sourceId, sourceId);
+        expect(result[0].name, name);
+        expect(result[0].detail, detail);
+        expect(result[0].amount, amount);
+        expect(result[0].date, date);
+      });
+    });
+
     group("addTransaction function", () {
       const tableName = "transactions";
 
@@ -303,12 +394,6 @@ void main() {
         final errorTranslator = DomainErrorTranslator();
         final repository = TransactionRepositorySQLite(
             db: db, errorTranslator: errorTranslator);
-        final addTransaction = AddTransaction(
-            transactionTypeId: transactionTypeId,
-            sourceId: sourceId,
-            name: name,
-            explanation: explanation,
-            amount: amount);
 
         when(db.insert(tableName, mapAddTransaction))
             .thenAnswer((_) async => 0);
@@ -324,18 +409,12 @@ void main() {
         final errorTranslator = DomainErrorTranslator();
         final repository = TransactionRepositorySQLite(
             db: db, errorTranslator: errorTranslator);
-        final addTransaction = AddTransaction(
-            transactionTypeId: transactionTypeId,
-            sourceId: sourceId,
-            name: name,
-            explanation: explanation,
-            amount: amount);
         final map = <dynamic, dynamic>{
           "id": id,
           "transaction_type_id": transactionTypeId,
           "source_id": sourceId,
           "name": name,
-          "explanation": explanation,
+          "detail": detail,
           "amount": amount,
           "date": date.microsecondsSinceEpoch,
         };
@@ -349,7 +428,7 @@ void main() {
         expect(result.transactionTypeId, transactionTypeId);
         expect(result.sourceId, sourceId);
         expect(result.name, name);
-        expect(result.explanation, explanation);
+        expect(result.detail, detail);
         expect(result.amount, amount);
         expect(result.date, date);
       });
@@ -363,10 +442,6 @@ void main() {
         final errorTranslator = DomainErrorTranslator();
         final repository = TransactionRepositorySQLite(
             db: db, errorTranslator: errorTranslator);
-        final addRecurringTransaction = AddRecurringTransaction(
-            transactionId: transactionId,
-            numberInPeriod: numberInPeriod,
-            periodId: periodId);
 
         when(db.insert(tableName, mapAddRecurringTransaction))
             .thenAnswer((_) async => 0);
@@ -383,10 +458,6 @@ void main() {
         final errorTranslator = DomainErrorTranslator();
         final repository = TransactionRepositorySQLite(
             db: db, errorTranslator: errorTranslator);
-        final addRecurringTransaction = AddRecurringTransaction(
-            transactionId: transactionId,
-            numberInPeriod: numberInPeriod,
-            periodId: periodId);
         final map = <dynamic, dynamic>{
           "id": id,
           "transaction_id": transactionId,
@@ -404,6 +475,65 @@ void main() {
         expect(result.transactionId, transactionId);
         expect(result.numberInPeriod, numberInPeriod);
         expect(result.periodId, periodId);
+      });
+    });
+
+    group("deleteTransaction function", () {
+      String tableName = "transactions";
+
+      test('throw error if deletion failed', () async {
+        final db = MockSqliteDB();
+        final errorTranslator = DomainErrorTranslator();
+        final repository = TransactionRepositorySQLite(
+            db: db, errorTranslator: errorTranslator);
+
+        when(db.delete(tableName, id)).thenAnswer((_) async => 0);
+
+        expect(
+            repository.deleteTransaction(id),
+            throwsA(errorTranslator
+                .translate(ExceptionEnum.deleteTransactionFailed)));
+      });
+
+      test('return Transaction object when deletion success', () async {
+        final db = MockSqliteDB();
+        final errorTranslator = DomainErrorTranslator();
+        final repository = TransactionRepositorySQLite(
+            db: db, errorTranslator: errorTranslator);
+
+        when(db.delete(tableName, id)).thenAnswer((_) async => id);
+
+        expect(repository.deleteTransaction(id), isA<Future<void>>());
+      });
+    });
+
+    group("deleteRecurringTransaction function", () {
+      String tableName = "recurring_transactions";
+
+      test('throw error if deletion failed', () async {
+        final db = MockSqliteDB();
+        final errorTranslator = DomainErrorTranslator();
+        final repository = TransactionRepositorySQLite(
+            db: db, errorTranslator: errorTranslator);
+
+        when(db.delete(tableName, id)).thenAnswer((_) async => 0);
+
+        expect(
+            repository.deleteRecurringTransaction(id),
+            throwsA(errorTranslator
+                .translate(ExceptionEnum.deleteRecurringTransactionFailed)));
+      });
+
+      test('return RecurringTransaction object when deletion success',
+          () async {
+        final db = MockSqliteDB();
+        final errorTranslator = DomainErrorTranslator();
+        final repository = TransactionRepositorySQLite(
+            db: db, errorTranslator: errorTranslator);
+
+        when(db.delete(tableName, id)).thenAnswer((_) async => id);
+
+        expect(repository.deleteRecurringTransaction(id), isA<Future<void>>());
       });
     });
   });

@@ -30,7 +30,7 @@ class TransactionInfoModalBottomSheet {
 
       List<Widget> widgetList = [
         _generateRow("Name:", transaction.name),
-        _generateRow("Detail:", transaction.explanation),
+        _generateRow("Detail:", transaction.detail),
         _generateRow("Transaction Type:", transactionType.name),
         _generateRow("Transaction Amount:", transaction.amount.toString()),
         Row(

@@ -362,7 +362,7 @@ class _AddTransactionPageState extends State<AddTransactionPage> {
         transactionTypeId: transactionTypeSelected!.id,
         sourceId: sourceSelected!.id,
         name: nameController.text,
-        explanation: detailController.text,
+        detail: detailController.text,
         amount: double.parse(amountController.text),
         isRecurring: isRecurrent["value"],
       );

@@ -91,6 +91,24 @@ class MockSqliteDB extends _i1.Mock implements _i3.SqliteDB {
         returnValue: _i4.Future<Map<dynamic, dynamic>?>.value(),
       ) as _i4.Future<Map<dynamic, dynamic>?>);
   @override
+  _i4.Future<List<Map<dynamic, dynamic>?>> getByWhere(
+    String? tableName,
+    String? whereStatement,
+    List<Object?>? whereArgs,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getByWhere,
+          [
+            tableName,
+            whereStatement,
+            whereArgs,
+          ],
+        ),
+        returnValue: _i4.Future<List<Map<dynamic, dynamic>?>>.value(
+            <Map<dynamic, dynamic>?>[]),
+      ) as _i4.Future<List<Map<dynamic, dynamic>?>>);
+  @override
   _i4.Future<List<Map<dynamic, dynamic>>> getAll(String? tableName) =>
       (super.noSuchMethod(
         Invocation.method(

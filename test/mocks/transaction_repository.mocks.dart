@@ -169,6 +169,33 @@ class MockTransactionRepository extends _i1.Mock
         )),
       ) as _i7.Future<_i5.RecurringTransaction>);
   @override
+  _i7.Future<_i5.RecurringTransaction> getRecurringTransactionByTransactionId(
+          int? transactionId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getRecurringTransactionByTransactionId,
+          [transactionId],
+        ),
+        returnValue: _i7.Future<_i5.RecurringTransaction>.value(
+            _FakeRecurringTransaction_3(
+          this,
+          Invocation.method(
+            #getRecurringTransactionByTransactionId,
+            [transactionId],
+          ),
+        )),
+      ) as _i7.Future<_i5.RecurringTransaction>);
+  @override
+  _i7.Future<List<_i3.Transaction>> getTransactionsBySourceId(int? sourceId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getTransactionsBySourceId,
+          [sourceId],
+        ),
+        returnValue:
+            _i7.Future<List<_i3.Transaction>>.value(<_i3.Transaction>[]),
+      ) as _i7.Future<List<_i3.Transaction>>);
+  @override
   _i7.Future<_i3.Transaction> addTransaction(Map<String, Object>? map) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -200,4 +227,23 @@ class MockTransactionRepository extends _i1.Mock
           ),
         )),
       ) as _i7.Future<_i5.RecurringTransaction>);
+  @override
+  _i7.Future<void> deleteRecurringTransaction(int? recurringTransactionId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #deleteRecurringTransaction,
+          [recurringTransactionId],
+        ),
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
+  @override
+  _i7.Future<void> deleteTransaction(int? transactionId) => (super.noSuchMethod(
+        Invocation.method(
+          #deleteTransaction,
+          [transactionId],
+        ),
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
 }

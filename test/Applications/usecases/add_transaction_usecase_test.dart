@@ -18,7 +18,7 @@ void main() {
     const sourceId = 123;
     const transactionTypeId = 234;
     const name = "add_transaction_name_test";
-    const explanation = "add_transaction_explanation_test";
+    const detail = "add_transaction_detail_test";
     const imageRoute = "add_transaction_image_route";
     const amount = 12000.0;
     const recurringTransactionId = 456;
@@ -29,7 +29,7 @@ void main() {
       "transaction_type_id": transactionTypeId,
       "source_id": sourceId,
       "name": name,
-      "explanation": explanation,
+      "detail": detail,
       "amount": amount
     };
 
@@ -41,7 +41,7 @@ void main() {
           transactionTypeId: transactionTypeId,
           sourceId: sourceId,
           name: name,
-          explanation: explanation,
+          detail: detail,
           amount: amount);
 
       when(sourceRepository.getSource(sourceId))
@@ -64,7 +64,7 @@ void main() {
           transactionTypeId: transactionTypeId,
           sourceId: sourceId,
           name: name,
-          explanation: explanation,
+          detail: detail,
           amount: amount);
 
       when(sourceRepository.getSource(sourceId))
@@ -95,7 +95,7 @@ void main() {
             transactionTypeId: transactionTypeId,
             sourceId: sourceId,
             name: name,
-            explanation: explanation,
+            detail: detail,
             amount: amount);
 
         when(sourceRepository.getSource(sourceId))
@@ -122,7 +122,7 @@ void main() {
             transactionTypeId: transactionTypeId,
             sourceId: sourceId,
             name: name,
-            explanation: explanation,
+            detail: detail,
             amount: amount);
         final source = Source(id: id, name: name, imageRoute: imageRoute);
         final transactionType =
@@ -132,7 +132,7 @@ void main() {
             transactionTypeId: transactionTypeId,
             sourceId: sourceId,
             name: name,
-            explanation: explanation,
+            detail: detail,
             amount: amount,
             date: date);
 
@@ -153,7 +153,7 @@ void main() {
         expect(result.transactionTypeId, transaction.transactionTypeId);
         expect(result.sourceId, transaction.sourceId);
         expect(result.name, transaction.name);
-        expect(result.explanation, transaction.explanation);
+        expect(result.detail, transaction.detail);
         expect(result.amount, transaction.amount);
         expect(result.date, transaction.date);
       });
@@ -172,7 +172,7 @@ void main() {
           transactionTypeId: transactionTypeId,
           sourceId: sourceId,
           name: name,
-          explanation: explanation,
+          detail: detail,
           amount: amount,
           isRecurring: true,
           period: period,
@@ -205,7 +205,7 @@ void main() {
             transactionTypeId: transactionTypeId,
             sourceId: sourceId,
             name: name,
-            explanation: explanation,
+            detail: detail,
             amount: amount,
             isRecurring: true,
             period: period);
@@ -242,14 +242,14 @@ void main() {
             transactionTypeId: transactionTypeId,
             sourceId: sourceId,
             name: name,
-            explanation: explanation,
+            detail: detail,
             amount: amount,
             date: date);
         final addTransaction = AddTransaction(
             transactionTypeId: transactionTypeId,
             sourceId: sourceId,
             name: name,
-            explanation: explanation,
+            detail: detail,
             amount: amount,
             isRecurring: true,
             period: period,
@@ -289,7 +289,7 @@ void main() {
             transactionTypeId: transactionTypeId,
             sourceId: sourceId,
             name: name,
-            explanation: explanation,
+            detail: detail,
             amount: amount,
             date: date);
         final recurringTransaction = RecurringTransaction(
@@ -301,7 +301,7 @@ void main() {
             transactionTypeId: transactionTypeId,
             sourceId: sourceId,
             name: name,
-            explanation: explanation,
+            detail: detail,
             amount: amount,
             isRecurring: true,
             numberInPeriod: numberInPeriod,
@@ -328,7 +328,7 @@ void main() {
         expect(result.transactionTypeId, transaction.transactionTypeId);
         expect(result.sourceId, transaction.sourceId);
         expect(result.name, transaction.name);
-        expect(result.explanation, transaction.explanation);
+        expect(result.detail, transaction.detail);
         expect(result.amount, transaction.amount);
         expect(result.date, transaction.date);
       });

@@ -64,7 +64,7 @@ class SqliteDB {
         transaction_type_id INTEGER NOT NULL,
         source_id INTEGER NOT NULL,
         name TEXT NOT NULL,
-        explanation TEXT NOT NULL,
+        detail TEXT NOT NULL,
         amount FLOAT NOT NULL,
         date INTEGER NOT NULL
       )''');

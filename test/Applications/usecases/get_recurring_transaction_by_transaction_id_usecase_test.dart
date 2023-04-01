@@ -1,4 +1,4 @@
-import 'package:financial_tracker/Applications/usecase/get_recurring_transaction_usecase.dart';
+import 'package:financial_tracker/Applications/usecase/get_recurring_transaction_by_transaction_id_usecase.dart';
 import 'package:financial_tracker/Commons/exceptions/domain_error_translator.dart';
 import 'package:financial_tracker/Domains/transactions/entities/recurring_transaction.dart';
 import 'package:mockito/mockito.dart';
@@ -7,7 +7,7 @@ import 'package:test/test.dart';
 import '../../mocks/transaction_repository.mocks.dart';
 
 void main() {
-  group("GetRecurringTransactionUsecase class", () {
+  group("GetRecurringTransactionByTransactionIdUsecase class", () {
     const id = 345;
     const transactionId = 123;
     const numberInPeriod = 234;
@@ -21,13 +21,13 @@ void main() {
           numberInPeriod: numberInPeriod,
           periodId: periodId);
 
-      when(transactionRepository.getRecurringTransaction(id))
+      when(transactionRepository.getRecurringTransactionByTransactionId(id))
           .thenAnswer((_) async => recurringTransaction); // 4211000
 
-      final getRecurringTransactionUsecase = GetRecurringTransactionUsecase(
+      final usecase = GetRecurringTransactionByTransactionIdUsecase(
           transactionRepository: transactionRepository);
 
-      final result = await getRecurringTransactionUsecase.execute(id);
+      final result = await usecase.execute(id);
 
       expect(result.id, recurringTransaction.id);
       expect(result.transactionId, recurringTransaction.transactionId);
@@ -36,20 +36,20 @@ void main() {
     });
 
     test(
-        'execution failed because no recurring transaction with id existed yet',
+        'execution failed because no recurring transaction with transaction id existed yet',
         () {
       final transactionRepository = MockTransactionRepository();
       final errorTranslator = DomainErrorTranslator();
 
-      when(transactionRepository.getRecurringTransaction(id)).thenThrow(
-          errorTranslator
+      when(transactionRepository.getRecurringTransactionByTransactionId(id))
+          .thenThrow(errorTranslator
               .translate(ExceptionEnum.recurringTransactionNotFound));
 
-      final getRecurringTransactionUsecase = GetRecurringTransactionUsecase(
+      final usecase = GetRecurringTransactionByTransactionIdUsecase(
           transactionRepository: transactionRepository);
 
       expect(
-          getRecurringTransactionUsecase.execute(id),
+          usecase.execute(id),
           throwsA(errorTranslator
               .translate(ExceptionEnum.recurringTransactionNotFound)));
     });

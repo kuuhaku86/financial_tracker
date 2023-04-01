@@ -6,7 +6,7 @@ class GetPeriodUsecase {
 
   GetPeriodUsecase({required this.transactionRepository});
 
-  Future<Period> execute({required int periodId}) async {
+  Future<Period> execute(int periodId) async {
     return await transactionRepository.getPeriod(periodId);
   }
 }

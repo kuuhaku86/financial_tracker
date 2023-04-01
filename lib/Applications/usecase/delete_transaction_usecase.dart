@@ -8,13 +8,18 @@ class DeleteTransactionUsecase {
   DeleteTransactionUsecase({required this.transactionRepository});
 
   Future<void> execute(Transaction transaction) async {
+    RecurringTransaction? recurringTransaction;
     try {
-      RecurringTransaction recurringTransaction = await transactionRepository
+      recurringTransaction = await transactionRepository
           .getRecurringTransactionByTransactionId(transaction.id);
-      await transactionRepository
-          .deleteRecurringTransaction(recurringTransaction.id);
     } catch (e) {
       // if transaction doesn't has any recurring transaction
+      recurringTransaction = null;
+    }
+
+    if (recurringTransaction != null) {
+      await transactionRepository
+          .deleteRecurringTransaction(recurringTransaction.id);
     }
 
     await transactionRepository.deleteTransaction(transaction.id);
