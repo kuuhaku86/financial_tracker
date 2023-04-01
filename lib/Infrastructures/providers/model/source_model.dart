@@ -11,7 +11,7 @@ class IncomeSourceModel extends ChangeNotifier {
 
   Source? get source => _source;
 
-  void getSource(int sourceId) async {
+  Future<void> getSource(int sourceId) async {
     _source = await usecase.execute(sourceId);
 
     notifyListeners();
