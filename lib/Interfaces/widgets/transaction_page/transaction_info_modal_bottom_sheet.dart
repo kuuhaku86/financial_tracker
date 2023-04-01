@@ -1,66 +1,38 @@
 import 'dart:io';
 
-import 'package:financial_tracker/Applications/usecase/get_period_usecase.dart';
-import 'package:financial_tracker/Applications/usecase/get_recurring_transaction_by_transaction_id_usecase.dart';
-import 'package:financial_tracker/Applications/usecase/get_source_usecase.dart';
-import 'package:financial_tracker/Applications/usecase/get_transaction_type_usecase.dart';
-import 'package:financial_tracker/Applications/usecase/get_transaction_usecase.dart';
 import 'package:financial_tracker/Commons/themes/colors.dart';
 import 'package:financial_tracker/Domains/sources/entities/source.dart';
 import 'package:financial_tracker/Domains/transactions/entities/period.dart';
 import 'package:financial_tracker/Domains/transactions/entities/recurring_transaction.dart';
 import 'package:financial_tracker/Domains/transactions/entities/transaction.dart';
 import 'package:financial_tracker/Domains/transactions/entities/transaction_type.dart';
+import 'package:financial_tracker/Infrastructures/providers/model/transaction_model.dart';
 import 'package:financial_tracker/Interfaces/widgets/general_modal_bottom_sheet.dart';
 import 'package:financial_tracker/Interfaces/widgets/image_custom.dart';
 import 'package:flutter/material.dart';
-import 'package:financial_tracker/Infrastructures/container.dart'
-    as dependency_container;
+import 'package:provider/provider.dart';
 
 class TransactionInfoModalBottomSheet {
   static showModal(BuildContext context, int transactionId) async {
     final mediaQuerySize = MediaQuery.of(context).size;
-    final GetTransactionUsecase getTransactionUsecase = dependency_container
-        .Container.container
-        .getInstance(GetTransactionUsecase) as GetTransactionUsecase;
-    final GetTransactionTypeUsecase getTransactionTypeUsecase =
-        dependency_container.Container.container
-                .getInstance(GetTransactionTypeUsecase)
-            as GetTransactionTypeUsecase;
-    final GetSourceUsecase getSourceUsecase =
-        dependency_container.Container.container.getInstance(GetSourceUsecase)
-            as GetSourceUsecase;
-    final GetRecurringTransactionByTransactionIdUsecase
-        getRecurringTransactionByTransactionIdUsecase = dependency_container
-                .Container.container
-                .getInstance(GetRecurringTransactionByTransactionIdUsecase)
-            as GetRecurringTransactionByTransactionIdUsecase;
-    final GetPeriodUsecase getPeriodUsecase =
-        dependency_container.Container.container.getInstance(GetPeriodUsecase)
-            as GetPeriodUsecase;
-    final Transaction transaction =
-        await getTransactionUsecase.execute(transactionId);
-    final TransactionType transactionType =
-        await getTransactionTypeUsecase.execute(transaction.transactionTypeId);
-    final Source source = await getSourceUsecase.execute(transaction.sourceId);
-    RecurringTransaction? recurringTransaction;
-    Period? period;
-
-    try {
-      recurringTransaction = await getRecurringTransactionByTransactionIdUsecase
-          .execute(transactionId: transactionId);
-      period = await getPeriodUsecase.execute(
-          periodId: recurringTransaction.periodId);
-    } catch (e) {
-      // if there's no recurring transaction
-    }
+    await Provider.of<TransactionModel>(context, listen: false)
+        .getTransaction(transactionId);
 
     if (context.mounted) {
+      final provider = Provider.of<TransactionModel>(context, listen: false);
+      final Transaction transaction = provider.transaction!;
+
+      final TransactionType transactionType = provider.transactionType!;
+      final Source source = provider.source!;
+      RecurringTransaction? recurringTransaction =
+          provider.recurringTransaction;
+      Period? period = provider.period;
+
       List<Widget> widgetList = [
-        generateRow("Name:", transaction.name),
-        generateRow("Detail:", transaction.explanation),
-        generateRow("Transaction Type:", transactionType.name),
-        generateRow("Transaction Amount:", transaction.amount.toString()),
+        _generateRow("Name:", transaction.name),
+        _generateRow("Detail:", transaction.explanation),
+        _generateRow("Transaction Type:", transactionType.name),
+        _generateRow("Transaction Amount:", transaction.amount.toString()),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -87,7 +59,7 @@ class TransactionInfoModalBottomSheet {
       ];
 
       if (recurringTransaction != null) {
-        widgetList.add(generateRow("Repeat Every:",
+        widgetList.add(_generateRow("Repeat Every:",
             "${recurringTransaction.numberInPeriod} ${period!.name}"));
       }
 
@@ -105,7 +77,7 @@ class TransactionInfoModalBottomSheet {
     }
   }
 
-  static Row generateRow(String label, String value) {
+  static Row _generateRow(String label, String value) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
