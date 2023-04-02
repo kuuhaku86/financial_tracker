@@ -246,4 +246,25 @@ class MockTransactionRepository extends _i1.Mock
         returnValue: _i7.Future<void>.value(),
         returnValueForMissingStub: _i7.Future<void>.value(),
       ) as _i7.Future<void>);
+  @override
+  _i7.Future<void> updateTransaction(_i3.Transaction? transaction) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateTransaction,
+          [transaction],
+        ),
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
+  @override
+  _i7.Future<void> updateRecurringTransaction(
+          _i5.RecurringTransaction? recurringTransaction) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateRecurringTransaction,
+          [recurringTransaction],
+        ),
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
 }

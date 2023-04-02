@@ -10,7 +10,7 @@ import '../../mocks/file_manager.mocks.dart';
 import '../../mocks/source_repository.mocks.dart';
 
 void main() {
-  group("DeleteSourceUsecase class", () {
+  group("UpdateSourceUsecase class", () {
     const id = 123;
     const name = "update_source_name_test";
     const imageRoute = "update_source_image_route_test";

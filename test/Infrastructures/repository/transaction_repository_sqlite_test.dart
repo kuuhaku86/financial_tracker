@@ -1,4 +1,6 @@
 import 'package:financial_tracker/Commons/exceptions/domain_error_translator.dart';
+import 'package:financial_tracker/Domains/transactions/entities/recurring_transaction.dart';
+import 'package:financial_tracker/Domains/transactions/entities/transaction.dart';
 import 'package:financial_tracker/Domains/transactions/entities/transaction_type.dart';
 import 'package:financial_tracker/Infrastructures/repository/transaction_repository_sqlite.dart';
 import 'package:mockito/mockito.dart';
@@ -17,6 +19,15 @@ void main() {
     const detail = "transaction_repository_sqlite_test_detail";
     const amount = 12000.0;
     final date = DateTime.now();
+    final mapTransaction = {
+      "id": id,
+      "transaction_type_id": transactionTypeId,
+      "source_id": sourceId,
+      "name": name,
+      "detail": detail,
+      "amount": amount,
+      "date": date.microsecondsSinceEpoch,
+    };
     final mapAddTransaction = <String, Object>{
       "id": id,
       "transaction_type_id": transactionTypeId,
@@ -32,6 +43,30 @@ void main() {
       "number_in_period": numberInPeriod,
       "period_id": periodId
     };
+    final mapIdName = {
+      "id": id,
+      "name": name,
+    };
+    final mapRecurringTransaction = {
+      "id": id,
+      "transaction_id": transactionId,
+      "number_in_period": numberInPeriod,
+      "period_id": periodId
+    };
+    final transactionType = TransactionType(id: id, name: name);
+    final transaction = Transaction(
+        id: id,
+        transactionTypeId: transactionTypeId,
+        sourceId: sourceId,
+        name: name,
+        detail: detail,
+        amount: amount,
+        date: date);
+    final recurringTransaction = RecurringTransaction(
+        id: id,
+        transactionId: transactionId,
+        numberInPeriod: numberInPeriod,
+        periodId: periodId);
 
     group("getTransactionType function", () {
       const tableName = "transaction_types";
@@ -55,12 +90,8 @@ void main() {
         final errorTranslator = DomainErrorTranslator();
         final repository = TransactionRepositorySQLite(
             db: db, errorTranslator: errorTranslator);
-        final transactionType = TransactionType(id: id, name: name);
 
-        when(db.get(tableName, id)).thenAnswer((_) async => <dynamic, dynamic>{
-              "id": id,
-              "name": name,
-            });
+        when(db.get(tableName, id)).thenAnswer((_) async => mapIdName);
 
         final result = await repository.getTransactionType(id);
 
@@ -89,17 +120,9 @@ void main() {
         final errorTranslator = DomainErrorTranslator();
         final repository = TransactionRepositorySQLite(
             db: db, errorTranslator: errorTranslator);
-        final map = {
-          "id": id,
-          "transaction_type_id": transactionTypeId,
-          "source_id": sourceId,
-          "name": name,
-          "detail": detail,
-          "amount": amount,
-          "date": date.microsecondsSinceEpoch,
-        };
 
-        when(db.getAll(tableName)).thenAnswer((_) async => [map, map, map]);
+        when(db.getAll(tableName)).thenAnswer(
+            (_) async => [mapTransaction, mapTransaction, mapTransaction]);
 
         final result = await repository.getTransactions();
         expect(result.length, 3);
@@ -136,15 +159,7 @@ void main() {
         final repository = TransactionRepositorySQLite(
             db: db, errorTranslator: errorTranslator);
 
-        when(db.get(tableName, id)).thenAnswer((_) async => <dynamic, dynamic>{
-              "id": id,
-              "transaction_type_id": transactionTypeId,
-              "source_id": sourceId,
-              "name": name,
-              "detail": detail,
-              "amount": amount,
-              "date": date.microsecondsSinceEpoch,
-            });
+        when(db.get(tableName, id)).thenAnswer((_) async => mapTransaction);
 
         final result = await repository.getTransaction(id);
 
@@ -178,12 +193,9 @@ void main() {
         final errorTranslator = DomainErrorTranslator();
         final repository = TransactionRepositorySQLite(
             db: db, errorTranslator: errorTranslator);
-        final map = {
-          "id": id,
-          "name": name,
-        };
 
-        when(db.getAll(tableName)).thenAnswer((_) async => [map, map, map]);
+        when(db.getAll(tableName))
+            .thenAnswer((_) async => [mapIdName, mapIdName, mapIdName]);
 
         final result = await repository.getTransactionTypes();
         expect(result.length, 3);
@@ -277,12 +289,8 @@ void main() {
         final repository = TransactionRepositorySQLite(
             db: db, errorTranslator: errorTranslator);
 
-        when(db.get(tableName, id)).thenAnswer((_) async => <dynamic, dynamic>{
-              "id": id,
-              "transaction_id": transactionId,
-              "number_in_period": numberInPeriod,
-              "period_id": periodId
-            });
+        when(db.get(tableName, id))
+            .thenAnswer((_) async => mapRecurringTransaction);
 
         final result = await repository.getRecurringTransaction(id);
 
@@ -318,14 +326,7 @@ void main() {
             db: db, errorTranslator: errorTranslator);
 
         when(db.getByWhere(tableName, "transaction_id = ?", [id]))
-            .thenAnswer((_) async => [
-                  <dynamic, dynamic>{
-                    "id": id,
-                    "transaction_id": transactionId,
-                    "number_in_period": numberInPeriod,
-                    "period_id": periodId
-                  }
-                ]);
+            .thenAnswer((_) async => [mapRecurringTransaction]);
 
         final result =
             await repository.getRecurringTransactionByTransactionId(id);
@@ -362,17 +363,7 @@ void main() {
             db: db, errorTranslator: errorTranslator);
 
         when(db.getByWhere(tableName, "source_id = ?", [id]))
-            .thenAnswer((_) async => [
-                  <dynamic, dynamic>{
-                    "id": id,
-                    "transaction_type_id": transactionTypeId,
-                    "source_id": sourceId,
-                    "name": name,
-                    "detail": detail,
-                    "amount": amount,
-                    "date": date.microsecondsSinceEpoch,
-                  }
-                ]);
+            .thenAnswer((_) async => [mapTransaction]);
 
         final result = await repository.getTransactionsBySourceId(id);
 
@@ -409,19 +400,10 @@ void main() {
         final errorTranslator = DomainErrorTranslator();
         final repository = TransactionRepositorySQLite(
             db: db, errorTranslator: errorTranslator);
-        final map = <dynamic, dynamic>{
-          "id": id,
-          "transaction_type_id": transactionTypeId,
-          "source_id": sourceId,
-          "name": name,
-          "detail": detail,
-          "amount": amount,
-          "date": date.microsecondsSinceEpoch,
-        };
 
         when(db.insert(tableName, mapAddTransaction))
             .thenAnswer((_) async => id);
-        when(db.get(tableName, id)).thenAnswer((_) async => map);
+        when(db.get(tableName, id)).thenAnswer((_) async => mapTransaction);
 
         var result = await repository.addTransaction(mapAddTransaction);
         expect(result.id, id);
@@ -458,16 +440,11 @@ void main() {
         final errorTranslator = DomainErrorTranslator();
         final repository = TransactionRepositorySQLite(
             db: db, errorTranslator: errorTranslator);
-        final map = <dynamic, dynamic>{
-          "id": id,
-          "transaction_id": transactionId,
-          "number_in_period": numberInPeriod,
-          "period_id": periodId
-        };
 
         when(db.insert(tableName, mapAddRecurringTransaction))
             .thenAnswer((_) async => id);
-        when(db.get(tableName, id)).thenAnswer((_) async => map);
+        when(db.get(tableName, id))
+            .thenAnswer((_) async => mapRecurringTransaction);
 
         var result = await repository
             .addRecurringTransaction(mapAddRecurringTransaction);
@@ -534,6 +511,67 @@ void main() {
         when(db.delete(tableName, id)).thenAnswer((_) async => id);
 
         expect(repository.deleteRecurringTransaction(id), isA<Future<void>>());
+      });
+    });
+
+    group("updateTransaction function", () {
+      String tableName = "transactions";
+
+      test('throw error if update failed', () async {
+        final db = MockSqliteDB();
+        final errorTranslator = DomainErrorTranslator();
+        final repository = TransactionRepositorySQLite(
+            db: db, errorTranslator: errorTranslator);
+
+        when(db.update(tableName, transaction)).thenAnswer((_) async => 0);
+
+        expect(
+            repository.updateTransaction(transaction),
+            throwsA(errorTranslator
+                .translate(ExceptionEnum.updateTransactionFailed)));
+      });
+
+      test('execution success', () async {
+        final db = MockSqliteDB();
+        final errorTranslator = DomainErrorTranslator();
+        final repository = TransactionRepositorySQLite(
+            db: db, errorTranslator: errorTranslator);
+
+        when(db.update(tableName, transaction)).thenAnswer((_) async => id);
+
+        expect(repository.updateTransaction(transaction), isA<Future<void>>());
+      });
+    });
+
+    group("updateRecurringTransaction function", () {
+      String tableName = "recurring_transactions";
+
+      test('throw error if update failed', () async {
+        final db = MockSqliteDB();
+        final errorTranslator = DomainErrorTranslator();
+        final repository = TransactionRepositorySQLite(
+            db: db, errorTranslator: errorTranslator);
+
+        when(db.update(tableName, recurringTransaction))
+            .thenAnswer((_) async => 0);
+
+        expect(
+            repository.updateRecurringTransaction(recurringTransaction),
+            throwsA(errorTranslator
+                .translate(ExceptionEnum.updateRecurringTransactionFailed)));
+      });
+
+      test('execution success', () async {
+        final db = MockSqliteDB();
+        final errorTranslator = DomainErrorTranslator();
+        final repository = TransactionRepositorySQLite(
+            db: db, errorTranslator: errorTranslator);
+
+        when(db.update(tableName, recurringTransaction))
+            .thenAnswer((_) async => id);
+
+        expect(repository.updateRecurringTransaction(recurringTransaction),
+            isA<Future<void>>());
       });
     });
   });

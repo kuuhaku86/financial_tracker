@@ -1,3 +1,5 @@
+import 'package:financial_tracker/Domains/transactions/entities/recurring_transaction.dart';
+import 'package:financial_tracker/Domains/transactions/entities/transaction.dart';
 import 'package:financial_tracker/Domains/transactions/transaction_repository.dart';
 import 'package:test/test.dart';
 
@@ -100,6 +102,31 @@ void main() {
       final transactionRepository = TransactionRepository();
 
       expect(() => transactionRepository.deleteTransaction(1), throwsException);
+    });
+
+    test('updateTransaction throws exception', () {
+      final transactionRepository = TransactionRepository();
+
+      expect(
+          () => transactionRepository.updateTransaction(Transaction(
+              id: 1,
+              transactionTypeId: 1,
+              sourceId: 1,
+              name: "test",
+              detail: "test",
+              amount: 213.2,
+              date: DateTime.now())),
+          throwsException);
+    });
+
+    test('updateRecurringTransaction throws exception', () {
+      final transactionRepository = TransactionRepository();
+
+      expect(
+          () => transactionRepository.updateRecurringTransaction(
+              RecurringTransaction(
+                  id: 1, transactionId: 1, numberInPeriod: 1, periodId: 1)),
+          throwsException);
     });
   });
 }
