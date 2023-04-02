@@ -49,12 +49,13 @@ class _TransactionPageState extends State<TransactionPage> {
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: transactionListModel.transactions.length,
                             itemBuilder: (BuildContext context, int index) {
+                              final transaction = transactionListModel
+                                  .transactions.reversed
+                                  .toList()[index];
                               Source? source;
                               for (Source tempSource
                                   in sourceListModel.sources) {
-                                if (tempSource.id ==
-                                    transactionListModel
-                                        .transactions[index].sourceId) {
+                                if (tempSource.id == transaction.sourceId) {
                                   source = tempSource;
                                   break;
                                 }
@@ -65,22 +66,18 @@ class _TransactionPageState extends State<TransactionPage> {
                                       listen: false);
 
                               return ListTileCustom(
-                                color: transactionListModel.transactions[index]
-                                            .transactionTypeId ==
+                                color: transaction.transactionTypeId ==
                                         transactionTypeListModel!
                                             .transactionTypes.first.id
                                     ? themeColor.secondary
                                     : themeColor.danger,
                                 child: TransactionTile(
-                                  transaction:
-                                      transactionListModel.transactions[index],
+                                  transaction: transaction,
                                   transactionType: transactionTypeListModel!
                                       .transactionTypes
                                       .firstWhere((transactionType) =>
                                           transactionType.id ==
-                                          transactionListModel
-                                              .transactions[index]
-                                              .transactionTypeId),
+                                          transaction.transactionTypeId),
                                   imageRoute:
                                       (source == null) ? "" : source.imageRoute,
                                   onTap: () {},
