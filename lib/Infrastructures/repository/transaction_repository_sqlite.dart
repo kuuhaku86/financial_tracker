@@ -169,4 +169,12 @@ class TransactionRepositorySQLite extends TransactionRepository {
           .translate(ExceptionEnum.updateRecurringTransactionFailed);
     }
   }
+
+  @override
+  Future<List<Transaction>> getTransactionsWithTimeRange(int startTime, int endTime) async {
+    var record = await db.getByWhere(
+        "transactions", "date >= ? AND date <= ?", [startTime, endTime]);
+
+    return record.map((item) => Transaction.fromMap(item!)).toList();
+  }
 }

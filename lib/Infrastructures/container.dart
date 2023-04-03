@@ -2,6 +2,7 @@ import 'package:financial_tracker/Applications/usecase/add_source_usecase.dart';
 import 'package:financial_tracker/Applications/usecase/add_transaction_usecase.dart';
 import 'package:financial_tracker/Applications/usecase/delete_source_usecase.dart';
 import 'package:financial_tracker/Applications/usecase/delete_transaction_usecase.dart';
+import 'package:financial_tracker/Applications/usecase/get_home_page_statistics.dart';
 import 'package:financial_tracker/Applications/usecase/get_period_usecase.dart';
 import 'package:financial_tracker/Applications/usecase/get_periods_usecase.dart';
 import 'package:financial_tracker/Applications/usecase/get_recurring_transaction_by_transaction_id_usecase.dart';
@@ -81,6 +82,8 @@ class Container {
       DeleteTransactionUsecase: DeleteTransactionUsecase(
           transactionRepository: transactionRepository),
       UpdateTransactionsUsecase: UpdateTransactionsUsecase(
+          transactionRepository: transactionRepository),
+      GetHomePageStatisticsUsecase: GetHomePageStatisticsUsecase(
           transactionRepository: transactionRepository),
     };
   }

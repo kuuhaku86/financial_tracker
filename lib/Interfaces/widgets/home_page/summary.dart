@@ -1,10 +1,13 @@
 import 'package:financial_tracker/Commons/themes/colors.dart';
+import 'package:financial_tracker/Infrastructures/providers/model/home_page_statistics_model.dart';
 import 'package:financial_tracker/Interfaces/widgets/home_page/box_content.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' show NumberFormat;
 
 class Summary extends StatelessWidget {
-  const Summary({super.key});
+  HomePageStatisticsModel homePageStatisticsModel;
+
+  Summary({super.key, required this.homePageStatisticsModel});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +20,11 @@ class Summary extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    getNumberTextWithSign("10000", themeColor.secondary),
+                    getNumberTextWithSign(
+                        homePageStatisticsModel.incomeThisMonth.toString(),
+                        homePageStatisticsModel.incomeThisMonth > 0
+                            ? themeColor.secondary
+                            : themeColor.danger),
                   ],
                 ))),
         BoxContent(
@@ -27,7 +34,12 @@ class Summary extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    getNumberTextWithSign("-2000", themeColor.danger),
+                    getNumberTextWithSign(
+                        (homePageStatisticsModel.outcomeThisMonth * -1)
+                            .toString(),
+                        homePageStatisticsModel.outcomeThisMonth > 0
+                            ? themeColor.danger
+                            : themeColor.secondary),
                   ],
                 ))),
         BoxContent(
@@ -37,7 +49,12 @@ class Summary extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    getNumberText("200000", themeColor.secondary),
+                    getNumberTextWithSign(
+                        homePageStatisticsModel.differenceThanLastMonth
+                            .toString(),
+                        homePageStatisticsModel.differenceThanLastMonth > 0
+                            ? themeColor.secondary
+                            : themeColor.danger),
                   ],
                 ))),
         BoxContent(
@@ -47,7 +64,11 @@ class Summary extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    getNumberText("100000", themeColor.secondary),
+                    getNumberText(
+                        homePageStatisticsModel.totalWealth.toString(),
+                        homePageStatisticsModel.totalWealth > 0
+                            ? themeColor.secondary
+                            : themeColor.danger),
                   ],
                 ))),
       ],
@@ -63,10 +84,10 @@ class Summary extends StatelessWidget {
 
   getNumberTextWithSign(String text, Color color) {
     NumberFormat myFormat = NumberFormat.decimalPattern('en_us');
-    int textInt = int.parse(text);
+    double textDouble = double.parse(text);
 
-    if (textInt > 0) {
-      text = myFormat.format(textInt);
+    if (textDouble > 0) {
+      text = myFormat.format(textDouble);
       text = "+$text";
     }
 
@@ -77,7 +98,7 @@ class Summary extends StatelessWidget {
     NumberFormat myFormat = NumberFormat.decimalPattern('en_us');
 
     return Text(
-      text[0] == "+" ? text : myFormat.format(int.parse(text)),
+      text[0] == "+" ? text : myFormat.format(double.parse(text)),
       style: TextStyle(
           fontSize: 37.5,
           fontFamily: 'Segoe UI',

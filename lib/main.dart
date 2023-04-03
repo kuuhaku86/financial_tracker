@@ -1,4 +1,5 @@
 import 'package:financial_tracker/Infrastructures/init_config.dart';
+import 'package:financial_tracker/Infrastructures/providers/model/home_page_statistics_model.dart';
 import 'package:financial_tracker/Infrastructures/providers/model/income_source_list_model.dart';
 import 'package:financial_tracker/Infrastructures/providers/model/period_list_model.dart';
 import 'package:financial_tracker/Infrastructures/providers/model/source_model.dart';
@@ -29,6 +30,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (context) => TransactionModel()),
         ChangeNotifierProvider(create: (context) => TransactionTypeListModel()),
         ChangeNotifierProvider(create: (context) => PeriodListModel()),
+        ChangeNotifierProvider(create: (context) => HomePageStatisticsModel()),
       ],
       child: MaterialApp(
         theme: ThemeData(

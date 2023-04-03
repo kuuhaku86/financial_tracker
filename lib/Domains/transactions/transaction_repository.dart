@@ -68,4 +68,9 @@ class TransactionRepository {
       RecurringTransaction recurringTransaction) async {
     throw Exception("Not Implemented");
   }
+
+  Future<List<Transaction>> getTransactionsWithTimeRange(
+      int startTime, int endTime) async {
+    throw Exception("Not Implemented");
+  }
 }
