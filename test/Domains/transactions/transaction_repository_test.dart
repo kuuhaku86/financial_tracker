@@ -128,5 +128,12 @@ void main() {
                   id: 1, transactionId: 1, numberInPeriod: 1, periodId: 1)),
           throwsException);
     });
+
+    test('getTransactionsWithTimeRange throws exception', () {
+      final transactionRepository = TransactionRepository();
+
+      expect(() => transactionRepository.getTransactionsWithTimeRange(1, 2),
+          throwsException);
+    });
   });
 }

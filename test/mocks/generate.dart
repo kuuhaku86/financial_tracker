@@ -1,5 +1,5 @@
-import 'package:financial_tracker/Domains/transactions/transaction_repository.dart';
+import 'package:financial_tracker/Infrastructures/database/sqlite/db.dart';
 import 'package:mockito/annotations.dart';
 
-@GenerateMocks([TransactionRepository])
+@GenerateMocks([SqliteDB])
 void main() {}

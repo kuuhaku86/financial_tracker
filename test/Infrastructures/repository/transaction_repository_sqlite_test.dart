@@ -574,5 +574,47 @@ void main() {
             isA<Future<void>>());
       });
     });
+
+    group("getTransactionsWithTimeRange function", () {
+      String tableName = "transactions";
+      const startTime = 123;
+      const endTime = 345;
+
+      test('throw error if update failed', () async {
+        final db = MockSqliteDB();
+        final errorTranslator = DomainErrorTranslator();
+        final repository = TransactionRepositorySQLite(
+            db: db, errorTranslator: errorTranslator);
+
+        when(db.getByWhere(
+                tableName, "date >= ? AND date <= ?", [startTime, endTime]))
+            .thenThrow(Exception());
+
+        expect(repository.getTransactionsWithTimeRange(startTime, endTime),
+            throwsException);
+      });
+
+      test('execution success', () async {
+        final db = MockSqliteDB();
+        final errorTranslator = DomainErrorTranslator();
+        final repository = TransactionRepositorySQLite(
+            db: db, errorTranslator: errorTranslator);
+
+        when(db.getByWhere(
+                tableName, "date >= ? AND date <= ?", [startTime, endTime]))
+            .thenAnswer((_) async => [mapTransaction, mapTransaction]);
+
+        final result =
+            await repository.getTransactionsWithTimeRange(startTime, endTime);
+        expect(result.length, 2);
+        expect(result[0].id, id);
+        expect(result[0].transactionTypeId, transactionTypeId);
+        expect(result[0].sourceId, sourceId);
+        expect(result[0].name, name);
+        expect(result[0].detail, detail);
+        expect(result[0].amount, amount);
+        expect(result[0].date, date);
+      });
+    });
   });
 }
