@@ -40,6 +40,7 @@ class GetHomePageStatisticsUsecase {
     double incomeThisMonth = 0;
     double outcomeThisMonth = 0;
     double totalWealth = 0;
+    double totalBefore30Days = 0;
 
     for (Transaction transaction in lastMonthTransactions) {
       if (transaction.transactionTypeId == 1) {
@@ -62,6 +63,26 @@ class GetHomePageStatisticsUsecase {
         totalWealth += transaction.amount;
       } else {
         totalWealth -= transaction.amount;
+      }
+
+      if (transaction.date.isBefore(last30Days)) {
+        if (transaction.transactionTypeId == 1) {
+          totalBefore30Days += transaction.amount;
+        } else {
+          totalBefore30Days -= transaction.amount;
+        }
+      }
+    }
+
+    for (int i = 0; i < last30DaysTransactions.length; i++) {
+      double tempAmount = last30DaysTransactions[i].amount;
+
+      if (last30DaysTransactions[i].transactionTypeId == 1) {
+        last30DaysTransactions[i].amount = totalBefore30Days + tempAmount;
+        totalBefore30Days += tempAmount;
+      } else {
+        last30DaysTransactions[i].amount = totalBefore30Days - tempAmount;
+        totalBefore30Days -= tempAmount;
       }
     }
 
