@@ -19,19 +19,46 @@ class SourceInfoModalBottomSheet {
           child: Consumer<IncomeSourceModel>(
               builder: (context, incomeSourceModel, _) {
             return Center(
-                child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                ImageCustom(
-                    imageProvider:
-                        FileImage(File(incomeSourceModel.source!.imageRoute))),
-                SizedBox(
-                  width: mediaQuerySize.width * 0.03,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Income Source:",
+                      style: TextStyle(
+                          color: themeColor.text, fontWeight: FontWeight.w600),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ImageCustom(
+                            imageProvider: FileImage(
+                                File(incomeSourceModel.source!.imageRoute))),
+                        SizedBox(
+                          width: mediaQuerySize.width * 0.03,
+                        ),
+                        Text(
+                          incomeSourceModel.source!.name,
+                          style: TextStyle(color: themeColor.text),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-                Text(
-                  incomeSourceModel.source!.name,
-                  style: TextStyle(color: themeColor.text),
-                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Total Money at Source: ",
+                      style: TextStyle(
+                          color: themeColor.text, fontWeight: FontWeight.w600),
+                    ),
+                    Text(incomeSourceModel.reserveAmountAtSource.toString(),
+                        style: TextStyle(color: themeColor.text)),
+                  ],
+                )
               ],
             ));
           }),
