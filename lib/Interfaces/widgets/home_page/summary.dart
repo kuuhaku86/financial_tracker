@@ -64,8 +64,9 @@ class Summary extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    getNumberText(
-                        homePageStatisticsModel.totalWealth.toString(),
+                    getTextWidget(
+                        NumberFormat.currency(symbol: '\$')
+                            .format(homePageStatisticsModel.totalWealth),
                         homePageStatisticsModel.totalWealth > 0
                             ? themeColor.secondary
                             : themeColor.danger),
@@ -97,8 +98,13 @@ class Summary extends StatelessWidget {
   getNumberText(String text, Color color) {
     NumberFormat myFormat = NumberFormat.decimalPattern('en_us');
 
+    return getTextWidget(
+        text[0] == "+" ? text : myFormat.format(double.parse(text)), color);
+  }
+
+  getTextWidget(String text, Color color) {
     return Text(
-      text[0] == "+" ? text : myFormat.format(double.parse(text)),
+      text,
       style: TextStyle(
           fontSize: 37.5,
           fontFamily: 'Segoe UI',

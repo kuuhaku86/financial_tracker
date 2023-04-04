@@ -6,6 +6,7 @@ import 'package:financial_tracker/Interfaces/widgets/general_modal_bottom_sheet.
 import 'package:financial_tracker/Interfaces/widgets/image_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class SourceInfoModalBottomSheet {
   static showModal(BuildContext context, int sourceId) async {
@@ -55,7 +56,9 @@ class SourceInfoModalBottomSheet {
                       style: TextStyle(
                           color: themeColor.text, fontWeight: FontWeight.w600),
                     ),
-                    Text(incomeSourceModel.reserveAmountAtSource.toString(),
+                    Text(
+                        NumberFormat.currency(symbol: '\$')
+                            .format(incomeSourceModel.reserveAmountAtSource),
                         style: TextStyle(color: themeColor.text)),
                   ],
                 )
