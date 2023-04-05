@@ -92,39 +92,41 @@ class _TransactionPageState extends State<TransactionPage> {
             )),
           ),
           Positioned(
-            bottom: 0.0,
-            child: ButtonCustom(
-                icon: Icons.add,
-                text: "Add New Transaction",
-                onTap: () async {
-                  Provider.of<TransactionModel>(context, listen: false).clean();
-                  Provider.of<TransactionTypeListModel>(context, listen: false)
-                      .refresh();
-                  await Provider.of<IncomeSourceListModel>(context,
-                          listen: false)
-                      .refresh();
+            bottom: mediaQuerySize.height * 0.05,
+            right: mediaQuerySize.width * 0.05,
+            child: FloatingActionButton(
+              backgroundColor: themeColor.secondary,
+              onPressed: () async {
+                Provider.of<TransactionModel>(context, listen: false).clean();
+                Provider.of<TransactionTypeListModel>(context, listen: false)
+                    .refresh();
+                await Provider.of<IncomeSourceListModel>(context, listen: false)
+                    .refresh();
 
-                  if (context.mounted) {
-                    if (Provider.of<IncomeSourceListModel>(context,
-                            listen: false)
-                        .sources
-                        .isEmpty) {
-                      SnackBar snackBar = const SnackBar(
-                        content: Text("Income Source is still empty"),
-                      );
+                if (context.mounted) {
+                  if (Provider.of<IncomeSourceListModel>(context, listen: false)
+                      .sources
+                      .isEmpty) {
+                    SnackBar snackBar = const SnackBar(
+                      content: Text("Income Source is still empty"),
+                    );
 
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
-                      return;
-                    }
-
-                    Provider.of<PeriodListModel>(context, listen: false)
-                        .refresh();
-
-                    Navigator.pushNamed(
-                        context, AddOrEditTransactionPage.route);
+                    return;
                   }
-                }),
+
+                  Provider.of<PeriodListModel>(context, listen: false)
+                      .refresh();
+
+                  Navigator.pushNamed(context, AddOrEditTransactionPage.route);
+                }
+              },
+              child: Icon(
+                Icons.add,
+                color: themeColor.text,
+              ),
+            ),
           ),
         ],
       ),

@@ -59,19 +59,19 @@ class _IncomeSourcePageState extends State<IncomeSourcePage> {
             )),
           ),
           Positioned(
-            bottom: 0.0,
-            child: Align(
-              alignment: Alignment.center,
-              child: ButtonCustom(
-                  icon: Icons.add,
-                  text: "Add New Income Source",
-                  onTap: () {
-                    Provider.of<IncomeSourceModel>(context, listen: false)
-                        .clean();
+            bottom: mediaQuerySize.height * 0.05,
+            right: mediaQuerySize.width * 0.05,
+            child: FloatingActionButton(
+              backgroundColor: themeColor.secondary,
+              onPressed: () {
+                Provider.of<IncomeSourceModel>(context, listen: false).clean();
 
-                    Navigator.pushNamed(
-                        context, AddOrEditIncomeSourcePage.route);
-                  }),
+                Navigator.pushNamed(context, AddOrEditIncomeSourcePage.route);
+              },
+              child: Icon(
+                Icons.add,
+                color: themeColor.text,
+              ),
             ),
           ),
         ],
