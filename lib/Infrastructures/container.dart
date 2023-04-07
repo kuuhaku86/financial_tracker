@@ -14,6 +14,7 @@ import 'package:financial_tracker/Applications/usecase/get_transaction_types_use
 import 'package:financial_tracker/Applications/usecase/get_transaction_usecase.dart';
 import 'package:financial_tracker/Applications/usecase/get_transactions_by_source_id_usecase.dart';
 import 'package:financial_tracker/Applications/usecase/get_transactions_usecase.dart';
+import 'package:financial_tracker/Applications/usecase/process_recurring_transaction_usecase.dart';
 import 'package:financial_tracker/Applications/usecase/update_source_usecase.dart';
 import 'package:financial_tracker/Applications/usecase/update_transaction_usecase.dart';
 import 'package:financial_tracker/Applications/utils/file_manager.dart';
@@ -84,6 +85,8 @@ class Container {
       UpdateTransactionsUsecase: UpdateTransactionsUsecase(
           transactionRepository: transactionRepository),
       GetHomePageStatisticsUsecase: GetHomePageStatisticsUsecase(
+          transactionRepository: transactionRepository),
+      ProcessRecurringTransactionUsecase: ProcessRecurringTransactionUsecase(
           transactionRepository: transactionRepository),
     };
   }

@@ -6,7 +6,6 @@ import 'package:financial_tracker/Infrastructures/providers/model/transaction_li
 import 'package:financial_tracker/Infrastructures/providers/model/transaction_model.dart';
 import 'package:financial_tracker/Infrastructures/providers/model/transaction_type_list_model.dart';
 import 'package:financial_tracker/Interfaces/pages/add_or_edit_transaction_page.dart';
-import 'package:financial_tracker/Interfaces/widgets/button_custom.dart';
 import 'package:financial_tracker/Interfaces/widgets/list_tile_custom.dart';
 import 'package:financial_tracker/Interfaces/widgets/transaction_page/transaction_tile.dart';
 import 'package:flutter/material.dart';

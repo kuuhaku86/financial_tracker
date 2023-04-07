@@ -81,6 +81,15 @@ class TransactionRepositorySQLite extends TransactionRepository {
   }
 
   @override
+  Future<List<RecurringTransaction>> getRecurringTransactions() async {
+    var records = await db.getAll("recurring_transactions");
+
+    return records
+        .map((record) => RecurringTransaction.fromMap(record))
+        .toList();
+  }
+
+  @override
   Future<RecurringTransaction> getRecurringTransactionByTransactionId(
       int transactionId) async {
     var record = await db.getByWhere(
@@ -171,7 +180,8 @@ class TransactionRepositorySQLite extends TransactionRepository {
   }
 
   @override
-  Future<List<Transaction>> getTransactionsWithTimeRange(int startTime, int endTime) async {
+  Future<List<Transaction>> getTransactionsWithTimeRange(
+      int startTime, int endTime) async {
     var record = await db.getByWhere(
         "transactions", "date >= ? AND date <= ?", [startTime, endTime]);
 
