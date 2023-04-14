@@ -35,8 +35,11 @@ class Summary extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     getNumberTextWithSign(
-                        (homePageStatisticsModel.outcomeThisMonth * -1)
-                            .toString(),
+                        homePageStatisticsModel.outcomeThisMonth > 0
+                            ? (homePageStatisticsModel.outcomeThisMonth * -1)
+                                .toString()
+                            : homePageStatisticsModel.outcomeThisMonth
+                                .toString(),
                         homePageStatisticsModel.outcomeThisMonth > 0
                             ? themeColor.danger
                             : themeColor.secondary),
