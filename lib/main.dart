@@ -45,15 +45,47 @@ Future<void> main() async {
           fontFamily: 'Poppins',
         ),
         initialRoute: SplashScreenPage.route,
+        onGenerateRoute: (settings) {
+          switch (settings.name) {
+            case AddOrEditIncomeSourcePage.route:
+              return PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) =>
+                    const AddOrEditIncomeSourcePage(),
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  return SlideTransition(
+                    position: Tween<Offset>(
+                      begin: const Offset(1.0, 0.0),
+                      end: Offset.zero,
+                    ).animate(animation),
+                    child: child,
+                  );
+                },
+              );
+            case AddOrEditTransactionPage.route:
+              return PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) =>
+                    const AddOrEditTransactionPage(),
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  return SlideTransition(
+                    position: Tween<Offset>(
+                      begin: const Offset(1.0, 0.0),
+                      end: Offset.zero,
+                    ).animate(animation),
+                    child: child,
+                  );
+                },
+              );
+            default:
+              return null;
+          }
+        },
         routes: <String, WidgetBuilder>{
           SplashScreenPage.route: (context) => const SplashScreenPage(),
           MainPage.route: (context) => const MainPage(),
           HomePage.route: (context) => const HomePage(),
           IncomeSourcePage.route: (context) => const IncomeSourcePage(),
-          AddOrEditIncomeSourcePage.route: (context) =>
-              const AddOrEditIncomeSourcePage(),
-          AddOrEditTransactionPage.route: (context) =>
-              const AddOrEditTransactionPage(),
         },
       ),
     ));
