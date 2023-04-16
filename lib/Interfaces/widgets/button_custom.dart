@@ -18,7 +18,7 @@ class ButtonCustom extends StatelessWidget {
         alignment: Alignment.center,
         backgroundColor: themeColor.secondary,
         fixedSize:
-            Size(mediaQuerySize.width * 0.95, mediaQuerySize.height * 0.085),
+            Size(mediaQuerySize.width * 0.95, mediaQuerySize.height * 0.07),
       ),
       onPressed: onTap,
       child: Row(
