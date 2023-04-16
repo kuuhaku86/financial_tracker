@@ -108,10 +108,6 @@ class TransactionRepositorySQLite extends TransactionRepository {
     var record =
         await db.getByWhere("transactions", "source_id = ?", [sourceId]);
 
-    if (record.isEmpty) {
-      throw errorTranslator.translate(ExceptionEnum.transactionNotFound);
-    }
-
     return record.map((item) => Transaction.fromMap(item!)).toList();
   }
 

@@ -56,7 +56,12 @@ class IncomeSourceTile extends StatelessWidget {
                 size: mediaQuerySize.width * 0.09,
               ),
               onTap: () async {
-                await SourceInfoModalBottomSheet.showModal(context, id);
+                await Provider.of<IncomeSourceModel>(context, listen: false)
+                    .getSource(id);
+                
+                if (context.mounted) {
+                  await SourceInfoModalBottomSheet.showModal(context, id);
+                }
               },
             ),
             GestureDetector(

@@ -341,21 +341,6 @@ void main() {
     group("getTransactionsBySourceId function", () {
       const tableName = "transactions";
 
-      test('throws exception if not found any record', () {
-        final db = MockSqliteDB();
-        final errorTranslator = DomainErrorTranslator();
-        final repository = TransactionRepositorySQLite(
-            db: db, errorTranslator: errorTranslator);
-
-        when(db.getByWhere(tableName, "source_id = ?", [id]))
-            .thenAnswer((_) async => []);
-
-        expect(
-            repository.getTransactionsBySourceId(id),
-            throwsA(
-                errorTranslator.translate(ExceptionEnum.transactionNotFound)));
-      });
-
       test('execution success', () async {
         final db = MockSqliteDB();
         final errorTranslator = DomainErrorTranslator();
