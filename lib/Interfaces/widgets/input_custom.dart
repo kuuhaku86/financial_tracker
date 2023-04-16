@@ -10,14 +10,14 @@ class InputCustom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.085,
+      height: MediaQuery.of(context).size.height * 0.07,
       margin: EdgeInsets.symmetric(
         horizontal: MediaQuery.of(context).size.width * 0.025,
-        vertical: MediaQuery.of(context).size.height * 0.0125,
+        vertical: MediaQuery.of(context).size.height * 0.01,
       ),
       padding: EdgeInsets.symmetric(
         horizontal: MediaQuery.of(context).size.width * 0.02,
-        vertical: MediaQuery.of(context).size.height * 0.005,
+        vertical: MediaQuery.of(context).size.height * 0.0005,
       ),
       decoration: BoxDecoration(
         color: themeColor.primary,
@@ -31,14 +31,14 @@ class InputCustom extends StatelessWidget {
         ],
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             title,
             style: TextStyle(
               color: themeColor.text,
-              fontSize: MediaQuery.of(context).size.width * 0.04,
+              fontSize: MediaQuery.of(context).size.width * 0.03,
               fontWeight: FontWeight.w600,
             ),
           ),
