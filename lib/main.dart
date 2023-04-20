@@ -41,6 +41,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (context) => HomePageStatisticsModel()),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: 'Poppins',
         ),

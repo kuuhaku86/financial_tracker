@@ -34,7 +34,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
               width: MediaQuery.of(context).size.width * 0.35,
               decoration: BoxDecoration(
                   color: themeColor.secondary,
-                  borderRadius: const BorderRadius.all(Radius.circular(10))),
+                  borderRadius: const BorderRadius.all(Radius.circular(21))),
               child: Center(
                 child: Text(
                   "F",
