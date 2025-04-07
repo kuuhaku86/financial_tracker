@@ -7,11 +7,13 @@ import 'package:financial_tracker/Domains/sources/entities/add_source.dart';
 import 'package:financial_tracker/Domains/sources/source_repository.dart';
 import 'package:financial_tracker/Infrastructures/providers/model/income_source_list_model.dart';
 import 'package:financial_tracker/Infrastructures/providers/model/source_model.dart';
+import 'package:financial_tracker/Interfaces/widgets/alert_custom.dart';
 import 'package:financial_tracker/Interfaces/widgets/button_custom.dart';
 import 'package:financial_tracker/Interfaces/widgets/input_custom.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:financial_tracker/Infrastructures/container.dart'
     as dependency_container;
@@ -96,7 +98,7 @@ class _AddOrEditIncomeSourcePageState extends State<AddOrEditIncomeSourcePage> {
                                 icon: Icons.photo_camera,
                                 text: "Select Photo",
                                 onTap: () {
-                                  pickImage();
+                                  pickImage(context);
                                 }),
                           ),
                           (image != null)
@@ -130,12 +132,73 @@ class _AddOrEditIncomeSourcePageState extends State<AddOrEditIncomeSourcePage> {
     );
   }
 
-  Future pickImage() async {
+  Future pickImage(BuildContext context) async {
     try {
-      final image = await _picker.getImage(source: ImageSource.gallery);
-      if (image == null) return;
-      final imageTemp = File(image.path);
-      setState(() => this.image = imageTemp);
+      PermissionStatus status;
+
+      if (Platform.isAndroid) {
+        if (await Permission.storage.request().isGranted ||
+            await Permission.photos.request().isGranted ||
+            await Permission.mediaLibrary.request().isGranted) {
+          final picked = await _picker.pickImage(source: ImageSource.gallery);
+          if (picked == null) return;
+
+          setState(() {
+            image = File(picked.path);
+          });
+        } else {
+          openAppSettings();
+        }
+      } else {
+        // iOS
+        if (await Permission.photos.request().isGranted) {
+          final picked = await _picker.pickImage(source: ImageSource.gallery);
+          if (picked == null) return;
+
+          setState(() {
+            image = File(picked.path);
+          });
+        } else {
+          openAppSettings();
+        }
+      }
+
+      // if (Platform.isAndroid) {
+      //   status = await Permission.photos.request();
+      // } else {
+      //   status = await Permission.photos.request();
+      // }
+
+      // if (status.isGranted) {
+      //   final image = await _picker.getImage(source: ImageSource.gallery);
+      //   if (image == null) return;
+      //   final imageTemp = File(image.path);
+      //   setState(() => this.image = imageTemp);
+      // } else {
+      //   await Permission.mediaLibrary.request(); // for broader support
+      //   openAppSettings(); // Optional: guide user to manually enable
+      // }
+      // } else if (status.isDenied) {
+      //   openAppSettings(); // Optional: guide user to manually enable
+      // showDialog(
+      //   context: context,
+      //   builder: (BuildContext context) {
+      //     return AlertDialog(
+      //       title: Text("Access to Photo Not Permitted"),
+      //       actions: [
+      //         TextButton(
+      //           child: Text("OK"),
+      //           onPressed: () {
+      //             Navigator.of(context).pop(); // Close the dialog
+      //           },
+      //         ),
+      //       ],
+      //     );
+      //   },
+      // );
+      // } else if (status.isPermanentlyDenied) {
+      //   openAppSettings(); // Optional: guide user to manually enable
+      // }
     } catch (e) {
       if (kDebugMode) {
         print('Failed to pick image: $e');
